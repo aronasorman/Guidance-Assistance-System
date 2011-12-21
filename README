@@ -1,0 +1,17 @@
+Source code for the Ateneo de Manila High School Guidance Office
+Counseling Assistance system.
+
+
+Developers:
+1. Aron Asor
+2. April Canlas
+3. Anna Uy
+
+----------------------------------------------------------------------------------------
+
+Dependencies:
+1. Python
+2. Web.py
+3. MySql (for production, but SQLite up until the first prototype)
+4. SQLAlchemy (for hardcore database action!)
+
