@@ -1,0 +1,67 @@
+/*
+****************/
+
+body{
+background-color:#c2c2c2;
+}
+
+
+/*typography
+***************/
+a{
+text-decoration: none;
+color: black;
+}
+
+a:hover{
+color: #0260a8;
+}
+
+
+a:active{
+color: orange;
+}
+
+.bar{
+color:#c2c2c2;
+}
+
+
+
+/*Container
+***************/
+#container{
+width: 960px;
+height:1000px;  
+margin-left: auto;
+margin-right: auto;
+background-color: white;
+}
+
+
+/*Header
+***************/
+
+#header{
+background-image: url(images/banner.jpg);
+background-repeat: no-repeat; 
+width: 960px;
+height: 150px;
+background-color: #0260a8;
+}
+
+/*Navigator
+***************/
+#nav{
+width: 960px;
+height: 25px;
+padding: 0 5px 0 5px;
+list-style: none;
+}
+
+
+#nav li{
+display: inline;
+margin: 0 5px 0 5px;
+}
+

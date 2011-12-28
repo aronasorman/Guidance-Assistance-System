@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+		<link rel="stylesheet" type= "text/css" href="mainstyle.css"/>
+		<link rel="stylesheet" type= "text/css" href="typography.css"/>
+		<title>Ateneo High School Guidance Office</title>
+		<script type="text/javascript">
+					var d=new Date();
+					var month=new Array(12);
+					month[0]="January";
+					month[1]="February";	
+					month[2]="March";
+					month[3]="April";
+					month[4]="May";
+					month[5]="June";
+					month[6]="July";
+					month[7]="August";
+					month[8]="September";
+					month[9]="October";
+					month[10]="November";
+					month[11]="December";
+					
+					var weekday=new Array(7);
+					weekday[0]="Sunday";
+					weekday[1]="Monday";
+					weekday[2]="Tuesday";
+					weekday[3]="Wednesday";
+					weekday[4]="Thursday";
+					weekday[5]="Friday";
+					weekday[6]="Saturday";
+		</script>
+</head>
+
+<body>
+
+<form action="" method="post">
+
+<div id="container">
+	
+	<div id="header">
+	</div>
+
+	
+	<div id= "nav">
+		<ul>
+			<li><a href="mainpage.html">home</a></li>
+			<li><a href="#">faqs</a></li>
+			<li><a href="#">about us</a></li>
+			<li><a href="#">log-out</a></li>
+			<li><a href="#">
+				<input type="text" size="20" name="text1" value="type here">
+				<input type="button" name="search" value="search">
+			</a></li>
+			
+		</ul>
+	</div>
+	
+	<div id="center">
+	
+		<div id= "sidebar">
+			<ul>
+				<li><a href="changepass.html" title="password must be atleast 7 characters long">Change password</a></li>
+				<li><a href="viewcounselor.html" title="">View counselor accounts</a></li>
+				<li><a href="viewstudent.html" title="">View student profiles</a></li>
+				<li><a href="assigncounselor.html" title="assign counselors to respective students/sections">Assign counselor</a></li>
+				<li><a href="editweekly.html" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
+				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</ul>	
+			
+		<br style="clear:both" /> 
+		</div>
+		
+		<div id="content">
+			<div id="stamps">
+		
+				<div id="date">
+				</div>
+			
+				<div id="identifiers">
+				User Identified As: <span id="name">name</span>
+				<br/>
+				Position: <span id="position">position</span>
+				</div>
+				
+				<script type="text/javascript">
+					document.getElementById("date").innerHTML=(weekday[d.getDay()] + ", " + month[d.getMonth()] + " " + d.getDate() + ", " +d.getFullYear());
+					document.getElementById("name").innerHTML = "Juan dela Cruz";
+					document.getElementById("position").innerHTML = "Head Counselor";
+				</script>
+				
+			</div>
+			
+		<!--edit title of page here-->	
+		
+			<div id="title">
+				<a href="mainpage.html">Home </a>
+				<span id="arrow"> > </span>
+				<a href="viewcounselor.html"> View Counselor Accounts</a>
+			</div>
+			
+			
+		<!-- the only area you can edit-->
+		
+			<div id="viewcounselor">
+			
+			<table>
+				<tr id="thead">
+					<td></td>
+					<td>Name</td>
+					<td>Year/Sections Assignments</td>
+				</tr>
+				<tr>
+					<td><a href= "#"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
+					<td><a href="#">Juan Dela Cruz</a></td>
+					<td>
+						<ul>
+							<li><a href="#">2A</a></li>
+							<li>,</li>
+							<li><a href="#">2D</a></li>
+							<li>,</li>
+							<li><a href="#">2N</a></li>
+							<li>,</li>
+							<li><a href="#">2O</a></li>
+							<li>,</li>
+							<li><a href="#">2P</a></li>
+						</ul>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><a href= "#"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
+					<td><a href="#">Juan Dela Cruz</a></td>
+					<td>
+						<ul>
+							<li><a href="#">2A</a></li>
+							<li>,</li>
+							<li><a href="#">2D</a></li>
+							<li>,</li>
+							<li><a href="#">2N</a></li>
+							<li>,</li>
+							<li><a href="#">2O</a></li>
+							<li>,</li>
+							<li><a href="#">2P</a></li>
+						</ul>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><a href= "#"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
+					<td><a href="#">Juan Dela Cruz</a></td>
+					<td>
+						<ul>
+							<li><a href="#">2A</a></li>
+							<li>,</li>
+							<li><a href="#">2D</a></li>
+							<li>,</li>
+							<li><a href="#">2N</a></li>
+							<li>,</li>
+							<li><a href="#">2O</a></li>
+							<li>,</li>
+							<li><a href="#">2P</a></li>
+						</ul>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><a href= "#"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
+					<td><a href="#">Juan Dela Cruz</a></td>
+					<td>
+						<ul>
+							<li><a href="#">2A</a></li>
+							<li>,</li>
+							<li><a href="#">2D</a></li>
+							<li>,</li>
+							<li><a href="#">2N</a></li>
+							<li>,</li>
+							<li><a href="#">2O</a></li>
+							<li>,</li>
+							<li><a href="#">2P</a></li>
+						</ul>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><a href= "#"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
+					<td><a href="#">Juan Dela Cruz</a></td>
+					<td>
+						<ul>
+							<li><a href="#">2A</a></li>
+							<li>,</li>
+							<li><a href="#">2D</a></li>
+							<li>,</li>
+							<li><a href="#">2N</a></li>
+							<li>,</li>
+							<li><a href="#">2O</a></li>
+							<li>,</li>
+							<li><a href="#">2P</a></li>
+						</ul>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><a href= "#"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
+					<td><a href="#">Juan Dela Cruz</a></td>
+					<td>
+						<ul>
+							<li><a href="#">2A</a></li>
+							<li>,</li>
+							<li><a href="#">2D</a></li>
+							<li>,</li>
+							<li><a href="#">2N</a></li>
+							<li>,</li>
+							<li><a href="#">2O</a></li>
+							<li>,</li>
+							<li><a href="#">2P</a></li>
+						</ul>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><a href= "#"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
+					<td><a href="#">Juan Dela Cruz</a></td>
+					<td>
+						<ul>
+							<li><a href="#">2A</a></li>
+							<li>,</li>
+							<li><a href="#">2D</a></li>
+							<li>,</li>
+							<li><a href="#">2N</a></li>
+							<li>,</li>
+							<li><a href="#">2O</a></li>
+							<li>,</li>
+							<li><a href="#">2P</a></li>
+						</ul>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><a href= "#"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
+					<td><a href="#">Juan Dela Cruz</a></td>
+					<td>
+						<ul>
+							<li><a href="#">2A</a></li>
+							<li>,</li>
+							<li><a href="#">2D</a></li>
+							<li>,</li>
+							<li><a href="#">2N</a></li>
+							<li>,</li>
+							<li><a href="#">2O</a></li>
+							<li>,</li>
+							<li><a href="#">2P</a></li>
+						</ul>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><a href= "#"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
+					<td><a href="#">Juan Dela Cruz</a></td>
+					<td>
+						<ul>
+							<li><a href="#">2A</a></li>
+							<li>,</li>
+							<li><a href="#">2D</a></li>
+							<li>,</li>
+							<li><a href="#">2N</a></li>
+							<li>,</li>
+							<li><a href="#">2O</a></li>
+							<li>,</li>
+							<li><a href="#">2P</a></li>
+						</ul>
+					</td>
+				</tr>
+	
+				<tr>
+					<td><a href= "#"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
+					<td><a href="#">Juan Dela Cruz</a></td>
+					<td>
+						<ul>
+							<li><a href="#">2A</a></li>
+							<li>,</li>
+							<li><a href="#">2D</a></li>
+							<li>,</li>
+							<li><a href="#">2N</a></li>
+							<li>,</li>
+							<li><a href="#">2O</a></li>
+							<li>,</li>
+							<li><a href="#">2P</a></li>
+						</ul>
+					</td>
+				</tr>
+				
+			</table>
+			
+			</div>
+			
+					
+		<!-- the only area you can edit-->
+				
+		<br style="clear:both" /> 
+			
+		</div> 
+		
+
+	</div>
+
+	<div id="footer">
+		<p>
+		Ateneo High School Guidance Office Automated System <br/>
+		Designed and developed by A-Team <br/>
+		Copyright 2011 <br/>
+		</p>
+		
+	</div>
+	
+</div>	
+
+</form>
+</body>
+
+</html>

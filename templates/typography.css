@@ -1,0 +1,169 @@
+/*typography
+***************/
+body{
+font-family: Helvetica, Arial, Times;
+}
+
+#content{
+font-family: Helvetica, Arial;
+font-size: 10pt;
+}
+
+#footer{
+font-family: "Century Gothic", Helvetica;
+font-size: 10pt;
+color: white;
+}
+
+/*freespace
+***************/
+#freespace h1{
+font-family: Georgia, Garamond;
+font-size: 25pt;
+color:#0260a8;
+}
+
+#freespace h2{
+font-family: "Century Gothic";
+font-style: normal;
+font-size: 12pt;
+}
+
+#freespace a{
+font-family: "Century Gothic";
+color: black;
+}
+
+#freespace a:hover{
+color:#0260a8;
+font-weight:bold;
+}
+
+#freespace a:active{
+color:red;
+font-weight:bold;
+}
+
+/*changepass
+***************/
+#cp{
+font-family: "Century Gothic";
+font-size: 14pt;
+}
+
+#reminders{
+color: red;
+}
+
+/*viewcounselor
+***************/
+#viewcounselor, #viewcounselor a{
+color: #012b5d;
+}
+
+#viewcounselor a:hover{
+font-weight: bold;
+}
+
+#viewcounselor a:active{
+color: red;
+}
+
+/*viewstudent
+***************/
+#viewstudent, #viewstudent a{
+color: #012b5d;
+}
+
+#viewstudent a:hover{
+font-weight: bold;
+}
+
+#viewstudent a:active{
+color: red;
+}
+
+/*query
+***************/
+#query{
+font-family: "Century Gothic";
+font-size: 11pt;
+}
+
+#directions{
+color: red;
+}
+
+.label{
+text-align: right;
+}
+
+#query a{
+color: #012b5d;
+}
+
+#query a:hover{
+text-decoration: underline;
+}
+
+#query a:active{
+color: red;
+}
+
+/*title
+***************/
+#title a{
+text-decoration: none;
+font-family: "Century Gothic";
+font-size: 18pt;
+color:#0260a8;
+}
+
+#title a:hover{
+color:black;
+}
+
+#title a:active{
+color:red;
+}
+
+#arrow, #counselor{
+font-family: "Century Gothic";
+font-size: 18pt;
+color:#0260a8;
+}
+
+#counselor{
+font-size: 16pt;
+}
+
+/*nav
+***************/
+
+#nav a, #sidebar a{
+font-family: "Century Gothic", Helvetica;
+font-size: 10pt;
+}
+
+#nav a{
+color: white;
+}
+
+#nav a:hover{
+color:#a8bcdf;
+}
+
+#nav a:active{
+color: red;
+}
+
+/*sidebar
+***************/
+
+#sidebar a{
+color:black;
+}
+
+#sidebar a:active{
+color:#0260a8;
+}
