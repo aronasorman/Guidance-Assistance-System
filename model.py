@@ -33,10 +33,15 @@ class Counselor(Base):
     sections = relationship('Section', order_by='Section.name', backref='user')
 
 class Section(Base):
-    __tablename__ = 'section_assignments'
+    __tablename__ = 'sections'
 
     year = Column(Integer, primary_key=True)
     name = Column(String(1), primary_key=True)
     counselor_id = Column(Integer, ForeignKey('Counselor.id'))
 
     counselor = relationship('Counselor', backref=backref('sections'))
+
+class Student(Base):
+    __tablename__ = 'students'
+
+    id = Column(Integer, primary_key=True)
