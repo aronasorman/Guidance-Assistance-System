@@ -15,13 +15,13 @@ class Counselor(Base):
     name = Column(String(40), nullable=False)
     picture = Column(LargeBinary)
     nickname = Column(String(20))
-    address = Column(String, nullable=False)
+    address = Column(Text, nullable=False)
     telno = Column(String(20))
     celno = Column(String(20))
     email = Column(String(40))
     birthdate = Column(Date, nullable=False)
     position = Column(String(15), default='Counselor')
-    religion = Colum(String(20), nullable=False)
+    religion = Colum(String(20))
     height = Column(Float, nullable=False)
     weight = Column(Float, nullable=False)
     overall_health = Column(String(1))
@@ -45,3 +45,26 @@ class Student(Base):
     __tablename__ = 'students'
 
     id = Column(Integer, primary_key=True)
+    picture = Column(LargeBinary)
+    name = Column(String(40), nullable=False)
+    year = Column(Integer, ForeignKey('Section.year'))
+    section_name = Column(String(1), ForeignKey('Section.name'))
+    nickname = Column(String(20))
+    address = Column(Text, nullable=False)
+    telno = Column(String(20))
+    celno = Column(String(20))
+    email = Column(String(40))
+    birthdate = Column(Date, nullable=False)
+    birthplace = Column(Text, nullable=False)
+    overall_health = Column(String(1))
+    eyesight = Column(String(1), nullable=False)
+    hearing = Column(String(1), nullable=False)
+    lungs = Column(String(1), nullable=False)
+    handicaps = Column(Text)
+    parent_status = Column(Integer, ForeignKey('ParentStatus.id'))
+
+class ParentStatus(Base):
+    __tablename__ = 'parent_status'
+
+    id = Column(Integer, primary_key=True)
+    status = Column(String(25), nullable=False)
