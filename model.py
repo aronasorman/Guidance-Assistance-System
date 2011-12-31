@@ -35,7 +35,8 @@ class Counselor(Base):
 class Section(Base):
     __tablename__ = 'section_assignments'
 
-    name = Column(String(2), primary_key=True)
+    year = Column(Integer, primary_key=True)
+    name = Column(String(1), primary_key=True)
     counselor_id = Column(Integer, ForeignKey('Counselor.id'))
 
     counselor = relationship('Counselor', backref=backref('sections'))
