@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, Date, LargeBinary, create_engine, Float, Boolean, Table
+from sqlalchemy import Column, Integer, String, Text, Date, LargeBinary, create_engine, Float, Boolean, Table, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship, backref
 
@@ -48,6 +48,19 @@ class Section(Base):
 
     counselor = relationship('Counselor', backref=backref('sections'))
 
+# association for student class to favorite subjects
+student_favorite_subjects = Table('student_favorite_subjects', Base.metadata
+                                  , Column('student_id', Integer, ForeignKey('Student.id'))
+                                  , Column('subject_id', Integer, ForeignKey('Subject.id'))                                  )
+
+student_dire_subjects = Table('student_dire_subjects', Base.metadata
+                              , Column('student_id', Integer, ForeignKey('Student.id'))
+                              , Column('subject_id', Integer, ForeignKey('Subject.id')))
+
+student_tutored_subjects = Table('student_tutored_subjects', Base.metadata
+                              , Column('student_id', Integer, ForeignKey('Student.id'))
+                              , Column('subject_id', Integer, ForeignKey('Subject.id')))
+
 class Student(Base):
     __tablename__ = 'students'
 
@@ -76,8 +89,14 @@ class Student(Base):
     why_significant = Column(Text)
     favorite_subjects = relationship('Subject', secondary=student_favorite_subjects, backref='students')
     dire_subjects = relationship('Subject', secondary=student_dire_subjects, backref='students')
+    tutored_subjects = relationship('Subject', secondary=student_tutored_subjects, backref='students')
     study_length_id = Column(Integer, ForeignKey('StudyLength.id'))
     study_partners = relationship('StudyPartners', backref='student')
+    is_special_guidance_needed = Column(Boolean, nullable=False)
+    special_guidance_elaboration = Column(Text)
+    # ask if clubs or organizations is fixed
+    work_experience = Column(Text)
+    interests = Column(Text)
     
 class StudyPartner(Base):
     __tablename__ = 'student_study_partners'
@@ -110,15 +129,6 @@ class StudyLength(Base):
 
     id = Column(Integer, primary_key=True)
     length = Column(String(20), nullable=False)
-
-# association for student class to favorite subjects
-student_favorite_subjects = Table('student_favorite_subjects', Base.metadata
-                                  , Column('student_id', Integer, ForeignKey('Student.id'))
-                                  , Column('subject_id', Integer, ForeignKey('Subject.id'))                                  )
-
-student_dire_subjects = Table('student_dire_subjects', Base.metadata
-                              , Column('student_id', Integer, ForeignKey('Student.id'))
-                              , Column('subject_id', Integer, ForeignKey('Subject.id')))
 
 class Subject(Base):
     __tablename__ = 'subjects'
