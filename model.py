@@ -4,9 +4,6 @@ from sqlalchemy.orm import sessionmaker, relationship, backref
 
 Base = declarative_base()
 
-engine = create_engine('sqlite:///test.db', echo=True)
-
-session = sessionmaker(bind=engine)
 
 class Counselor(Base):
     __tablename__ = "counselors"
