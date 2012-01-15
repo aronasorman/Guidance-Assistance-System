@@ -109,26 +109,41 @@ class ParentStatus(Base):
     id = Column(Integer, primary_key=True)
     status = Column(String(25), nullable=False)
 
+    def __init__(self, status):
+        self.status = status
+
 class SingleParent(Base):
     __tablename__ = 'single_parent_lookup'
 
     id = Column(Integer, primary_key=True)
     status = Column(String(6), nullable=False)
 
+    def __init__(self, status):
+        self.status = status
+        
 class LivingWith(Base):
     __tablename__ = 'living_with_lookup'
 
     id = Column(Integer, primary_key=True)
     status = Column(String(12), nullable=False)
 
+    def __init__(self, status):
+        self.status = status
+        
 class StudyLength(Base):
     __tablename__ = 'study_length_lookup'
 
     id = Column(Integer, primary_key=True)
     length = Column(String(20), nullable=False)
 
+    def __init__(self, length):
+        self.length = length
+        
 class Subject(Base):
     __tablename__ = 'subjects'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
+
+    def __init__(self, name):
+        self.name = name
