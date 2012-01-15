@@ -17,7 +17,7 @@ class Counselor(Base):
     celno = Column(String(20))
     email = Column(String(40))
     birthdate = Column(Date, nullable=False)
-    position_id = Column(Integer, ForeignKey('Position.id')) # add position field
+    position_id = Column(Integer, ForeignKey('position.id')) # add position field
     religion = Column(String(20))
     height = Column(Float, nullable=False)
     weight = Column(Float, nullable=False)
@@ -27,7 +27,7 @@ class Counselor(Base):
     lungs = Column(String(1), nullable=False)
     handicaps = Column(Text)
 
-    sections = relationship('Section', order_by='Section.name', backref='user')
+#    sections = relationship('Section', order_by='Section.name', backref='user')
 
 class Position(Base):
     __tablename__ = 'position'
@@ -41,22 +41,22 @@ class Section(Base):
     section_id = Column(String(2), primary_key=True)
     year = Column(Integer)
     name = Column(String(1))
-    counselor_id = Column(Integer, ForeignKey('Counselor.id'))
+    counselor_id = Column(Integer, ForeignKey('counselors.id'))
 
     counselor = relationship('Counselor', backref=backref('sections'))
 
 # association for student class to favorite subjects
-student_favorite_subjects = Table('student_favorite_subjects', Base.metadata
-                                  , Column('student_id', Integer, ForeignKey('Student.id'))
-                                  , Column('subject_id', Integer, ForeignKey('Subject.id'))                                  )
+student_favorite_subjects = Table('favorite_subjects', Base.metadata
+                                  , Column('student_id', Integer, ForeignKey('students.id'))
+                                  , Column('subject_id', Integer, ForeignKey('subjects.id'))                                  )
 
-student_dire_subjects = Table('student_dire_subjects', Base.metadata
-                              , Column('student_id', Integer, ForeignKey('Student.id'))
-                              , Column('subject_id', Integer, ForeignKey('Subject.id')))
+student_dire_subjects = Table('dire_subjects', Base.metadata
+                              , Column('student_id', Integer, ForeignKey('students.id'))
+                              , Column('subject_id', Integer, ForeignKey('subjects.id')))
 
-student_tutored_subjects = Table('student_tutored_subjects', Base.metadata
-                              , Column('student_id', Integer, ForeignKey('Student.id'))
-                              , Column('subject_id', Integer, ForeignKey('Subject.id')))
+student_tutored_subjects = Table('tutored_subjects', Base.metadata
+                              , Column('student_id', Integer, ForeignKey('students.id'))
+                              , Column('subject_id', Integer, ForeignKey('subjects.id')))
 
 class Student(Base):
     __tablename__ = 'students'
@@ -64,8 +64,8 @@ class Student(Base):
     id = Column(Integer, primary_key=True)
     picture = Column(LargeBinary)
     name = Column(String(40), nullable=False)
-    year = Column(Integer, ForeignKey('Section.year'))
-    section_name = Column(String(1), ForeignKey('Section.name'))
+    year = Column(Integer, ForeignKey('sections.year'))
+    section_name = Column(String(1), ForeignKey('sections.name'))
     nickname = Column(String(20))
     address = Column(Text, nullable=False)
     telno = Column(String(20))
@@ -78,17 +78,16 @@ class Student(Base):
     hearing = Column(String(1), nullable=False)
     lungs = Column(String(1), nullable=False)
     handicaps = Column(Text)
-    parent_status_id = Column(Integer, ForeignKey('ParentStatus.id'), nullable=False)
-    single_parent_id = Column(Integer, ForeignKey('SingleParent.id'))
+    parent_status_id = Column(Integer, ForeignKey('parent_status_lookup.id'), nullable=False)
+    single_parent_id = Column(Integer, ForeignKey('single_parent_lookup.id'))
     sibling_comments = Column(Text)
     family_concerns = Column(Text)
     most_significant_person = Column(String(40))
     why_significant = Column(Text)
-    favorite_subjects = relationship('Subject', secondary=student_favorite_subjects, backref='students')
-    dire_subjects = relationship('Subject', secondary=student_dire_subjects, backref='students')
+#    favorite_subjects = relationship('Subject', secondary=student_favorite_subjects, backref='students')
+#    dire_subjects = relationship('Subject', secondary=student_dire_subjects, backref='students')
     tutored_subjects = relationship('Subject', secondary=student_tutored_subjects, backref='students')
-    study_length_id = Column(Integer, ForeignKey('StudyLength.id'))
-    study_partners = relationship('StudyPartners', backref='student')
+    study_length_id = Column(Integer, ForeignKey('study_length_lookup.id'))
     is_special_guidance_needed = Column(Boolean, nullable=False)
     special_guidance_elaboration = Column(Text)
     # ask if clubs or organizations is fixed
@@ -100,8 +99,8 @@ class StudyPartner(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(Integer(40), nullable=False)
-    student_id = Column(Integer, ForeignKey('Student.id'))
-    student = relationship('Student', backref=backref('study_partners'))
+    student_id = Column(Integer, ForeignKey('students.id'))
+    student = relationship('Student', backref=backref('study_partners', order_by=id))
     
 class ParentStatus(Base):
     __tablename__ = 'parent_status_lookup'
