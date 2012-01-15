@@ -6,7 +6,7 @@ fills the database with initial values, mostly for the lookup tables.
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from model import ParentStatus, SingleParent, LivingWith, StudyLength
+from model import ParentStatus, SingleParent, LivingWith, StudyLength, Base
 import os.path
 import os
 
@@ -82,6 +82,7 @@ def init_subjects():
     session.commit()
 
 def db_init():
+    Base.metadata.create_all(engine)
     init_parent_status()
     init_single_parent()
     init_living_with()
