@@ -7,8 +7,14 @@ fills the database with initial values, mostly for the lookup tables.
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from model import ParentStatus, SingleParent, LivingWith, StudyLength
+import os.path
+import os
 
-engine = create_engine('sqlite:///test.db', echo=True)
+DBNAME = 'counselor.db'
+
+DBPATH = os.getcwd()
+
+engine = create_engine('sqlite:////' + os.path.join(DBPATH,DBNAME), echo=True)
 
 Session = sessionmaker(bind=engine)
 
@@ -81,3 +87,6 @@ def db_init():
     init_living_with()
     init_study_length()
     init_subjects()
+
+if __name__ == '__main__':
+    db_init()
