@@ -22,7 +22,7 @@ def init_parent_status():
     session = Session()
     session.add_all([
         ParentStatus("Living Together")
-        , ParenStatus('Separated')
+        , ParentStatus('Separated')
         , ParentStatus('Remarried')
         , ParentStatus('Deceased - Mother')
         , ParentStatus('Deceased - Father')
