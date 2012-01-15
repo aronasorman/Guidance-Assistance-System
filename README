@@ -15,3 +15,6 @@ Dependencies:
 3. MySql (for production, but SQLite up until the first prototype)
 4. SQLAlchemy (for hardcore database action!)
 
+Notes:
+
+1. To initialize the DB, run init_db.py
