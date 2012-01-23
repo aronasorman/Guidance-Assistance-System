@@ -38,7 +38,7 @@ class Position(Base):
 class Section(Base):
     __tablename__ = 'sections'
 
-    id = Column(String(2), primary_key=True)
+    id = Column(Integer, primary_key=True)
     year = Column(Integer)
     name = Column(String(1))
     counselor_id = Column(Integer, ForeignKey('counselors.id'))
@@ -49,16 +49,55 @@ class Period(Base):
     __tablename__ = 'periods'
 
     id = Column(Integer, primary_key=True)
-    time = Column(DateTime, nullable=False)
+    datetime = Column(DateTime, nullable=False)
 
 class ScheduleEntry(Base):
     __tablename__ = 'schedule_entries'
 
-    period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True)
-    date = Column(Date, primary_key=True)
+    period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True) # So we're supposed to generate new periods every week...
+    student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)
+    counselor_id = Column(Integer, ForeignKey('counselors.id'))
 
     period = relationship('Period', backref=backref('entries'))
 
+class InterviewType(Base):
+    __tablename__ = 'interview_types'
+
+    id = Column(Integer, primary_key=True)
+    period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True)
+    student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)
+    counselor_id = Column(Integer, ForeignKey('counselors.id'))
+    name = Column(String(10), nullable=False)
+
+class Interview(Base):
+    __tablename__ = 'interviews'
+
+    id = Column(Integer, primary_key=True)
+    period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True)
+    student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)
+    type = Column(Integer, ForeignKey('interview_type.id'))
+
+    period = relationship('Period', backref=backref('interviews'))
+
+class FollowupInterview(Base):
+    __tablename__ = 'followup_interviews'
+
+    id = Column(Integer, ForeignKey('interviews.id'), primary_key=True)
+    nature_of_problem = Column(Text)
+    comments = Column(Text)
+    planned_intervention = Column(Text)
+
+class RoutineInterview(Base):
+    __tablename__ = 'routine_interviews'
+
+    id = Column(Integer, ForeignKey('interviews.id'), primary_key=True)
+    general_mental_ability = Column(Text)
+    academic_history = Column(Text)
+    family_relationship = Column(Text)
+    personal_emotional = Column(Text)
+    peer_relationship = Column(Text)
+    goals = Column(Text)
+    recommendation = Column(Text)
 
 # association for student class to favorite subjects
 student_favorite_subjects = Table('favorite_subjects', Base.metadata
@@ -152,7 +191,7 @@ class StudyPartner(Base):
     __tablename__ = 'student_study_partners'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer(40), nullable=False)
+    name = Column(String(50), nullable=False)
     student_id = Column(Integer, ForeignKey('students.id'))
     student = relationship('Student', backref=backref('study_partners', order_by=id))
     
