@@ -19,6 +19,7 @@ class Counselor(Base):
     birthdate = Column(Date, nullable=False)
     birthplace = Column(Text, nullable=False)
     position_id = Column(Integer, ForeignKey('position.id')) # add position field
+    position = relationship('Position', backref=backref('position_holders'))
     religion = Column(String(20))
     height = Column(Float, nullable=False)
     weight = Column(Float, nullable=False)
@@ -27,8 +28,6 @@ class Counselor(Base):
     hearing = Column(String(1), nullable=False)
     lungs = Column(String(1), nullable=False)
     handicaps = Column(Text)
-
-#    sections = relationship('Section', order_by='Section.name', backref='user')
 
 class Position(Base):
     __tablename__ = 'position'
