@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, Date, LargeBinary, create_engine, Float, Boolean, Table, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, Date, LargeBinary, create_engine, Float, Boolean, Table, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship, backref
 
@@ -38,12 +38,19 @@ class Position(Base):
 class Section(Base):
     __tablename__ = 'sections'
 
-    section_id = Column(String(2), primary_key=True)
+    id = Column(String(2), primary_key=True)
     year = Column(Integer)
     name = Column(String(1))
     counselor_id = Column(Integer, ForeignKey('counselors.id'))
 
     counselor = relationship('Counselor', backref=backref('sections'))
+
+class Period(Base):
+    __tablename__ = 'periods'
+
+    id = Column(Integer, primary_key=True)
+    time = Column(DateTime, nullable=False)
+    
 
 # association for student class to favorite subjects
 student_favorite_subjects = Table('favorite_subjects', Base.metadata
@@ -64,8 +71,7 @@ class Student(Base):
     id = Column(Integer, primary_key=True)
     picture = Column(LargeBinary)
     name = Column(String(40), nullable=False)
-    year = Column(Integer, ForeignKey('sections.year'))
-    section_name = Column(String(1), ForeignKey('sections.name'))
+    section_id = Column(Integer, ForeignKey('sections.id'))
     section = relationship('Section', backref=backref('students'))
     nickname = Column(String(20))
     address = Column(Text, nullable=False)
