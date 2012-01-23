@@ -64,9 +64,6 @@ class InterviewType(Base):
     __tablename__ = 'interview_types'
 
     id = Column(Integer, primary_key=True)
-    period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True)
-    student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)
-    counselor_id = Column(Integer, ForeignKey('counselors.id'))
     name = Column(String(10), nullable=False)
 
 class Interview(Base):
