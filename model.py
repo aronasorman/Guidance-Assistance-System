@@ -105,6 +105,26 @@ class Sibling(Base):
     age = Column(Integer)
     school_or_work = Column(String(50))
     student_id = Column(Integer, ForeignKey('students.id'))
+
+class Guardian(Base):
+    __tablename__ = 'guardians'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(40), nullable=False)
+    age = Column(Integer)
+    occupation = Column(String(50))
+    work_address = Column(String(70))
+    telno = Column(String(20))
+    celno = Column(String(20))
+    email = Column(String(40))
+    religion = Column(String(50))
+    student_id = Column(Integer, ForeignKey('students.id'))
+
+class GradeSchool(Base):
+    __tablename__ = 'grade_schools'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(60))
     
 class StudyPartner(Base):
     __tablename__ = 'student_study_partners'
