@@ -94,6 +94,7 @@ class Student(Base):
     # ask if clubs or organizations is fixed
     work_experience = Column(Text)
     interests = Column(Text)
+    grade_schools = relationship('GradeSchoolAlumni')
     siblings = relationship('Sibling', backref='student')
 
 class Sibling(Base):
@@ -124,6 +125,14 @@ class GradeSchool(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(60))
+
+class GradeSchoolAlumni(Base):
+    __tablename__ = 'grade_school_alumni'
+
+    id = Column(Integer, primary_key=True)
+    student_id = Column(Integer, ForeignKey('students.id'))
+    grade_school_id = Column(Integer, ForeignKey('grade_schools.id'))
+    grade_school = relationship('GradeSchool')
     
 class StudyPartner(Base):
     __tablename__ = 'student_study_partners'
