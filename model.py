@@ -50,7 +50,15 @@ class Period(Base):
 
     id = Column(Integer, primary_key=True)
     time = Column(DateTime, nullable=False)
-    
+
+class ScheduleEntry(Base):
+    __tablename__ = 'schedule_entries'
+
+    period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True)
+    date = Column(Date, primary_key=True)
+
+    period = relationship('Period', backref=backref('entries'))
+
 
 # association for student class to favorite subjects
 student_favorite_subjects = Table('favorite_subjects', Base.metadata
