@@ -17,6 +17,7 @@ class Counselor(Base):
     celno = Column(String(20))
     email = Column(String(40))
     birthdate = Column(Date, nullable=False)
+    birthplace = Column(Text, nullable=False)
     position_id = Column(Integer, ForeignKey('position.id')) # add position field
     religion = Column(String(20))
     height = Column(Float, nullable=False)
@@ -66,6 +67,7 @@ class Student(Base):
     name = Column(String(40), nullable=False)
     year = Column(Integer, ForeignKey('sections.year'))
     section_name = Column(String(1), ForeignKey('sections.name'))
+    section = relationship('Section', backref=backref('students'))
     nickname = Column(String(20))
     address = Column(Text, nullable=False)
     telno = Column(String(20))
@@ -84,15 +86,25 @@ class Student(Base):
     family_concerns = Column(Text)
     most_significant_person = Column(String(40))
     why_significant = Column(Text)
-#    favorite_subjects = relationship('Subject', secondary=student_favorite_subjects, backref='students')
-#    dire_subjects = relationship('Subject', secondary=student_dire_subjects, backref='students')
-    tutored_subjects = relationship('Subject', secondary=student_tutored_subjects, backref='students')
+    favorite_subjects = relationship('Subject', secondary=student_favorite_subjects, backref='students_who_like_this_subject')
+    dire_subjects = relationship('Subject', secondary=student_dire_subjects, backref='students_who_hate_this_subject')
+    tutored_subjects = relationship('Subject', secondary=student_tutored_subjects, backref='students_who_are_being_tutored_in_this_subject')
     study_length_id = Column(Integer, ForeignKey('study_length_lookup.id'))
     is_special_guidance_needed = Column(Boolean, nullable=False)
     special_guidance_elaboration = Column(Text)
     # ask if clubs or organizations is fixed
     work_experience = Column(Text)
     interests = Column(Text)
+    siblings = relationship('Sibling', backref='student')
+
+class Sibling(Base):
+    __tablename__ = 'siblings'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(40), nullable=False)
+    age = Column(Integer)
+    school_or_work = Column(String(50))
+    student_id = Column(Integer, ForeignKey('students.id'))
     
 class StudyPartner(Base):
     __tablename__ = 'student_study_partners'
