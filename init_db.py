@@ -52,7 +52,8 @@ def init_living_with():
 def init_study_length():
     session = Session()
     session.add_all([
-        StudyLength('1-3 hours')
+        StudyLength('less than 1 hour')
+        , StudyLength('1-3 hours')
         , StudyLength('4-5 hours')
         , StudyLength('more than 5 hours')
         ])
