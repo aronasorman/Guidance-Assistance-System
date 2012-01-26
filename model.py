@@ -180,9 +180,10 @@ class GradeSchool(Base):
 class GradeSchoolAlumni(Base):
     __tablename__ = 'grade_school_alumni'
 
-    id = Column(Integer, primary_key=True)
-    student_id = Column(Integer, ForeignKey('students.id'))
-    grade_school_id = Column(Integer, ForeignKey('grade_schools.id'))
+    student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)
+    grade_school_id = Column(Integer, ForeignKey('grade_schools.id'), primary_key=True)
+    years_attended = Column(Integer, nullable=False)
+    
     grade_school = relationship('GradeSchool')
     
 class StudyPartner(Base):
