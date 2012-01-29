@@ -12,7 +12,7 @@ class User(Base):
     __tablename__ = 'users'
     
     login = Column(Integer, primary_key=True)
-    password = Column(String(50), nullable=False)
+    password = Column(String(64), nullable=False)
 
 class UserPrivileges(Base):
     __tablename__ = 'user_privileges'
