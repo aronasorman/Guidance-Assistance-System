@@ -2,13 +2,15 @@ from sqlalchemy import Column, Integer, String, Text, Date, LargeBinary, create_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship, backref
 
+from misc_models import User
+
 Base = declarative_base()
 
 
 class Counselor(Base):
     __tablename__ = "counselors"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, ForeignKey('users.id'), primary_key=True)
     name = Column(String(40), nullable=False)
     picture = Column(LargeBinary)
     nickname = Column(String(20))
