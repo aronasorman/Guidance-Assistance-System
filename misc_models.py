@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 
 '''
@@ -11,7 +11,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = 'users'
     
-    login = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     password = Column(String(64), nullable=False)
 
 class UserPrivileges(Base):
