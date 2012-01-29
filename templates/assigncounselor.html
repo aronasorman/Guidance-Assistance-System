@@ -5,31 +5,7 @@
 		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
 		<link rel="stylesheet" type= "text/css" href="mainstyle.css"/>
 		<link rel="stylesheet" type= "text/css" href="typography.css"/>
-		<script type="text/javascript">
-					var d=new Date();
-					var month=new Array(12);
-					month[0]="January";
-					month[1]="February";	
-					month[2]="March";
-					month[3]="April";
-					month[4]="May";
-					month[5]="June";
-					month[6]="July";
-					month[7]="August";
-					month[8]="September";
-					month[9]="October";
-					month[10]="November";
-					month[11]="December";
-					
-					var weekday=new Array(7);
-					weekday[0]="Sunday";
-					weekday[1]="Monday";
-					weekday[2]="Tuesday";
-					weekday[3]="Wednesday";
-					weekday[4]="Thursday";
-					weekday[5]="Friday";
-					weekday[6]="Saturday";
-		</script>
+		<script type="text/javascript" src="before.js"></script>
 		<title>Ateneo High School Guidance Office</title>
 </head>
 
@@ -66,9 +42,9 @@
 				<li><a href="viewstudent.html" title="">View student profiles</a></li>
 				<li><a href="assigncounselor.html" title="assign counselors to respective students/sections">Assign counselor</a></li>
 				<li><a href="editweekly.html" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
-				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</ul>	
+				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</				</ul>	
 			
-		<br style="clear:both" /> 
+			<br style="clear:both" /> 
 		</div>
 		
 		<div id="content">
@@ -83,12 +59,6 @@
 				Position: <span id="position">position</span>
 				</div>
 				
-				<script type="text/javascript">
-					document.getElementById("date").innerHTML=(weekday[d.getDay()] + ", " + month[d.getMonth()] + " " + d.getDate() + ", " +d.getFullYear());
-					document.getElementById("name").innerHTML = "Juan dela Cruz";
-					document.getElementById("position").innerHTML = "Head Counselor";
-				</script>
-				
 			</div>
 			
 		<!--edit title of page here-->	
@@ -98,77 +68,89 @@
 				<span id="arrow"> > </span>
 				<a href="assigncounselor.html"> Assign Counselors</a>
 				<br/>
-				<span id="counselor">Le Counselor's Name Here</span>
+				<span id="counselor">Juan Dela Cruz</span>
 			</div>
 			<br/>
 			
 			
 		<!-- the only area you can edit-->
 			<div id="assign">
-			Choose Counserlor:
-			<select name="who">
-				<option value="1">Juan Dela Cruz</option>
-				<option value="2">April Canlas</option>
-				<option value="3">Aron Asor</option>
-				<option value="4">Anna Uy</option>
-				<option value="5">Ferdie Verayo</option>
-			</select>
-			
-			<select name="drop1" id="drop1" size="20" multiple="multiple">
-				<option value="1">1A</option>
-  				<option value="2">1B</option>
-				<option value="3">1C</option>
-				<option value="4">1D</option>
-				<option value="5">1E</option>
-				<option value="1">1F</option>
-  				<option value="2">1G</option>
-				<option value="3">1H</option>
-				<option value="4">1I</option>
-				<option value="5">1J</option>
-				<option value="1">2A</option>
-  				<option value="2">2B</option>
-				<option value="3">2C</option>
-				<option value="4">2D</option>
-				<option value="5">2E</option>
-				<option value="1">2F</option>
-  				<option value="2">2G</option>
-				<option value="3">2H</option>
-				<option value="4">2I</option>
-				<option value="5">2J</option>
-				<option value="1">3A</option>
-  				<option value="2">3B</option>
-				<option value="3">3C</option>
-				<option value="4">3D</option>
-				<option value="5">3E</option>
-				<option value="1">3F</option>
-  				<option value="2">3G</option>
-				<option value="3">3H</option>
-				<option value="4">3I</option>
-				<option value="5">3J</option>
-			</select>
-			
-			<input type="button" value=">>" name=">>" id=">>">
-			<input type="button" value="<<" name="<<" id="<<">		
-			
-			
-			<select name="drop2" id="drop2"	size="20" multiple="multiple">
-				<option value="1">1A</option>
-  				<option value="2">1B</option>
-				<option value="3">1C</option>
-				<option value="4">1D</option>
-				<option value="5">1E</option>
-				<option value="1">1F</option>
-			</select>
-			
-			
-			<input type="submit" name="submit" id="submit" value="submit"/>
-			
+			<table>
+				<tr>
+					<td colspan="3">
+							Choose Counserlor:
+							<select id="who" onchange="change()">
+								<option value="1">Juan Dela Cruz</option>
+								<option value="2">April Canlas</option>
+								<option value="3">Aron Asor</option>	
+								<option value="4">Anna Uy</option>
+								<option value="5">Ferdie Verayo</option>
+							</select>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						
+						<select name="drop1" id="drop1" size="20" multiple="multiple">
+							<option value="1">1A</option>
+  							<option value="2">1B</option>
+							<option value="3">1C</option>
+							<option value="4">1D</option>
+							<option value="5">1E</option>
+							<option value="6">1F</option>
+  							<option value="7">1G</option>
+							<option value="8">1H</option>
+							<option value="9">1I</option>
+							<option value="10">1J</option>
+							<option value="11">2A</option>
+  							<option value="12">2B</option>
+							<option value="13">2C</option>
+							<option value="14">2D</option>
+							<option value="15">2E</option>
+							<option value="16">2F</option>
+			  				<option value="17">2G</option>	
+							<option value="18">2H</option>
+							<option value="19">2I</option>
+							<option value="20">2J</option>
+							<option value="21">3A</option>
+  							<option value="22">3B</option>
+							<option value="23">3C</option>
+							<option value="24">3D</option>
+							<option value="25">3E</option>	
+							<option value="26">3F</option>
+  							<option value="27">3G</option>
+							<option value="28">3H</option>
+							<option value="29">3I</option>
+							<option value="30">3J</option>
+						</select>
+
+					</td>
+					
+					<td>
+					
+						<li><input type="button" value=">>" name=">>" id=">>"></li>
+						<li><input type="button" value="<<" name="<<" id="<<"></li>
+					</td>
+					
+					<td>				
+						<select name="drop2" id="drop2"	size="20" multiple="multiple">
+							<option value="1">1A</option>
+  							<option value="2">1B</option>
+							<option value="3">1C</option>
+							<option value="4">1D</option>
+							<option value="5">1E</option>
+							<option value="6">1F</option>
+						</select>
+					</td>
+				</tr>
+				
+				<tr>	
+						<td colspan="3"><input type="submit" name="submit" id="submit" value="submit"/></td>
+				</tr>
+
+			</table>
 			</div>
-			
-			
-			<script type="text/javascript">
-				//still thinking how to le code this T_T.
-			</script>
 			
 			
 			
@@ -195,5 +177,7 @@
 
 </form>
 </body>
+	<!--placed this script here so it can reference the elements in the html without calling a function-->
+	<script type="text/javascript" src="after.js"></script>
 
 </html>

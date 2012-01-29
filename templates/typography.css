@@ -110,6 +110,42 @@ text-decoration: underline;
 color: red;
 }
 
+/*editweekly, conductcounseling
+***************/
+#details{
+font-family: "Century Gothic";
+font-size: 11pt;
+line-height: 18pt;
+color:#012b5d;
+}
+
+#details a, #sched a{
+color:#012b5d;
+}
+
+#details a:hover{
+text-decoration: underline;
+}
+
+#sched a:hover{
+font-weight: bold;
+}
+
+#details a:active, #sched a:active{
+color:red;
+}
+
+#sched{
+color: #012b5d;
+}
+
+/*profile
+***************/
+#profile{
+font-size: 10pt;
+color: #012b5d;
+}
+
 /*title
 ***************/
 #title a{
@@ -127,14 +163,30 @@ color:black;
 color:red;
 }
 
-#arrow, #counselor{
+#arrow, #counselor, #student{
 font-family: "Century Gothic";
 font-size: 18pt;
 color:#0260a8;
 }
 
-#counselor{
+#counselor,#student{
 font-size: 16pt;
+}
+
+/*counselornav
+***************/
+#counselornav a{
+font-family: "Century Gothic", Helvetica;
+font-size: 10pt;
+color:black;
+}
+
+#counselornav a:hover{
+color:#0260a8;
+}
+
+#counselornav a:active{
+color:red;
 }
 
 /*nav

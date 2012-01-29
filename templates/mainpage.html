@@ -5,35 +5,15 @@
 		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
 		<link rel="stylesheet" type= "text/css" href="mainstyle.css"/>
 		<link rel="stylesheet" type= "text/css" href="typography.css"/>
+		<script type="text/javascript" src="before.js"></script>
 		<title>Ateneo High School Guidance Office</title>
-		<script type="text/javascript">
-					var d=new Date();
-					var month=new Array(12);
-					month[0]="January";
-					month[1]="February";	
-					month[2]="March";
-					month[3]="April";
-					month[4]="May";
-					month[5]="June";
-					month[6]="July";
-					month[7]="August";
-					month[8]="September";
-					month[9]="October";
-					month[10]="November";
-					month[11]="December";
-					
-					var weekday=new Array(7);
-					weekday[0]="Sunday";
-					weekday[1]="Monday";
-					weekday[2]="Tuesday";
-					weekday[3]="Wednesday";
-					weekday[4]="Thursday";
-					weekday[5]="Friday";
-					weekday[6]="Saturday";
-		</script>
+		
+		<script src="jquery/jquery-1.7.1.min.js"></script>
+		
 </head>
 
 <body>
+
 
 <form action="" method="get">
 
@@ -80,15 +60,9 @@
 				<div id="identifiers">
 				User Identified As: <span id="name">name</span>
 				<br/>
-				Position: <span id="position">position</span>
+				Position: <span id="position" >position</span>
 				</div>
 				
-				
-				<script type="text/javascript">
-					document.getElementById("date").innerHTML=(weekday[d.getDay()] + ", " + month[d.getMonth()] + " " + d.getDate() + ", " +d.getFullYear());
-					document.getElementById("name").innerHTML = "Juan dela Cruz";
-					document.getElementById("position").innerHTML = "Head Counselor";
-				</script>
 				
 			</div>
 			
@@ -178,5 +152,7 @@
 
 </form>
 </body>
-
+	<!--placed this script here so it can reference the elements in the html without calling a function-->
+	<script type="text/javascript" src="after.js"></script>
+        
 </html>

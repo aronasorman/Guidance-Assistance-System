@@ -59,7 +59,7 @@ text-transform: uppercase;
 width: 200px;
 background-color: #f5f5f5;
 float: left;
-height: 1000px;
+height: 1100px;
 }
 
 #sidebar ul{
@@ -95,6 +95,7 @@ padding-bottom: 5px;
 #content{
 background-color: white;
 }
+
 
 #stamps{
 padding-top: 57px;
@@ -253,6 +254,164 @@ display: inline;
 
 #directions{
 margin-left: 60px;
+}
+
+/*assign
+***************/
+#assign{
+float: left;
+padding-top: 20px;
+padding-left: 20px;
+}
+
+#assign table li{
+list-style: none;
+}
+
+#assign #submit{
+float:right;
+}
+
+#drop1, #drop2{
+width: 200px;
+}
+
+/*editweekly
+***************/
+#details{
+float:left;
+width: 700px;
+padding-top: 20px;
+padding-left: 20px;
+}
+
+#details li{
+list-style: none;
+display: inline;
+}
+
+#details a{
+text-decoration: none;
+}
+
+#sched{
+float: left;
+padding-top: 10px;
+padding-left: 20px;
+}
+
+#sched table{
+width:700px;
+}
+
+#sched a{
+text-decoration: none;
+}
+
+
+#sched td{
+padding: 10px 0 10px 0;
+padding-left: 10px;
+background-color: #f0f0f0;
+}
+
+#headname td{
+background-color: #a8bcdf;
+padding-left: 10px;
+}
+
+#summary{
+float: left;
+padding-top: 10px;
+padding-left: 20px;
+}
+
+#summary table{
+width:700px;
+}
+
+#summary textarea{
+width:200px;
+}
+
+
+/*counselornav
+****************/
+#counselornav{
+width: 730px;
+height:25px;
+background-color: #f0f0f0;
+float: left;
+margin-left: 10px;
+margin-top: 10px;
+padding-bottom: 15px;
+}
+
+#counselornav ul{
+list-style: none;
+}
+
+#counselornav li{
+display: inline;
+padding-left: 5px;
+padding-right: 5px;
+}
+
+#counselornav a{
+text-decoration: none;
+}
+
+/*profile
+***************/
+#profile{
+float:left;
+padding-left: 20px;
+padding-top: 20px;
+}
+
+#graypart{
+width:200px;
+background-color: #f0f0f0;
+}
+
+#profile table{
+width:700px;
+}
+
+#profhead{
+background-color:#a8bcdf;
+padding-top:50px;
+}
+
+#profile .label1{
+width: 200px;
+}
+
+#profile a{
+text-decoration: none
+}
+
+#profile li{
+display: inline;
+padding-right: 100px;
+}
+
+#profile td{
+padding: 10px 5px 10px 5px;
+}
+
+/*performancesummary
+***************/
+
+#chart{
+float:left;
+padding-left: 20px;
+padding-top: 20px;
+}
+
+#print{
+float:left;
+padding-left: 20px;
 }
 
 
