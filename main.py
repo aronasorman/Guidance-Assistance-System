@@ -8,6 +8,7 @@ import web
 from web import form
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from hashlib import sha256
 import os
 
 from misc_models import *
@@ -38,22 +39,34 @@ loginform = form.Form(
 )
 
 class login:
+    '''
+    Class that handles logging in.
+    '''
+    
     def GET(self):
         f = loginform()
-        return f.render()
+        return render.login(f)
     def POST(self):
         f = loginform()
         if f.validates():
-            password_hash = sha256(f['password'])
+            data = web.input()
+            password_hash = sha256(data['password'])
             userlist = [ row.User for row in db_session.query(User, User.password).all() if row.password == password_hash]
             if len(userlist) > 0:
                 user = userlist[0]
                 session.user = user
                 raise web.redirect('/index')
             else:
-                return f.render()
+                return render.login(f)
         else:
-            f.render()
+            render.login(f)
+
+class index:
+    '''
+    Class that handles the homepage once a person has logged in.
+    '''
+    def GET(self):
+        pass
 
 if __name__ == '__main__':
     app.run()
