@@ -16,6 +16,7 @@ from model import *
 
 urls = (
     '/', 'login'
+    , '/create-account', 'accountcreation'
     )
 
 DBNAME = 'counselor.db'
@@ -31,6 +32,12 @@ initializer = {
     'user' : None
     }
 session = web.session.Session(app, web.session.DiskStore('sessions'), initializer = initializer)
+
+loginform = form.Form(
+    form.Textbox('username')
+    , form.Password('password')
+    , form.Button('login')
+)
 
 class login:
     '''
@@ -54,6 +61,13 @@ class login:
                 return render.login(f)
         else:
             render.login(f)
+
+class accountcreation:
+    '''
+    Handler for account creation
+    '''
+    def GET(self):
+        return render.createaccount()
 
 class index:
     '''
