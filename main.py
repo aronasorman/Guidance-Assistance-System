@@ -32,12 +32,6 @@ initializer = {
     }
 session = web.session.Session(app, web.session.DiskStore('sessions'), initializer = initializer)
 
-loginform = form.Form(
-    form.Textbox('username')
-    , form.Password('password')
-    , form.Button('login')
-)
-
 class login:
     '''
     Class that handles logging in.
@@ -52,7 +46,7 @@ class login:
             data = web.input()
             password_hash = sha256(data['password'])
             userlist = [ row.User for row in db_session.query(User, User.password).all() if row.password == password_hash]
-            if len(userlist) > 0:
+            if userlist:
                 user = userlist[0]
                 session.user = user
                 raise web.redirect('/index')
