@@ -6,6 +6,24 @@ from misc_models import User
 
 Base = declarative_base()
 
+class User(Base):
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True)
+    password = Column(String(64), nullable=False)
+
+class UserPrivileges(Base):
+    __tablename__ = 'user_privileges'
+
+    user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
+    privilege_id = Column(Integer, ForeignKey('available_privileges.id'), primary_key=True)
+
+class Privilege(Base):
+    __tablename__ = 'available_privileges'
+
+    id = Column(Integer, primary_key=True)
+    privilege_name = Column(String(20), nullable=False)
+
 
 class Counselor(Base):
     __tablename__ = "counselors"
