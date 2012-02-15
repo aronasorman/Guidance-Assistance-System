@@ -36,9 +36,8 @@ class Counselor(Base):
     telno = Column(String(20))
     celno = Column(String(20))
     email = Column(String(40))
-    position = relationship('Position', backref=backref('position_holders'))
-    position_id = Column(Integer, ForeignKey('position.id')) # add position field
-
+    is_head_counselor = Column(Boolean, nullable=False)
+    
 class Position(Base):
     __tablename__ = 'position'
 
