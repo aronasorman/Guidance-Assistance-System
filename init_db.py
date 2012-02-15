@@ -24,16 +24,6 @@ def init_dummy_user():
     session.add(User(password='iamdummy'))
     session.commit()
 
-def init_positions():
-    session = Session()
-    session.add_all([
-        Position(position_name='Counselor')
-        , Position(position_name='Head Counselor')
-        , Position(position_name='Secretary')
-        , Position(position_name='Administrator')
-        ])
-    session.commit()
-
 def init_parent_status():
     session = Session()
     session.add_all([
