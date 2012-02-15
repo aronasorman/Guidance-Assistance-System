@@ -36,18 +36,8 @@ class Counselor(Base):
     telno = Column(String(20))
     celno = Column(String(20))
     email = Column(String(40))
-    birthdate = Column(Date, nullable=False)
-    birthplace = Column(Text, nullable=False)
-    position_id = Column(Integer, ForeignKey('position.id')) # add position field
     position = relationship('Position', backref=backref('position_holders'))
-    religion = Column(String(20))
-    height = Column(Float, nullable=False)
-    weight = Column(Float, nullable=False)
-    overall_health = Column(String(1))
-    eyesight = Column(String(1), nullable=False)
-    hearing = Column(String(1), nullable=False)
-    lungs = Column(String(1), nullable=False)
-    handicaps = Column(Text)
+    position_id = Column(Integer, ForeignKey('position.id')) # add position field
 
 class Position(Base):
     __tablename__ = 'position'
