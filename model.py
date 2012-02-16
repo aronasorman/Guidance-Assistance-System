@@ -10,26 +10,16 @@ class User(Base):
     __tablename__ = 'users'
     
     id = Column(Integer, primary_key=True)
+    name = Column(String(40), nullable=False)
     password = Column(String(64), nullable=False)
-
-class UserPrivileges(Base):
-    __tablename__ = 'user_privileges'
-
-    user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
-    privilege_id = Column(Integer, ForeignKey('available_privileges.id'), primary_key=True)
-
-class Privilege(Base):
-    __tablename__ = 'available_privileges'
-
-    id = Column(Integer, primary_key=True)
-    privilege_name = Column(String(20), nullable=False)
-
+    is_counselor = Column(Boolean, default=False)
+    is_secretary = Column(Boolean, default=False)
+    is_admin = Column(Boolean, default=False)
 
 class Counselor(Base):
     __tablename__ = "counselors"
 
     id = Column(Integer, ForeignKey('users.id'), primary_key=True)
-    name = Column(String(40), nullable=False)
     picture = Column(LargeBinary)
     nickname = Column(String(20))
     address = Column(Text, nullable=False)
@@ -68,6 +58,7 @@ class ScheduleEntry(Base):
     counselor_id = Column(Integer, ForeignKey('counselors.id'))
 
     period = relationship('Period', backref=backref('entries'))
+    counselor = relationship('Counselor', backref=backref('schedule_entries')
 
 class InterviewType(Base):
     __tablename__ = 'interview_types'
@@ -81,9 +72,11 @@ class Interview(Base):
     id = Column(Integer, primary_key=True)
     period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True)
     student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)
+    counselor_id = Column(Integer, ForeignKey('counselors.id'), primary_key=True)
     type = Column(Integer, ForeignKey('interview_types.id'))
 
     period = relationship('Period', backref=backref('interviews'))
+    counselor = relationship('Counselor', backref=backref('interviews')
 
 class FollowupInterview(Base):
     __tablename__ = 'followup_interviews'
