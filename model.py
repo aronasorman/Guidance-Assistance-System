@@ -58,7 +58,7 @@ class ScheduleEntry(Base):
     counselor_id = Column(Integer, ForeignKey('counselors.id'))
 
     period = relationship('Period', backref=backref('entries'))
-    counselor = relationship('Counselor', backref=backref('schedule_entries')
+    counselor = relationship('Counselor', backref=backref('schedule_entries'))
 
 class InterviewType(Base):
     __tablename__ = 'interview_types'
@@ -76,7 +76,7 @@ class Interview(Base):
     type = Column(Integer, ForeignKey('interview_types.id'))
 
     period = relationship('Period', backref=backref('interviews'))
-    counselor = relationship('Counselor', backref=backref('interviews')
+    counselor = relationship('Counselor', backref=backref('interviews'))
 
 class FollowupInterview(Base):
     __tablename__ = 'followup_interviews'
