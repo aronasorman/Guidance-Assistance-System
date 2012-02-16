@@ -21,7 +21,7 @@ def test_counselor():
     user = User()
     user.id = 90275
     user.name = 'Aron Fyodor M. Asor'
-    user.password = sha256(user.name + 'asakapa').hexdigest()
+    user.password = sha256(str(user.id) + 'asakapa').hexdigest()
     user.is_counselor = True
     session.add(user)
 
