@@ -1,117 +1,114 @@
-$def with (form)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
-		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
-		<link rel="stylesheet" type= "text/css" href="static/mainstyle.css"/>
-		<link rel="stylesheet" type= "text/css" href="static/typography.css"/>
-		<link rel="stylesheet" type= "text/css" href="static/log-in.css"/>
-		<script type="text/javascript" src="static/before.js"></script>
-		<title>Ateneo High School Guidance Office</title>
-		
-		<script src="static/jquery/jquery-1.7.1.min.js"></script>
-		
-</head>
+  <head>
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+    <link rel="stylesheet" type= "text/css" href="static/mainstyle.css"/>
+    <link rel="stylesheet" type= "text/css" href="static/typography.css"/>
+    <link rel="stylesheet" type= "text/css" href="static/log-in.css"/>
+    <script type="text/javascript" src="static/before.js"></script>
+    <title>Ateneo High School Guidance Office</title>
+    
+    <script src="static/jquery/jquery-1.7.1.min.js"></script>
+    
+  </head>
 
-<body>
+  <body>
 
 
-<form action="" method="get">
+    <form method="get">
 
-<div id="container">
+      <div id="container">
 	
 	<div id="header">
 	</div>
 
 	
 	<div id= "nav">
-		<ul>
-			<li><a href="#">home</a></li>
-			<li><a href="#">faqs</a></li>
-			<li><a href="#">about us</a></li>
-			<li><a href="#">log-out</a></li>
-			<li><a href="#">
-				<input type="text" size="20" name="text1" value="type here">
-				<input type="button" name="search" value="search">
-			</a></li>
-			
-		</ul>
-	</div>
-	
-	<div id="center">
-	
-				
-		<div id="content">
-			<div id="stamps">
+	  <ul>
+	    <li><a href="#">home</a></li>
+	    <li><a href="#">faqs</a></li>
+	    <li><a href="#">about us</a></li>
+	    <li><a href="#">log-out</a></li>
+	    <li><a href="#">
+	      <input type="text" size="20" name="text1" value="type here">
+		<input type="button" name="search" value="search">
+		</a></li>
+	      </form>
+	    </ul>
+	  </div>
+	  
+	  <div id="center">
+	    
+	    
+	    <div id="content">
+	      <div id="stamps">
 		
-				<div id="date">
-				</div>
-			
-				<div id="identifiers">
-				User Identified As: 
-				<br/>
-				Position: 
-				</div>
-				
-				
-			</div>
-			
-			<div id="title">
-				<a href="log-in.html">Login</a>
-			</div>
-			
-			
-		<!--le only area you can edit-->
-			
-			<div id ="freespace">
-				<div id="log-box">
-					<form action="POST">
-					<table>
-						<tr >
-							<td colspan="2"id="loghead">Log-in</td>
-						</tr>
-						<tr>
-							<td>Username:</td>
-							<td><input type="text" id="username" size="25"></td>
-						</tr>
-						<tr>
-							<td>Password:</td>
-							<td><input type="password" id="username" size="25"></td>
-						</tr>
-						<tr>
-							<td><input type="submit" id="username" value="Log-in"></td>
-						</tr>
-					</table>
-					</form>
-				</div>
-			</div>
-			
-	
-			
-		<!--le only area you can edit-->
-				
-		<br style="clear:both" /> 
-			
-		</div> 
+		<div id="date">
+		</div>
 		
-
-	</div>
-
-	<div id="footer">
-		<p>
-		Ateneo High School Guidance Office Automated System <br/>
-		Designed and developed by A-Team <br/>
-		Copyright 2011 <br/>
-		</p>
+		<div id="identifiers">
+		  User Identified As: 
+		  <br/>
+		  Position: 
+		</div>
 		
-	</div>
-	
-</div>	
+		
+	      </div>
+	      
+	      <div id="title">
+		<a href="log-in.html">Login</a>
+	      </div>
+	      
+	      
+	      <!--le only area you can edit-->
+	      
+	      <div id ="freespace">
+		<div id="log-box">
+		  <form method="POST">
+		    <table>
+		      <tr >
+			<td colspan="2" id="loghead">Log-in</td>
+		      </tr>
+		      <tr>
+			<td>Username:</td>
+			<td><input type="text" name="username" id="username" size="25"></td>
+		      </tr>
+		      <tr>
+			<td>Password:</td>
+			<td><input type="password" name="password" id="username" size="25"></td>
+		      </tr>
+		      <tr>
+			<td><input type="submit" id="username" value="Login"></td>
+		      </tr>
+		    </table>
+		  </form>
+		</div>
+	      </div>
+	      
+	      
+	      
+	      <!--le only area you can edit-->
+	      
+	      <br style="clear:both" /> 
+	      
+	    </div> 
+	    
 
-</form>
-</body>
-	<!--placed this script here so it can reference the elements in the html without calling a function-->
-	<script type="text/javascript" src="static/after.js"></script>
-        
-</html>
+	  </div>
+
+	  <div id="footer">
+	    <p>
+	      Ateneo High School Guidance Office Automated System <br/>
+	      Designed and developed by A-Team <br/>
+	      Copyright 2011 <br/>
+	    </p>
+	    
+	  </div>
+	  
+	</div>	
+      </body>
+      <!--placed this script here so it can reference the elements in the html without calling a function-->
+      <script type="text/javascript" src="static/after.js"></script>
+      
+    </html>
