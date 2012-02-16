@@ -25,14 +25,16 @@ DBNAME = 'counselor.db'
 DBPATH = os.getcwd()
 
 engine = create_engine('sqlite:////' + os.path.join(DBPATH,DBNAME), echo=True)
-Session = sessionmaker(bind=engine)
+DBSession = sessionmaker(bind=engine)
 
 app =  web.application(urls, globals())
 render = web.template.render('templates/')
-initializer = {
-    'user' : None
-    }
-session = web.session.Session(app, web.session.DiskStore('sessions'), initializer = initializer)
+
+if web.config.get('_session') is None:
+    session = web.session.Session(app, web.session.DiskStore('sessions'), initializer={'user': 'anonymous'})
+    web.config._session = session
+else:
+    session = web.config._session
 
 class login:
     '''
@@ -49,14 +51,25 @@ class login:
             return render.login("Please enter a number as the username.")
         else:
             password_hash = sha256(data['password']).hexdigest()
-            db_session = Session()
-            import pdb; pdb.set_trace()
+            db_session = DBSession()
             user = db_session.query(User).filter(User.id==name).filter(User.password==password_hash).first()
             if user:
                 session.user = user
-                raise web.seeother('/mainpage')
+                raise web.seeother('/main')
             else:
                 return render.login('Username or password is incorrect.')
+
+class mainpage:
+    '''
+    Class that handles the main menu,
+    after the user has logged in successfully.
+    '''
+    def GET(self):
+        import pdb; pdb.set_trace()
+        if session.user == 0:
+            web.seeother('/') # they haven't logged in yet
+        else:
+            return render.mainpage()
             
 class accountcreation:
     '''
@@ -67,7 +80,7 @@ class accountcreation:
 
     def POST(self):
         
-        db_session = Session()
+        db_session = DBSession()
         data = web.input()
         user = User()
         user.id = int(data['ID Number'])
@@ -75,7 +88,7 @@ class accountcreation:
         db_session.add(user)
         db_session.commit()
 
-        db_session = Session()
+        db_session = DBSession()
         counselor = Counselor()
         counselor.id = user.id
         name = ' '.join([data['firstname'], data['middleinitial'], data['lastname']])
@@ -91,12 +104,5 @@ class accountcreation:
 
         return "success!"
         
-class index:
-    '''
-    Class that handles the homepage once a person has logged in.
-    '''
-    def GET(self):
-        pass
-
 if __name__ == '__main__':
     app.run()
