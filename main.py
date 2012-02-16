@@ -65,7 +65,6 @@ class mainpage:
     after the user has logged in successfully.
     '''
     def GET(self):
-        import pdb; pdb.set_trace()
         if session.user == 0:
             web.seeother('/') # they haven't logged in yet
         else:
