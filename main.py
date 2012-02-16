@@ -50,7 +50,7 @@ class login:
         except ValueError:
             return render.login("Please enter a number as the username.")
         else:
-            password_hash = sha256(data['password']).hexdigest()
+            password_hash = sha256(str(name) + data['password']).hexdigest()
             db_session = DBSession()
             user = db_session.query(User).filter(User.id==name).filter(User.password==password_hash).first()
             if user:
@@ -69,7 +69,9 @@ class mainpage:
             web.seeother('/') # they haven't logged in yet
         else:
             user = session.user
-            return render.mainpage(user)
+            db_session = DBSession()
+            counselor = db_session.query(Counselor).filter(Counselor.id==user.id).first()
+            return render.mainpage(user, counselor)
             
 class accountcreation:
     '''
