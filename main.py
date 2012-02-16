@@ -68,7 +68,8 @@ class mainpage:
         if session.user == 0:
             web.seeother('/') # they haven't logged in yet
         else:
-            return render.mainpage()
+            user = session.user
+            return render.mainpage(user)
             
 class accountcreation:
     '''
