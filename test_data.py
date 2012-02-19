@@ -2,7 +2,8 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from model import User, Counselor, Student, Base
+from datetime import date
+from model import User, Counselor, Student, Base, ParentStatus, ScheduleEntry, Section, Period
 from hashlib import sha256
 import os.path
 import os
@@ -36,6 +37,40 @@ def test_counselor():
     session.add(counselor)
     session.commit()
 
+def scheduled_student():
+    # note: we input the attribute values in the class constructor due to a bug in
+    # sqlalchemy missing the attribute values
+    session = Session()
+    student = Student(
+        id=91635
+    , section=session.query(Section).filter(Section.year==1).filter(Section.name=='b').first()
+    , name='April Ann E. Canlas'
+    , nickname='The Chosen One'
+    , address='Binondo,  Manila'
+    , telno='xxx'
+    , celno='xxxx'
+    , parent_status=session.query(ParentStatus).filter(ParentStatus.status=='Separated').one()
+    , email='aprilcanlas@ateneoinnovation.org'
+    , birthdate=date(1992,  4,  15)
+    , birthplace='China'
+    , overall_health='E'
+    , eyesight='E'
+    , hearing='E'
+    , lungs='E'
+    , handicaps='cars'
+
+    , is_special_guidance_needed=False)
+
+    sched = ScheduleEntry(
+    period=session.query(Period).first()
+    , counselor=session.query(Counselor).filter(Counselor.id==90275).first()
+    , student=student
+        )
+
+    session.add(student)
+    session.add(sched)
+    session.commit()
+    
+
 if __name__ == '__main__':
     Base.metadata.create_all(engine)
-    test_counselor()
