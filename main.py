@@ -19,6 +19,7 @@ urls = (
     '/', 'login'
     , '/create-account', 'accountcreation'
     , '/main', 'mainpage'
+    , 'conductcounseling', 'conductcounseling'
     )
 
 DBNAME = 'counselor.db'
@@ -106,6 +107,13 @@ class accountcreation:
         db_session.commit()
 
         return "success!"
+
+class conductcounseling:
+    '''
+    Handler for the conduct counseling page
+    '''
+    def GET(self):
+        pass
         
 if __name__ == '__main__':
     app.run()
