@@ -56,7 +56,9 @@ class ScheduleEntry(Base):
     period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True) # So we're supposed to generate new periods every week...
     student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)
     counselor_id = Column(Integer, ForeignKey('counselors.id'))
+    type_id = Column(Integer, ForeignKey('interview_types.id'))
 
+    type = relationship('InterviewType')
     period = relationship('Period', backref=backref('entries'))
     counselor = relationship('Counselor', backref=backref('schedule_entries'))
     student = relationship('Student', backref=backref('schedule_entries'))
@@ -74,8 +76,9 @@ class Interview(Base):
     period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True)
     student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)
     counselor_id = Column(Integer, ForeignKey('counselors.id'), primary_key=True)
-    type = Column(Integer, ForeignKey('interview_types.id'))
+    type_id = Column(Integer, ForeignKey('interview_types.id'))
 
+    type = relationship('InterviewType')
     period = relationship('Period', backref=backref('interviews'))
     counselor = relationship('Counselor', backref=backref('interviews'))
     student = relationship('Student', backref=backref('interviews'))
