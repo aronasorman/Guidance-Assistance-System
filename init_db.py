@@ -7,7 +7,7 @@ fills the database with initial values, mostly for the lookup tables.
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from misc_models import User
-from model import ParentStatus, SingleParent, LivingWith, StudyLength, Base, Subject, Position
+from model import ParentStatus, SingleParent, LivingWith, StudyLength, Base, Subject, Position, Section
 import os.path
 import os
 
@@ -22,6 +22,12 @@ Session = sessionmaker(bind=engine)
 def init_dummy_user():
     session = Session()
     session.add(User(password='iamdummy'))
+    session.commit()
+
+def init_sections():
+    session = Session()
+    sections = [ Section(year=year,name=name) for year in range(1,5) for name in "abcdefghijklmn"]
+    session.add_all(sections)
     session.commit()
 
 def init_parent_status():
@@ -90,7 +96,7 @@ def init_subjects():
 
 def db_init():
     Base.metadata.create_all(engine)
-    init_dummy_user()
+    init_sections()
     init_parent_status()
     init_single_parent()
     init_living_with()
