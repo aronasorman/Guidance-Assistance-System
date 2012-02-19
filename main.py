@@ -86,15 +86,16 @@ class accountcreation:
         data = web.input()
         user = User()
         user.id = int(data['ID Number'])
-        user.password = sha256(data['Password']).hexdigest()
+        name = ' '.join([data['firstname'], data['middleinitial'], data['lastname']])
+        user.name = name
+        user.password = sha256(str(user.id) + data['Password']).hexdigest()
+        user.is_counselor = True
         db_session.add(user)
         db_session.commit()
 
         db_session = DBSession()
         counselor = Counselor()
         counselor.id = user.id
-        name = ' '.join([data['firstname'], data['middleinitial'], data['lastname']])
-        counselor.name = name
         counselor.nickname = data['Nickname']
         counselor.address = data['City Address']
         counselor.telno = data['telephone']
