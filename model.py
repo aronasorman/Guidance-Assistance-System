@@ -59,6 +59,7 @@ class ScheduleEntry(Base):
 
     period = relationship('Period', backref=backref('entries'))
     counselor = relationship('Counselor', backref=backref('schedule_entries'))
+    student = relationship('Student', backref=backref('schedule_entries'))
 
 class InterviewType(Base):
     __tablename__ = 'interview_types'
@@ -77,6 +78,7 @@ class Interview(Base):
 
     period = relationship('Period', backref=backref('interviews'))
     counselor = relationship('Counselor', backref=backref('interviews'))
+    student = relationship('Student', backref=backref('interviews'))
 
 class FollowupInterview(Base):
     __tablename__ = 'followup_interviews'
@@ -132,6 +134,7 @@ class Student(Base):
     lungs = Column(String(1), nullable=False)
     handicaps = Column(Text)
     parent_status_id = Column(Integer, ForeignKey('parent_status_lookup.id'), nullable=False)
+    parent_status = relationship('ParentStatus')
     single_parent_id = Column(Integer, ForeignKey('single_parent_lookup.id'))
     living_with_id = Column(Integer, ForeignKey('living_with_lookup.id'))
     sibling_comments = Column(Text)
