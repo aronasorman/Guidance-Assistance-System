@@ -18,3 +18,4 @@ Dependencies:
 Notes:
 
 1. To initialize the DB, run init_db.py
+2. The system assumes that all users logged in are counselors - 16 Feb 2012
