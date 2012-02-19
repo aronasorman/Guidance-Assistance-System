@@ -32,7 +32,7 @@ app =  web.application(urls, globals())
 render = web.template.render('templates/')
 
 if web.config.get('_session') is None:
-    session = web.session.Session(app, web.session.DiskStore('sessions'), initializer={'user': 'anonymous'})
+    session = web.session.Session(app, web.session.DiskStore('sessions'), initializer={'user': None})
     web.config._session = session
 else:
     session = web.config._session
@@ -66,7 +66,7 @@ class mainpage:
     after the user has logged in successfully.
     '''
     def GET(self):
-        if session.user == 0:
+        if session.user is None:
             web.seeother('/') # they haven't logged in yet
         else:
             user = session.user
