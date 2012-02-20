@@ -53,6 +53,7 @@ def scheduled_student():
     period=session.query(Period).first()
     , counselor=session.query(Counselor).filter(Counselor.id==90275).first()
     , student=student
+    , type=session.query(InterviewType).filter_by(name='Routine Interview').first()
         )
 
     session.add(student)
