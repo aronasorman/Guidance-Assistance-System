@@ -4,20 +4,8 @@
 fills the database with initial values, mostly for the lookup tables.
 '''
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from misc_models import User
-from model import ParentStatus, SingleParent, LivingWith, StudyLength, Base, Subject, Position, Section
-import os.path
-import os
-
-DBNAME = 'counselor.db'
-
-DBPATH = os.getcwd()
-
-engine = create_engine('sqlite:////' + os.path.join(DBPATH,DBNAME), echo=True)
-
-Session = sessionmaker(bind=engine)
+from model import *
+from config import *
 
 def init_dummy_user():
     session = Session()

@@ -6,20 +6,9 @@ Module that creates periods in the database.
 Run this at least once every week, ideally at the start of the week, around Sunday?
 '''
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from model import Period, Base
+from model import *
 from datetime import date, time, datetime, timedelta
-import os.path
-import os
-
-DBNAME = 'counselor.db'
-
-DBPATH = os.getcwd()
-
-engine = create_engine('sqlite:////' + os.path.join(DBPATH,DBNAME), echo=True)
-
-Session = sessionmaker(bind=engine)
+from config import *
 
 PERIOD_LENGTH = 15 # minutes
 

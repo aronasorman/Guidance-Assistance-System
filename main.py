@@ -6,12 +6,8 @@ Logic for handling user login and homepage
 
 import web
 from web import form
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from hashlib import sha256
-import os
 
-from misc_models import *
 from model import *
 from utils import to_date
 
@@ -21,12 +17,6 @@ urls = (
     , '/main', 'mainpage'
     , 'conductcounseling', 'conductcounseling'
     )
-
-DBNAME = 'counselor.db'
-DBPATH = os.getcwd()
-
-engine = create_engine('sqlite:////' + os.path.join(DBPATH,DBNAME), echo=True)
-DBSession = sessionmaker(bind=engine)
 
 app =  web.application(urls, globals())
 render = web.template.render('templates/')

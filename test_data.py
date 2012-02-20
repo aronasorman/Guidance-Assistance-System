@@ -1,21 +1,9 @@
 #!/usr/bin/env python
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from datetime import date
-from model import User, Counselor, Student, Base, ParentStatus, ScheduleEntry, Section, Period
+from model import *
 from hashlib import sha256
-import os.path
-import os
-
-DBNAME = 'counselor.db'
-
-DBPATH = os.getcwd()
-
-engine = create_engine('sqlite:////' + os.path.join(DBPATH,DBNAME), echo=True)
-
-Session = sessionmaker(bind=engine)
-
+from config import *
 
 def test_counselor():
     session = Session()
@@ -49,7 +37,7 @@ def scheduled_student():
     , address='Binondo,  Manila'
     , telno='xxx'
     , celno='xxxx'
-    , parent_status=session.query(ParentStatus).filter(ParentStatus.status=='Separated').one()
+    , parent_status=session.query(ParentStatus).filter(ParentStatus.status=='Separated').first()
     , email='aprilcanlas@ateneoinnovation.org'
     , birthdate=date(1992,  4,  15)
     , birthplace='China'
@@ -74,3 +62,5 @@ def scheduled_student():
 
 if __name__ == '__main__':
     Base.metadata.create_all(engine)
+    test_counselor()
+    scheduled_student()
