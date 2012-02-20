@@ -1,3 +1,4 @@
+$def with (user, counselor, this_week_schedule)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -25,7 +26,7 @@
 			<li><a href="mainpage.html">home</a></li>
 			<li><a href="#">faqs</a></li>
 			<li><a href="#">about us</a></li>
-			<li><a href="#">log-out</a></li>
+			<li><a href="/logout">log-out</a></li>
 			<li><a href="#">
 				<input type="text" size="20" name="text1" value="type here">
 				<input type="button" name="search" value="search">
@@ -43,7 +44,7 @@
 				<li><a href="viewstudent.html" title="">View student profiles</a></li>
 				<li><a href="assigncounselor.html" title="assign counselors to respective students/sections">Assign counselor</a></li>
 				<li><a href="editweekly.html" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
-				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>
+				<li><a href="/conductcounseling" title="assign counselors to respective students/sections">Conduct counseling</a></li>
 			</ul>	
 			
 		<br style="clear:both" /> 
@@ -67,7 +68,7 @@
 			<div id="title">
 				<a href="mainpage.html">Home </a>
 				<span id="arrow"> > </span>
-				<a href="conductcounseling.html"> Conduct Counseling</a>
+				<a href="/conductcounseling"> Conduct Counseling</a>
 			</div>
 			
 			
@@ -142,9 +143,23 @@
 						<li><a href="#">2C</a></li>
 						<li><a href="#">2D</a></li>
 
-				</div>
-				
+				</div>				
 				<div id="sched">
+				  Note: Will be removed once I've made
+				an algorithm that will align the
+				schedule entries :|
+				<br/>
+				<br/>
+
+				  $for entry in this_week_schedule:
+				    $ id=entry.student.id
+				    $ date=entry.period.date.isoformat()
+				    $ num=entry.period.num
+				    <a href="/create_routine?id=$id&amp;date=$date&amp;num=$num">$entry.student.name</a><br/>
+				    $entry.type.name
+
+				  <br/>
+				  <br/>
 					<table>
 						<tr id="headname">
 							<td>Time</td>

@@ -9,6 +9,7 @@ from web import form
 from hashlib import sha256
 
 from config import *
+from generate_period import dates_of_current_week
 from model import *
 from utils import to_date
 
@@ -106,13 +107,20 @@ class accountcreation:
         db_session.commit()
 
         return "success!"
-
+        
 class conductcounseling:
     '''
     Handler for the conduct counseling page
     '''
     def GET(self):
-        pass
+        if session.user is None:
+            web.seeother('/')
+        else:
+            db_session = DBSession()
+            counselor = db_session.query(Counselor).filter_by(id=session.user.id).first()
+            this_week = dates_of_current_week()
+            recent_entries = [entry for entry in counselor.schedule_entries if entry.period.date in this_week]
+            return render.conductcounseling(session.user, counselor, recent_entries)
         
 if __name__ == '__main__':
     app.run()
