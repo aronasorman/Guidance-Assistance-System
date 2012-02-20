@@ -48,7 +48,8 @@ class Period(Base):
     __tablename__ = 'periods'
 
     id = Column(Integer, primary_key=True)
-    datetime = Column(DateTime, nullable=False)
+    num = Column(Integer, nullable=False)
+    date = Column(Date, nullable=False)
 
 class ScheduleEntry(Base):
     __tablename__ = 'schedule_entries'

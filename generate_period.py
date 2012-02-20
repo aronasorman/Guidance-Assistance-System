@@ -10,13 +10,7 @@ from model import *
 from datetime import date, time, datetime, timedelta
 from config import *
 
-PERIOD_LENGTH = 15 # minutes
-
-START_TIME_HOUR = 7
-START_TIME_MINUTE = 30
-
-END_TIME_HOUR = 17 # military time, bitches!
-END_TIME_MINUTE = 30
+NUM_OF_PERIODS=9
 
 def dates_of_current_week():
     today = date.today()
@@ -24,23 +18,12 @@ def dates_of_current_week():
     dates = [today - timedelta(day_of_week - x) for x in range(7)]
     return dates
 
-def generate_timeslots():
-    timeslots = []
-    today = date.today() # dummy date data used for turning time to datetime
-    start_timeslot = datetime.combine(today, time(START_TIME_HOUR, START_TIME_MINUTE)) # we coerce to datetime so that we can use timedelta arithmetic
-    end_timeslot = datetime.combine(today, time(END_TIME_HOUR, END_TIME_MINUTE))
-    current_timeslot = start_timeslot
-    while current_timeslot <= end_timeslot:
-        timeslots.append(current_timeslot.time()) # we bring back the datetime to time here
-        current_timeslot = current_timeslot + timedelta(minutes=PERIOD_LENGTH)
-    return timeslots
-
 def generate_periods():
-    return [datetime.combine(date,time) for date in dates_of_current_week() for time in generate_timeslots()]
+    return [Period(num=num,date=date) for date in dates_of_current_week() for num in range(NUM_OF_PERIODS)]
 
 def create_periods():
     periods = generate_periods()
-    period_entities = [Period(datetime=period) for period in periods]
+    period_entities = generate_periods()
     session = Session()
     session.add_all(period_entities)
     session.commit()
