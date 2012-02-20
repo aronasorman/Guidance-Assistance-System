@@ -8,6 +8,7 @@ import web
 from web import form
 from hashlib import sha256
 
+from config import *
 from model import *
 from utils import to_date
 
@@ -15,17 +16,25 @@ urls = (
     '/', 'login'
     , '/create-account', 'accountcreation'
     , '/main', 'mainpage'
-    , 'conductcounseling', 'conductcounseling'
+    , '/logout', 'logout'
+    , '/conductcounseling', 'conductcounseling'
     )
 
 app =  web.application(urls, globals())
 render = web.template.render('templates/')
+
+DBSession = Session
 
 if web.config.get('_session') is None:
     session = web.session.Session(app, web.session.DiskStore('sessions'), initializer={'user': None})
     web.config._session = session
 else:
     session = web.config._session
+
+class logout:
+    def GET(self):
+        session.kill()
+        web.seeother('/')
 
 class login:
     '''
