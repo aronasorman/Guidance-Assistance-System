@@ -53,7 +53,10 @@ def scheduled_student():
     period=session.query(Period).first()
     , counselor=session.query(Counselor).filter(Counselor.id==90275).first()
     , student=student
+    , type=session.query(InterviewType).filter_by(name='Routine Interview').first()
         )
+
+    import pdb; pdb.set_trace()
 
     session.add(student)
     session.add(sched)

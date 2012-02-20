@@ -18,6 +18,15 @@ def init_sections():
     session.add_all(sections)
     session.commit()
 
+def init_interview_types():
+    session = Session()
+    session.add_all([
+        InterviewType(name='Followup Interview')
+        , InterviewType(name='Routine Interview')
+        , InterviewType(name='Other')
+        ])
+    session.commit()
+
 def init_parent_status():
     session = Session()
     session.add_all([
@@ -85,6 +94,7 @@ def init_subjects():
 def db_init():
     Base.metadata.create_all(engine)
     init_sections()
+    init_interview_types()
     init_parent_status()
     init_single_parent()
     init_living_with()
