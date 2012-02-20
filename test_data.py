@@ -30,7 +30,7 @@ def scheduled_student():
     # sqlalchemy missing the attribute values
     session = Session()
     student = Student(
-        id=91635
+    id=91635
     , section=session.query(Section).filter(Section.year==1).filter(Section.name=='b').first()
     , name='April Ann E. Canlas'
     , nickname='The Chosen One'
@@ -61,6 +61,6 @@ def scheduled_student():
     
 
 if __name__ == '__main__':
-    Base.metadata.create_all(engine)
+    #Base.metadata.create_all(engine)
     test_counselor()
     scheduled_student()
