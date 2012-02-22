@@ -11,7 +11,7 @@ from hashlib import sha256
 from config import *
 from generate_period import dates_of_current_week
 from model import *
-from utils import to_date
+from utils import to_date, iso_to_date
 
 urls = (
     '/', 'login'
@@ -19,6 +19,7 @@ urls = (
     , '/main', 'mainpage'
     , '/logout', 'logout'
     , '/conductcounseling', 'conductcounseling'
+    , '/create_routine', 'create_routine'
     )
 
 app =  web.application(urls, globals())
@@ -107,7 +108,47 @@ class accountcreation:
         db_session.commit()
 
         return "success!"
+
+class create_routine:
+
+    def GET(self):
+        return render.create_routine()
+
+    def POST(self):
+        data = web.input()
+        db_session = DBSession()
         
+        id = int(data['id'])
+        date = iso_to_date(data['date'])
+        num = int(data['num'])
+        student = db_session.query(Student).filter_by(id=id).first()
+        period = db_session.query(Period).filter_by(date=date, num=num).first()
+        counselor = db_session.query(Counselor).filter_by(id=session.user.id).first()
+        type = db_session.query(InterviewType).filter_by(name='Routine Interview').first()
+
+        interview = Interview()
+        interview.type = type
+        interview.counselor = counselor
+        interview.period = period
+        interview.student = student
+
+        routine = RoutineInterview()
+        routine.general_mental_ability = data['gen_ability']
+        routine.academic_history = data['academic_history']
+        routine.family_relationship = data['family']
+        routine.personal_emotional = data['personal']
+        routine.peer_relationship = data['peer']
+        routine.goals = data['goals']
+        routine.recommendation = data['recommendation']
+
+        db_session.add(interview)
+        db_session.commit()
+        db_session.add(routine)
+        routine.id = interview.id
+        db_session.commit()
+        return 'Success!'
+        
+    
 class conductcounseling:
     '''
     Handler for the conduct counseling page

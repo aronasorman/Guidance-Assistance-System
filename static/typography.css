@@ -83,6 +83,10 @@ font-weight: bold;
 color: red;
 }
 
+#viewstudent span a{
+color: red;
+}
+
 /*query
 ***************/
 #query{

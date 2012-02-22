@@ -74,9 +74,9 @@ class Interview(Base):
     __tablename__ = 'interviews'
 
     id = Column(Integer, primary_key=True)
-    period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True)
-    student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)
-    counselor_id = Column(Integer, ForeignKey('counselors.id'), primary_key=True)
+    period_id = Column(Integer, ForeignKey('periods.id'))
+    student_id = Column(Integer, ForeignKey('students.id'))
+    counselor_id = Column(Integer, ForeignKey('counselors.id'))
     type_id = Column(Integer, ForeignKey('interview_types.id'))
 
     type = relationship('InterviewType')
@@ -92,6 +92,8 @@ class FollowupInterview(Base):
     comments = Column(Text)
     planned_intervention = Column(Text)
 
+    interview = relationship('Interview')
+
 class RoutineInterview(Base):
     __tablename__ = 'routine_interviews'
 
@@ -103,6 +105,8 @@ class RoutineInterview(Base):
     peer_relationship = Column(Text)
     goals = Column(Text)
     recommendation = Column(Text)
+
+    interview = relationship('Interview')
 
 # association for student class to favorite subjects
 student_favorite_subjects = Table('favorite_subjects', Base.metadata
