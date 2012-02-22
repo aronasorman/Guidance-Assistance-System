@@ -56,6 +56,8 @@ def scheduled_student():
     , type=session.query(InterviewType).filter_by(name='Routine Interview').first()
         )
 
+    import pdb; pdb.set_trace()
+
     session.add(student)
     session.add(sched)
     session.commit()
