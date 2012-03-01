@@ -32,7 +32,9 @@ def scheduled_student():
     student = Student(
     id=91635
     , section=session.query(Section).filter(Section.year==1).filter(Section.name=='b').first()
-    , name='April Ann E. Canlas'
+    , first_name='April Ann'
+    , last_name='Canlas'
+    , middle_name='Encinas'
     , nickname='The Chosen One'
     , address='Binondo,  Manila'
     , telno='xxx'

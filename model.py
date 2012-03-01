@@ -126,7 +126,9 @@ class Student(Base):
 
     id = Column(Integer, primary_key=True)
     picture = Column(LargeBinary)
-    name = Column(String(40), nullable=False)
+    first_name = Column(String(40), nullable=False)
+    last_name = Column(String(40), nullable=False)
+    middle_name = Column(String(40), nullable=False)
     section_id = Column(Integer, ForeignKey('sections.id'))
     section = relationship('Section', backref=backref('students'))
     nickname = Column(String(20))

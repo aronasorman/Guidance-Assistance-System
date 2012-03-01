@@ -14,6 +14,7 @@ Dependencies:
 2. Web.py
 3. MySql (for production, but SQLite up until the first prototype)
 4. SQLAlchemy (for hardcore database action!)
+5. xlrd (for reading xls files)
 
 Notes:
 
