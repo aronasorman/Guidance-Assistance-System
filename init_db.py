@@ -14,7 +14,7 @@ def init_dummy_user():
 
 def init_sections():
     session = Session()
-    sections = [ Section(year=year,name=name) for year in range(1,5) for name in "abcdefghijklmn"]
+    sections = [ Section(year=year,name=name) for year in range(1,5) for name in "abcdefghijklmn".upper()]
     session.add_all(sections)
     session.commit()
 
