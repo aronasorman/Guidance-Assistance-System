@@ -30,7 +30,7 @@ def init_interview_types():
 def init_parent_status():
     session = Session()
     session.add_all([
-        ParentStatus("Living Together")
+        ParentStatus("Together")
         , ParentStatus('Separated')
         , ParentStatus('Remarried')
         , ParentStatus('Deceased - Mother')
