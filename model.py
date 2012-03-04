@@ -121,6 +121,10 @@ student_tutored_subjects = Table('tutored_subjects', Base.metadata
                               , Column('student_id', Integer, ForeignKey('students.id'))
                               , Column('subject_id', Integer, ForeignKey('subjects.id')))
 
+grade_school_alumni = Table('grade_school_alumni', Base.metadata
+                              , Column('student_id', Integer, ForeignKey('students.id'))
+                              , Column('grade_school_id', Integer, ForeignKey('grade_schools.id')))
+
 class Student(Base):
     __tablename__ = 'students'
 
@@ -160,7 +164,7 @@ class Student(Base):
     # ask if clubs or organizations is fixed
     work_experience = Column(Text)
     interests = Column(Text)
-    grade_schools = relationship('GradeSchoolAlumni')
+    grade_schools = relationship('GradeSchool', secondary=grade_school_alumni,backref='students')
     siblings = relationship('Sibling', backref='student')
 
 class Sibling(Base):
@@ -191,15 +195,6 @@ class GradeSchool(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(60))
-
-class GradeSchoolAlumni(Base):
-    __tablename__ = 'grade_school_alumni'
-
-    student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)
-    grade_school_id = Column(Integer, ForeignKey('grade_schools.id'), primary_key=True)
-    years_attended = Column(Integer, nullable=False)
-    
-    grade_school = relationship('GradeSchool')
     
 class StudyPartner(Base):
     __tablename__ = 'student_study_partners'
