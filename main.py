@@ -74,7 +74,7 @@ class viewstudent:
             handled_section_ids = db_session.query(Section.id).filter_by(counselor_id = counselor.id)
             students = db_session.query(Student).filter(Student.section_id.in_(handled_section_ids)).join(Student.section)
             if 'letter' in data:
-                students = students.filter(Section.name == data['letter'])
+                students = students.filter(Student.last_name.like(data['letter'] + '%'))
             elif 'year' in data:
                 students = students.filter(Section.year == int(data['year']))
             elif 'section' in data:
