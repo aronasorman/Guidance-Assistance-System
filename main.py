@@ -11,6 +11,7 @@ from hashlib import sha256
 from config import *
 from generate_period import dates_of_current_week
 from model import *
+from sqlalchemy.orm import subqueryload
 from utils import to_date, iso_to_date
 
 urls = (
@@ -21,6 +22,7 @@ urls = (
     , '/conductcounseling', 'conductcounseling'
     , '/create_routine', 'create_routine'
     , '/assigncounselor', 'assigncounselor'
+    , '/viewstudent', 'viewstudent'
     )
 
 app =  web.application(urls, globals())
@@ -46,7 +48,7 @@ class assigncounselor:
         else:
             db_session = DBSession()
             counselors = db_session.query(Counselor).order_by(Counselor.id).all()
-            sections = db_session.query(Section).order_by(Section.id).all()
+            sections = db_session.query(Section).filter_by(counselor_id=None).order_by(Section.id).all()
             return render.assigncounselor(counselors, sections, str)
 
     def POST(self):
@@ -60,6 +62,24 @@ class assigncounselor:
         db_session.add(counselor)
         db_session.commit()
         return 'success!'
+
+class viewstudent:
+    def GET(self):
+        if session.user is None:
+            web.seeother('/')
+        else:
+            db_session = DBSession()
+            data = web.input()
+            counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
+            handled_section_ids = db_session.query(Section.id).filter_by(counselor_id = counselor.id)
+            students = db_session.query(Student).filter(Student.section_id.in_(handled_section_ids)).join(Student.section)
+            if 'letter' in data:
+                students = students.filter(Section.name == data['letter'])
+            elif 'year' in data:
+                students = students.filter(Section.year == int(data['year']))
+            elif 'section' in data:
+                students = students.filter(Section.year == int(data['section'][0]), Section.name == data['section'][1])
+            return render.viewstudent(students.all(), str)
 
 class login:
     '''

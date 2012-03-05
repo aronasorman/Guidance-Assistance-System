@@ -1,12 +1,13 @@
+$def with (students, str)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
-		<link rel="stylesheet" type= "text/css" href="mainstyle.css"/>
-		<link rel="stylesheet" type= "text/css" href="typography.css"/>
+		<link rel="stylesheet" type= "text/css" href="static/mainstyle.css"/>
+		<link rel="stylesheet" type= "text/css" href="static/typography.css"/>
 		<title>Ateneo High School Guidance Office</title>
-		<script type="text/javascript" src="before.js"></script>
+		<script type="text/javascript" src="static/before.js"></script>
 </head>
 
 <body>
@@ -21,10 +22,10 @@
 	
 	<div id= "nav">
 		<ul>
-			<li><a href="mainpage.html">home</a></li>
+			<li><a href="/">home</a></li>
 			<li><a href="#">faqs</a></li>
 			<li><a href="#">about us</a></li>
-			<li><a href="#">log-out</a></li>
+			<li><a href="/logout">log-out</a></li>
 			<li><a href="#">
 				<input type="text" size="20" name="text1" value="type here">
 				<input type="button" name="search" value="search">
@@ -37,12 +38,12 @@
 	
 		<div id= "sidebar">
 			<ul>
-				<li><a href="changepass.html" title="password must be atleast 7 characters long">Change password</a></li>
-				<li><a href="viewcounselor.html" title="">View counselor accounts</a></li>
-				<li><a href="viewstudent.html" title="">View student profiles</a></li>
-				<li><a href="assigncounselor.html" title="assign counselors to respective students/sections">Assign counselor</a></li>
-				<li><a href="editweekly.html" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
-				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</</			</ul>	
+				<li><a href="changepass" title="password must be atleast 7 characters long">Change password</a></li>
+				<li><a href="viewcounselor" title="">View counselor accounts</a></li>
+				<li><a href="viewstudent" title="">View student profiles</a></li>
+				<li><a href="assigncounselor" title="assign counselors to respective students/sections">Assign counselor</a></li>
+				<li><a href="editweekly" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
+				<li><a href="conductcounseling" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</</			</ul>	
 			
 		<br style="clear:both" /> 
 		</div>
@@ -94,12 +95,8 @@
 					<td class="label">Name:</td>
 					<td>
 						<ul>
-							<li><a href="#">A</a></li>
-							<li><a href="#">B</a></li>
-							<li><a href="#">C</a></li>
-							<li><a href="#">D</a></li>
-							<li><a href="#">E</a></li>
-							<li>...</li>
+						  $for letter in 'abcdefghijklmnopqrstuvwxyz'.upper():
+							<li><a href="viewstudent?letter=$letter">$letter</a></li>
 						</ul>
 					</td>
 				</tr>
@@ -108,27 +105,8 @@
 					<td class="label">Year:</td>
 					<td>
 						<ul>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-						</ul>
-					</td>
-				</tr>
-
-				<tr>
-					<td class="label">Page:</td>
-					<td>
-						<ul>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">6</a></li>
-							<li><a href="#">7</a></li>
-							<li><a href="#">8</a></li>
-							<li>...</li>
+						  $for year in '1234':
+							<li><a href="viewstudent?year=$year">$year</a></li>
 						</ul>
 					</td>
 				</tr>
@@ -141,82 +119,23 @@
 			
 			<table>
 				<tr id="thead">
-					<td></td>
 					<td>Name</td>
 					<td>Year/Section</td>
 					<td>ID No.</td>
 					<td>Counselor</td>
 					
 				</tr>
+				$for student in students:
 				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td><a href="counseloraccount.html">Juan Dela Cruz</a></td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td><a href="counseloraccount.html">Juan Dela Cruz</a></td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td><a href="counseloraccount.html">Juan Dela Cruz</a></td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td><a href="counseloraccount.html">Juan Dela Cruz</a></td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td><a href="counseloraccount.html">Juan Dela Cruz</a></td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td><a href="counseloraccount.html">Juan Dela Cruz</a></td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td><a href="counseloraccount.html">Juan Dela Cruz</a></td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td><a href="counseloraccount.html">Juan Dela Cruz</a></td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td><a href="counseloraccount.html">Juan Dela Cruz</a></td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td><a href="counseloraccount.html">Juan Dela Cruz</a></td>
+				  $ name = ' '.join([student.first_name, student.last_name])
+				  $ section = str(student.section.year) + student.section.name
+				  $ counselor_name = student.section.counselor.user.name if student.section.counselor else ''
+				  $ counselor_id = student.section.counselor.id if student.section.counselor else ''
+				  $ student_id = student.id
+				  <td><a href="studentprofile?id=$student_id">$name</a></td>
+				  <td><a href="viewstudent?section=$section">$section</a></td>
+				  <td>$student.id</td>
+				  <td><a href="counseloraccount?id=$counselor_id">$counselor_name</a></td>
 				</tr>
 			</table>
 			</div>
@@ -245,5 +164,5 @@
 </form>
 </body>
 	<!--placed this script here so it can reference the elements in the html without calling a function-->
-	<script type="text/javascript" src="after.js"></script>
+	<script type="text/javascript" src="static/after.js"></script>
 </html>
