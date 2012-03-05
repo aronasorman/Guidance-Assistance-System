@@ -20,6 +20,7 @@ urls = (
     , '/logout', 'logout'
     , '/conductcounseling', 'conductcounseling'
     , '/create_routine', 'create_routine'
+    , '/assigncounselor', 'assigncounselor'
     )
 
 app =  web.application(urls, globals())
@@ -37,6 +38,28 @@ class logout:
     def GET(self):
         session.kill()
         web.seeother('/')
+
+class assigncounselor:
+    def GET(self):
+        if session.user is None:
+            web.seeother('/')
+        else:
+            db_session = DBSession()
+            counselors = db_session.query(Counselor).order_by(Counselor.id).all()
+            sections = db_session.query(Section).order_by(Section.id).all()
+            return render.assigncounselor(counselors, sections, str)
+
+    def POST(self):
+        data = web.input(selected_drop=[]) # we put a default value so that web.py puts the multivalued select fields into a list, and not simply give the last item
+        id = int(data['counselor_chosen'])
+        db_session = DBSession()
+        counselor = db_session.query(Counselor).filter_by(id = id).one()
+        all_sections = db_session.query(Section)
+        chosen_sections = [section for section in all_sections if str(section.year) + section.name in data['selected_drop']]
+        counselor.sections = chosen_sections
+        db_session.add(counselor)
+        db_session.commit()
+        return 'success!'
 
 class login:
     '''

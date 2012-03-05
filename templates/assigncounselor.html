@@ -1,11 +1,14 @@
+$def with (counselors, sections, str)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
-		<link rel="stylesheet" type= "text/css" href="mainstyle.css"/>
-		<link rel="stylesheet" type= "text/css" href="typography.css"/>
-		<script type="text/javascript" src="before.js"></script>
+		<link rel="stylesheet" type= "text/css" href="static/mainstyle.css"/>
+		<link rel="stylesheet" type= "text/css" href="static/typography.css"/>
+		<script type="text/javascript" src="static/before.js"></script>
+		<script type="text/javascript" src="static/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="static/assigncounselor.js"></script>
 		<title>Ateneo High School Guidance Office</title>
 </head>
 
@@ -32,7 +35,7 @@
 			
 		</ul>
 	</div>
-	
+      </form>	
 	<div id="center">
 	
 		<div id= "sidebar">
@@ -40,9 +43,9 @@
 				<li><a href="changepass.html" title="password must be atleast 7 characters long">Change password</a></li>
 				<li><a href="viewcounselor.html" title="">View counselor accounts</a></li>
 				<li><a href="viewstudent.html" title="">View student profiles</a></li>
-				<li><a href="assigncounselor.html" title="assign counselors to respective students/sections">Assign counselor</a></li>
+				<li><a href="assigncounselor" title="assign counselors to respective students/sections">Assign counselor</a></li>
 				<li><a href="editweekly.html" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
-				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</				</ul>	
+				<li><a href="conductcounseling" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</				</ul>	
 			
 			<br style="clear:both" /> 
 		</div>
@@ -64,9 +67,9 @@
 		<!--edit title of page here-->	
 			
 			<div id="title">
-				<a href="mainpage.html">Home </a>
+				<a href="mainpage">Home </a>
 				<span id="arrow"> > </span>
-				<a href="assigncounselor.html"> Assign Counselors</a>
+				<a href="assigncounselor"> Assign Counselors</a>
 				<br/>
 				<span id="counselor">Juan Dela Cruz</span>
 			</div>
@@ -75,16 +78,14 @@
 			
 		<!-- the only area you can edit-->
 			<div id="assign">
+			  <form method="POST" id="tanginanyonglahat">
 			<table>
 				<tr>
 					<td colspan="3">
-							Choose Counserlor:
-							<select id="who" onchange="change()">
-								<option value="1">Juan Dela Cruz</option>
-								<option value="2">April Canlas</option>
-								<option value="3">Aron Asor</option>	
-								<option value="4">Anna Uy</option>
-								<option value="5">Ferdie Verayo</option>
+							Choose Counselor:
+							<select id="who" onchange="change()" name="counselor_chosen">
+							  $for counselor in counselors:
+							    <option value="$counselor.id">$counselor.user.name</option>
 							</select>
 					</td>
 				</tr>
@@ -92,55 +93,22 @@
 				<tr>
 					<td>
 						
-						<select name="drop1" id="drop1" size="20" multiple="multiple">
-							<option value="1">1A</option>
-  							<option value="2">1B</option>
-							<option value="3">1C</option>
-							<option value="4">1D</option>
-							<option value="5">1E</option>
-							<option value="6">1F</option>
-  							<option value="7">1G</option>
-							<option value="8">1H</option>
-							<option value="9">1I</option>
-							<option value="10">1J</option>
-							<option value="11">2A</option>
-  							<option value="12">2B</option>
-							<option value="13">2C</option>
-							<option value="14">2D</option>
-							<option value="15">2E</option>
-							<option value="16">2F</option>
-			  				<option value="17">2G</option>	
-							<option value="18">2H</option>
-							<option value="19">2I</option>
-							<option value="20">2J</option>
-							<option value="21">3A</option>
-  							<option value="22">3B</option>
-							<option value="23">3C</option>
-							<option value="24">3D</option>
-							<option value="25">3E</option>	
-							<option value="26">3F</option>
-  							<option value="27">3G</option>
-							<option value="28">3H</option>
-							<option value="29">3I</option>
-							<option value="30">3J</option>
+						<select name="section_drop" id="section_drop" size="20" multiple="multiple">
+						  $for section in sections:
+						    $ section_name = str(section.year) + section.name
+							<option value="$section_name">$section_name</option>
 						</select>
 
 					</td>
 					
 					<td>
 					
-						<li><input type="button" value=">>" name=">>" id=">>"></li>
-						<li><input type="button" value="<<" name="<<" id="<<"></li>
+						<li><input type="button" value=">>" name="add" id="add"></li>
+						<li><input type="button" value="<<" name="remove" id="remove"></li>
 					</td>
 					
 					<td>				
-						<select name="drop2" id="drop2"	size="20" multiple="multiple">
-							<option value="1">1A</option>
-  							<option value="2">1B</option>
-							<option value="3">1C</option>
-							<option value="4">1D</option>
-							<option value="5">1E</option>
-							<option value="6">1F</option>
+						<select name="selected_drop" id="selected_drop"	size="20" multiple="multiple" value="asa">
 						</select>
 					</td>
 				</tr>
@@ -150,6 +118,7 @@
 				</tr>
 
 			</table>
+		      </form>
 			</div>
 			
 			
@@ -174,10 +143,8 @@
 	</div>
 	
 </div>	
-
-</form>
 </body>
 	<!--placed this script here so it can reference the elements in the html without calling a function-->
-	<script type="text/javascript" src="after.js"></script>
+	<script type="text/javascript" src="static/after.js"></script>
 
 </html>

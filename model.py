@@ -27,6 +27,7 @@ class Counselor(Base):
     celno = Column(String(20))
     email = Column(String(40))
     is_head_counselor = Column(Boolean, nullable=False)
+    user = relationship('User')
     
 class Position(Base):
     __tablename__ = 'position'
