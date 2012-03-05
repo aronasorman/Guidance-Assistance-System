@@ -31,7 +31,7 @@ def scheduled_student():
     session = Session()
     student = Student(
     id=91635
-    , section=session.query(Section).filter(Section.year==1).filter(Section.name=='b').first()
+    , section=session.query(Section).filter(Section.year==1).filter(Section.name=='B').first()
     , first_name='April Ann'
     , last_name='Canlas'
     , middle_name='Encinas'
