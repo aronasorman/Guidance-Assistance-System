@@ -17,6 +17,7 @@ def unicode_dict_reader(unicode_csv_data, **kwargs):
 def parse_date(datestr):
     date_split = datestr.split('/') 
     month, day, year = [int(x) for x in date_split]
+    year += 1900 if year > 50 else 2000 # we assume that all people born by this time are born within the previous or current century
     return date(year, month, day)
 
 def import_csv(fname):
