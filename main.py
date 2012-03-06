@@ -23,6 +23,7 @@ urls = (
     , '/create_routine', 'create_routine'
     , '/assigncounselor', 'assigncounselor'
     , '/viewstudent', 'viewstudent'
+    , '/studentprofile', 'studentprofile'
     )
 
 app =  web.application(urls, globals())
@@ -80,6 +81,16 @@ class viewstudent:
             elif 'section' in data:
                 students = students.filter(Section.year == int(data['section'][0]), Section.name == data['section'][1])
             return render.viewstudent(students.all(), str)
+
+class studentprofile:
+    def GET(self):
+        if session.user is None:
+            web.seeother('/')
+        else:
+            data = web.input()
+            id = int(data['id'])
+            student = DBSession().query(Student).filter_by(id = id).one()
+            return render.studentprofile(student)
 
 class login:
     '''
