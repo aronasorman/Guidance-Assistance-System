@@ -155,7 +155,8 @@ $def with (user, counselor, this_week_schedule)
 				    $ id=entry.student.id
 				    $ date=entry.period.date.isoformat()
 				    $ num=entry.period.num
-				    <a href="/create_routine?id=$id&amp;date=$date&amp;num=$num">$entry.student.name</a><br/>
+				    $ name = ' '.join([entry.student.first_name, entry.student.middle_name, entry.student.last_name])
+				    <a href="/create_routine?id=$id&amp;date=$date&amp;num=$num">$name</a><br/>
 				    $entry.type.name
 
 				  <br/>
