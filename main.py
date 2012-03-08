@@ -11,8 +11,9 @@ from hashlib import sha256
 from config import *
 from generate_period import dates_of_current_week
 from model import *
+from sqlalchemy import or_
 from sqlalchemy.orm import subqueryload
-from utils import to_date, iso_to_date
+from utils import to_date, iso_to_date, partition
 
 urls = (
     '/', 'login'
@@ -24,6 +25,7 @@ urls = (
     , '/assigncounselor', 'assigncounselor'
     , '/viewstudent', 'viewstudent'
     , '/studentprofile', 'studentprofile'
+    , '/editweekly', 'editweekly'
     )
 
 app =  web.application(urls, globals())
@@ -63,6 +65,21 @@ class assigncounselor:
         db_session.add(counselor)
         db_session.commit()
         return 'success!'
+
+class editweekly:
+    period_labels = ['1st period', '2nd period', '3rd period', '4th period',
+                     '5th period (1)', '5th period (2)', '6th period', '7th period', '8th period']
+    def GET(self):
+        if session.user is None:
+            web.seeother('/')
+        else:
+            dates_this_week = dates_of_current_week()
+            periods_of_counselor = DBSession().query(Period).outerjoin(Period.entries).\
+                                   filter(Period.date.in_(dates_this_week)).\
+                                   filter(or_(Period.entries.any(counselor_id = session.user.id), Period.entries == None)).\
+                                   order_by(Period.num, Period.date)
+            periods_partitioned = partition(periods_of_counselor, lambda p: p.num)
+            return render.editweekly(periods_partitioned, self.period_labels)
 
 class viewstudent:
     def GET(self):

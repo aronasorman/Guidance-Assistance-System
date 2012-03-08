@@ -1,11 +1,12 @@
+$def with (periods_partitioned, period_labels)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
-		<link rel="stylesheet" type= "text/css" href="mainstyle.css"/>
-		<link rel="stylesheet" type= "text/css" href="typography.css"/>
-		<script type="text/javascript" src="before.js"></script>
+		<link rel="stylesheet" type= "text/css" href="static/mainstyle.css"/>
+		<link rel="stylesheet" type= "text/css" href="static/typography.css"/>
+		<script type="text/javascript" src="static/before.js"></script>
 		<title>Ateneo High School Guidance Office</title>
 
 </head>
@@ -22,7 +23,7 @@
 	
 	<div id= "nav">
 		<ul>
-			<li><a href="mainpage.html">home</a></li>
+			<li><a href="main">home</a></li>
 			<li><a href="#">faqs</a></li>
 			<li><a href="#">about us</a></li>
 			<li><a href="#">log-out</a></li>
@@ -38,12 +39,12 @@
 	
 		<div id= "sidebar">
 			<ul>
-				<li><a href="changepass.html" title="password must be atleast 7 characters long">Change password</a></li>
-				<li><a href="viewcounselor.html" title="">View counselor accounts</a></li>
-				<li><a href="viewstudent.html" title="">View student profiles</a></li>
-				<li><a href="assigncounselor.html" title="assign counselors to respective students/sections">Assign counselor</a></li>
-				<li><a href="editweekly.html" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
-				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>
+				<li><a href="changepass" title="password must be atleast 7 characters long">Change password</a></li>
+				<li><a href="viewcounselor" title="">View counselor accounts</a></li>
+				<li><a href="viewstudent" title="">View student profiles</a></li>
+				<li><a href="assigncounselor" title="assign counselors to respective students/sections">Assign counselor</a></li>
+				<li><a href="editweekly" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
+				<li><a href="conductcounseling" title="assign counselors to respective students/sections">Conduct counseling</a></li>
 			</ul>	
 			
 		<br style="clear:both" /> 
@@ -65,9 +66,9 @@
 		<!--edit title of page here-->	
 			
 			<div id="title">
-				<a href="mainpage.html">Home </a>
+				<a href="mainpage">Home </a>
 				<span id="arrow"> > </span>
-				<a href="editweekly.html"> Edit Weekly Plan</a>
+				<a href="editweekly"> Edit Weekly Plan</a>
 			</div>
 			
 			
@@ -145,270 +146,32 @@
 				</div>
 				
 				<div id="sched">
-					<table>
-						<tr id="headname">
-							<td>Time</td>
-							<td>Monday</td>
-							<td>Tuesday</td>
-							<td>Wednesday</td>
-							<td>Thursday</td>
-							<td>Friday</td>
-						</tr>
-						<tr>
-							<td>
-								7:45-8:00am<br/>
-								MIP, Flag Ceremony,<br/>
-								Reflection Period
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-						</tr>
-						
-						
-						<tr>
-							<td>
-								8:05-8:55<br/>
-								1st Period<br/>
-								
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								9:00-9:50<br/>
-								2nd Period<br/>
-								
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								9:50-10:20<br/>
-								recess<br/>
-								
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								10:20-11:10<br/>
-								3rd Period<br/>
-								
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								11:15-12:05<br/>
-								4th Period<br/>
-								
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								12:10-1:00<br/>
-								5th Period(1st)<br/>
-								
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								1:05-1:55<br/>
-								5th Period(2nd)<br/>
-								
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								2:00-2:50<br/>
-								6th Period<br/>
-								
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								2:55-3:45<br/>
-								7th Period<br/>
-								
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								3:50 onwards<br/>
-								Dismissal<br/>
-								
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-							<td>
-								<input type="button" value="Choose Student">
-							</td>
-						</tr>
-						
-					</table>
+				  <table>
+					<tr id="headname">
+					  <td>Time</td>
+					  <td>Monday</td>
+					  <td>Tuesday</td>
+					  <td>Wednesday</td>
+					  <td>Thursday</td>
+					  <td>Friday</td>
+					</tr>
+					  $for i, numlist in enumerate(periods_partitioned):
+					    <tr>
+					      <td>$period_labels[i]</td>
+					    $for period in numlist:
+						  $if period.entries:
+						    $ entry = period.entries[0]
+						    $ student = entry.student
+						    $ full_name = ' '.join([student.first_name, student.middle_name, student.last_name])
+					            <td>
+						    <a href="studentprofile?id=$student.id">$full_name</a>
+						    </td>
+						  $else:
+						    <td>
+						    <a href='#'>Add student</a>
+						    </td>
+					    </tr>
+				  </table>
 				</div>
 				
 				<div id="summary">
@@ -485,5 +248,5 @@
 </form>
 </body>
 	<!--placed this script here so it can reference the elements in the html without calling a function-->
-	<script type="text/javascript" src="after.js"></script>
+	<script type="text/javascript" src="static/after.js"></script>
 </html>
