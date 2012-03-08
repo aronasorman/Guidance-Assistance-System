@@ -26,6 +26,8 @@ urls = (
     , '/viewstudent', 'viewstudent'
     , '/studentprofile', 'studentprofile'
     , '/editweekly', 'editweekly'
+    , '/deletefromweekly', 'deletefromweekly'
+    , '/choosing', 'choosing'
     )
 
 app =  web.application(urls, globals())
@@ -80,6 +82,56 @@ class editweekly:
                                    order_by(Period.num, Period.date)
             periods_partitioned = partition(periods_of_counselor, lambda p: p.num)
             return render.editweekly(periods_partitioned, self.period_labels)
+
+class deletefromweekly:
+    def GET(self):
+        if session.user is None:
+            web.seeother('/')
+        else:
+            data = web.input()
+            try:
+                date = iso_to_date(data['date'])
+                num = int(data['num'])
+            except ValueError:
+                return 'Naughty. Try entering a legal number, please.'
+
+            db_session = DBSession()
+            entry = db_session.query(ScheduleEntry).join(Period).\
+                    filter(Period.num == num, Period.date == date).\
+                    filter(ScheduleEntry.counselor_id == session.user.id).first()
+            if entry:
+                db_session.delete(entry)
+                db_session.commit()
+                web.seeother('/editweekly')
+            else:
+                return 'No permission to delete student, or no such date/period.'
+
+class choosing:
+    def GET(self):
+        if session.user is None:
+            web.seeother('/')
+        else:
+            data = web.input()
+            db_session = DBSession()
+            try:
+                date = iso_to_date(data['date'])
+                num = int(data['num'])
+            except ValueError:
+                return 'stop tampering with my GET parameters!'
+
+            period = db_session.query(Period).filter_by(date = date, num = num).one()
+            counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
+            handled_section_ids = db_session.query(Section.id).filter_by(counselor_id = counselor.id)
+            students = db_session.query(Student).filter(Student.section_id.in_(handled_section_ids)).join(Student.section)
+            interview_types = db_session.query(InterviewType)
+            if 'letter' in data:
+                students = students.filter(Student.last_name.like(data['letter'] + '%'))
+            elif 'year' in data:
+                students = students.filter(Section.year == int(data['year']))
+            elif 'section' in data:
+                students = students.filter(Section.year == int(data['section'][0]), Section.name == data['section'][1])
+
+            return render.choosing(students, date.isoformat(), num, interview_types, str)
 
 class viewstudent:
     def GET(self):

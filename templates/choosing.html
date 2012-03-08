@@ -1,12 +1,13 @@
+$def with (students, period_date, period_num, interview_types, str)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
-		<link rel="stylesheet" type= "text/css" href="script/mainstyle.css"/>
-		<link rel="stylesheet" type= "text/css" href="script/typography.css"/>
+		<link rel="stylesheet" type= "text/css" href="static/mainstyle.css"/>
+		<link rel="stylesheet" type= "text/css" href="static/typography.css"/>
 		<title>Ateneo High School Guidance Office</title>
-		<script type="text/javascript" src="script/before.js"></script>
+		<script type="text/javascript" src="static/before.js"></script>
 </head>
 
 <body>
@@ -21,10 +22,10 @@
 	
 	<div id= "nav">
 		<ul>
-			<li><a href="mainpage.html">home</a></li>
+			<li><a href="main">home</a></li>
 			<li><a href="#">faqs</a></li>
 			<li><a href="#">about us</a></li>
-			<li><a href="log-in.html">log-out</a></li>
+			<li><a href="/logout">log-out</a></li>
 			<li><a href="#">
 				<input type="text" size="20" name="text1" value="type here">
 				<input type="button" name="search" value="search">
@@ -37,12 +38,12 @@
 	
 		<div id= "sidebar">
 			<ul>
-				<li><a href="changepass.html" title="password must be atleast 7 characters long">Change password</a></li>
-				<li><a href="viewcounselor.html" title="">View counselor accounts</a></li>
-				<li><a href="viewstudent.html" title="">View student profiles</a></li>
-				<li><a href="assigncounselor.html" title="assign counselors to respective students/sections">Assign counselor</a></li>
-				<li><a href="editweekly.html" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
-				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>		</ul>	
+				<li><a href="changepass" title="password must be atleast 7 characters long">Change password</a></li>
+				<li><a href="viewcounselor" title="">View counselor accounts</a></li>
+				<li><a href="viewstudent" title="">View student profiles</a></li>
+				<li><a href="assigncounselor" title="assign counselors to respective students/sections">Assign counselor</a></li>
+				<li><a href="editweekly" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
+				<li><a href="conductcounseling" title="assign counselors to respective students/sections">Conduct counseling</a></li>		</ul>	
 			
 		<br style="clear:both" /> 
 		</div>
@@ -63,9 +64,9 @@
 		<!--edit title of page here-->	
 			
 			<div id="title">
-				<a href="editweekly.html">Edit Weekly Plan </a>
+				<a href="editweekly">Edit Weekly Plan </a>
 				<span id="arrow"> > </span>
-				<a href="choosing.html"> Choose Student</a>
+				<a href="choosing"> Choose Student</a>
 			</div>
 			
 		<!-- the only area you can edit-->
@@ -93,12 +94,8 @@
 					<td class="label">Name:</td>
 					<td>
 						<ul>
-							<li><a href="#">A</a></li>
-							<li><a href="#">B</a></li>
-							<li><a href="#">C</a></li>
-							<li><a href="#">D</a></li>
-							<li><a href="#">E</a></li>
-							<li>...</li>
+							$for letter in 'abcdefghijklmnopqrstuvwxyz'.upper():
+							  <li><a href="choosing?letter=$letter&amp;date=$period_date&amp;num=$period_num">$letter</a></li>
 						</ul>
 					</td>
 				</tr>
@@ -107,31 +104,11 @@
 					<td class="label">Year:</td>
 					<td>
 						<ul>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
+						  $for year in '1234':
+							<li><a href="choosing?year=$year&amp;date=$period_date&amp;num=$period_num">$year</a></li>
 						</ul>
 					</td>
 				</tr>
-
-				<tr>
-					<td class="label">Page:</td>
-					<td>
-						<ul>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">6</a></li>
-							<li><a href="#">7</a></li>
-							<li><a href="#">8</a></li>
-							<li>...</li>
-						</ul>
-					</td>
-				</tr>
-				
 			</table>
 			
 			</div>
@@ -140,112 +117,27 @@
 			
 			<table>
 				<tr id="thead">
-					<td></td>
 					<td>Name</td>
 					<td>Year/Section</td>
 					<td>ID No.</td>
 					<td>Schedule</td>
 					
 				</tr>
+				$for student in students:
 				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><span><a href="studentprofile.html">Aron Fyodor Asor</a></span></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td>
-						<input type="button" value="Follow-up Interview" onclick="location.href='editweekly.html'"><br>
-						<input type="button" value="Routine Interview" onclick="location.href='editweekly.html'">
-					</td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td>
-						<input type="button" value="Follow-up Interview" onclick="location.href='editweekly.html'"><br>
-						<input type="button" value="Routine Interview" onclick="location.href='editweekly.html'">
-					</td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td>
-						<input type="button" value="Follow-up Interview" onclick="location.href='editweekly.html'"><br>
-						<input type="button" value="Routine Interview" onclick="location.href='editweekly.html'">
-					</td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td>
-						<input type="button" value="Follow-up Interview" onclick="location.href='editweekly.html'"><br>
-						<input type="button" value="Routine Interview" onclick="location.href='editweekly.html'">
-					</td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td>
-						<input type="button" value="Follow-up Interview" onclick="location.href='editweekly.html'"><br>
-						<input type="button" value="Routine Interview" onclick="location.href='editweekly.html'">
-					</td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td>
-						<input type="button" value="Follow-up Interview" onclick="location.href='editweekly.html'"><br>
-						<input type="button" value="Routine Interview" onclick="location.href='editweekly.html'">
-					</td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><span><a href="studentprofile.html">Aron Fyodor Asor</a></span></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td>
-						<input type="button" value="Follow-up Interview" onclick="location.href='editweekly.html'"><br>
-						<input type="button" value="Routine Interview" onclick="location.href='editweekly.html'">
-					</td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td>
-						<input type="button" value="Follow-up Interview" onclick="location.href='editweekly.html'"><br>
-						<input type="button" value="Routine Interview" onclick="location.href='editweekly.html'">
-					</td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td>
-						<input type="button" value="Follow-up Interview" onclick="location.href='editweekly.html'"><br>
-						<input type="button" value="Routine Interview" onclick="location.href='editweekly.html'">
-					</td>
-				</tr>
-				<tr>
-					<td><a href="studentprofile.html"><img src="images/picture.jpg" height="40px" width="40px"/></a></td>
-					<td><a href="studentprofile.html">Aron Fyodor Asor</a></td>
-					<td><a href="#">2A</a></td>
-					<td>093853</td>
-					<td>
-						<input type="button" value="Follow-up Interview" onclick="location.href='editweekly.html'"><br>
-						<input type="button" value="Routine Interview" onclick="location.href='editweekly.html'">
-					</td>
+				  $ name = ' '.join([student.first_name, student.last_name])
+				  $ section = str(student.section.year) + student.section.name
+				  $ counselor_name = student.section.counselor.user.name if student.section.counselor else ''
+				  $ student_id = student.id
+				  <td><a href="studentprofile?id=$student_id">$name</a></td>
+				  <td><a href="viewstudent?section=$section">$section</a></td>
+				  <td>$student.id</td>
+				  <td>
+				    $for interview_type in interview_types:
+				      <input type='button' value='$interview_type.name'
+					     onclick='location.href="assignstudent?id=$student_id&amp;date=$period_date&amp;num=$period_num"&amp;interview_type=$interview_type.id'/>
+				      <br/>
+				  </td>
 				</tr>
 			</table>
 			</div>
@@ -274,5 +166,5 @@
 </form>
 </body>
 	<!--placed this script here so it can reference the elements in the html without calling a function-->
-	<script type="text/javascript" src="script/after.js"></script>
+	<script type="text/javascript" src="static/after.js"></script>
 </html>
