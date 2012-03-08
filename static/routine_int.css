@@ -1,0 +1,35 @@
+/*routine
+***************/
+#routine, #routine a{
+font-size: 11pt;
+line-height: 18pt;
+color:#012b5d;
+}
+
+#routine a{
+text-decoration: none;
+}
+
+#routine a:hover{
+text-decoration: underline;
+}
+
+#routine li{
+list-style: none;
+padding-top: 5px;
+padding-bottom: 5px;
+}
+
+#notations{
+margin-top: 10px;
+}
+
+#routine {
+float:left;
+padding-left: 20px;
+padding-top: 20px;
+}
+
+#notations{
+width: 700px;
+}
