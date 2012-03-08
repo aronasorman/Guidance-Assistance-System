@@ -10,8 +10,6 @@ from model import *
 from datetime import date, time, datetime, timedelta
 from config import *
 
-NUM_OF_PERIODS=9
-
 def dates_of_current_week():
     today = date.today()
     day_of_week = today.weekday()
