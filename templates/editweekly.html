@@ -162,13 +162,16 @@ $def with (periods_partitioned, period_labels)
 						  $if period.entries:
 						    $ entry = period.entries[0]
 						    $ student = entry.student
-						    $ full_name = ' '.join([student.first_name, student.middle_name, student.last_name])
+						    $ full_name = ' '.join([student.first_name, student.last_name])
 					            <td>
 						    <a href="studentprofile?id=$student.id">$full_name</a>
+						    <input type='button' value='Remove Student'
+							   onclick="location.href='deletefromweekly?date=$period.date.isoformat()&amp;num=$period.num'"/>
 						    </td>
 						  $else:
 						    <td>
-						    <a href='#'>Add student</a>
+						    <input type='button' value='Choose Student'
+							   onclick="location.href='choosing?date=$period.date.isoformat()&amp;num=$period.num'"/>
 						    </td>
 					    </tr>
 				  </table>
