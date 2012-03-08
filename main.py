@@ -70,8 +70,6 @@ class assigncounselor:
         return 'success!'
 
 class editweekly:
-    period_labels = ['1st period', '2nd period', '3rd period', '4th period',
-                     '5th period (1)', '5th period (2)', '6th period', '7th period', '8th period']
     def GET(self):
         if session.user is None:
             web.seeother('/')
@@ -82,7 +80,7 @@ class editweekly:
                                    filter(or_(Period.entries.any(counselor_id = session.user.id), Period.entries == None)).\
                                    order_by(Period.num, Period.date)
             periods_partitioned = partition(periods_of_counselor, lambda p: p.num)
-            return render.editweekly(periods_partitioned, self.period_labels)
+            return render.editweekly(periods_partitioned, period_labels)
 
 class deletefromweekly:
     def GET(self):
