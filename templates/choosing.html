@@ -135,7 +135,7 @@ $def with (students, period_date, period_num, interview_types, str)
 				  <td>
 				    $for interview_type in interview_types:
 				      <input type='button' value='$interview_type.name'
-					     onclick='location.href="assignstudent?id=$student_id&amp;date=$period_date&amp;num=$period_num"&amp;interview_type=$interview_type.id'/>
+					     onclick='location.href="assignstudent?id=$student_id&amp;date=$period_date&amp;num=$period_num&amp;interview_type=$interview_type.id"'/>
 				      <br/>
 				  </td>
 				</tr>
