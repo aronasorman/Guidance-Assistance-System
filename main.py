@@ -127,15 +127,22 @@ class assignstudent:
             counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
             student = db_session.query(Student).filter_by(id = student_id).one()
 
-            sched = ScheduleEntry()
-            sched.period = period
-            sched.type = interview_type
-            sched.counselor = counselor
-            sched.student = student
+            # check if a counselor has already scheduled something for this date,
+            # or if student is already scheduled for that date
+            counselor_already_scheduled = db_session.query(ScheduleEntry).filter_by(period = period, counselor = counselor).first()
+            student_already_scheduled_this_date = db_session.query(ScheduleEntry).filter_by(period = period, student = student).first()
+            if counselor_already_scheduled or student_already_scheduled_this_date:
+                web.seeother('/editweekly')
+            else:
+                sched = ScheduleEntry()
+                sched.period = period
+                sched.type = interview_type
+                sched.counselor = counselor
+                sched.student = student
 
-            db_session.add(sched)
-            db_session.commit()
-            web.seeother('/editweekly')
+                db_session.add(sched)
+                db_session.commit()
+                web.seeother('/editweekly')
             
 
 class choosing:
