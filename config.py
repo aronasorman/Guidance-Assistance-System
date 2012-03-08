@@ -7,3 +7,5 @@ engine = create_engine('sqlite:///' + DBNAME, echo=True)
 Session = sessionmaker(bind=engine)
 
 NUM_OF_PERIODS=9
+
+COUNSELOR_NUM_WORK_DAYS=5

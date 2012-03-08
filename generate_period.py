@@ -13,7 +13,7 @@ from config import *
 def dates_of_current_week():
     today = date.today()
     day_of_week = today.weekday()
-    dates = [today - timedelta(day_of_week - x) for x in range(7)]
+    dates = [today - timedelta(day_of_week - x) for x in range(COUNSELOR_NUM_WORK_DAYS)]
     return dates
 
 def generate_periods():
