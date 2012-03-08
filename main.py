@@ -28,6 +28,7 @@ urls = (
     , '/editweekly', 'editweekly'
     , '/deletefromweekly', 'deletefromweekly'
     , '/choosing', 'choosing'
+    , '/assignstudent', 'assignstudent'
     )
 
 app =  web.application(urls, globals())
@@ -105,6 +106,37 @@ class deletefromweekly:
                 web.seeother('/editweekly')
             else:
                 return 'No permission to delete student, or no such date/period.'
+
+class assignstudent:
+    def GET(self):
+        if session.user is None:
+            web.seeother('/')
+        else:
+            data = web.input()
+            try:
+                student_id = int(data['id'])
+                date = iso_to_date(data['date'])
+                num = int(data['num'])
+                interview_type_id = int(data['interview_type'])
+            except ValueError:
+                return "Don't mess with my GET parameters!"
+
+            db_session = DBSession()
+            period = db_session.query(Period).filter_by(date = date, num = num).one()
+            interview_type = db_session.query(InterviewType).filter_by(id = interview_type_id).one()
+            counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
+            student = db_session.query(Student).filter_by(id = student_id).one()
+
+            sched = ScheduleEntry()
+            sched.period = period
+            sched.type = interview_type
+            sched.counselor = counselor
+            sched.student = student
+
+            db_session.add(sched)
+            db_session.commit()
+            web.seeother('/editweekly')
+            
 
 class choosing:
     def GET(self):
