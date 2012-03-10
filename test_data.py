@@ -67,4 +67,4 @@ def scheduled_student():
 if __name__ == '__main__':
     #Base.metadata.create_all(engine)
     test_counselor()
-    scheduled_student()
+    #scheduled_student()
