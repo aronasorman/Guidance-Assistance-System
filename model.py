@@ -89,11 +89,17 @@ class FollowupInterview(Base):
     __tablename__ = 'followup_interviews'
 
     id = Column(Integer, ForeignKey('interviews.id'), primary_key=True)
-    nature_of_problem = Column(Text)
+    nature_of_problem_id = Column(Integer, ForeignKey('nature_of_problem_types.id'))
     comments = Column(Text)
     planned_intervention = Column(Text)
 
     interview = relationship('Interview')
+
+class NatureOfProblemType(Base):
+    __tablename__ = 'nature_of_problem_types'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(30), nullable=False)
 
 class RoutineInterview(Base):
     __tablename__ = 'routine_interviews'

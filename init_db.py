@@ -18,6 +18,14 @@ def init_sections():
     session.add_all(sections)
     session.commit()
 
+def init_nature_of_problem_types():
+    session = Session()
+    session.add_all([NatureOfProblemType(name='Family')
+                 , NatureOfProblemType(name='Friends')
+                 , NatureOfProblemType(name='Academics')
+                 , NatureOfProblemType(name='Others')])
+    session.commit()
+
 def init_interview_types():
     session = Session()
     session.add_all([
@@ -95,6 +103,7 @@ def db_init():
     Base.metadata.create_all(engine)
     init_sections()
     init_interview_types()
+    init_nature_of_problem_types()
     init_parent_status()
     init_single_parent()
     init_living_with()
