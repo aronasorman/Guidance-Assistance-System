@@ -1,4 +1,4 @@
-$def with (user, counselor, this_week_schedule)
+$def with (counselor, periods_partitioned, period_labels)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -57,7 +57,7 @@ $def with (user, counselor, this_week_schedule)
 				</div>
 			
 				<div id="identifiers">
-				User Identified As: <span id="name">name</span>
+				User Identified As: $counselor.user.name
 				<br/>
 				Position: <span id="position">position</span>
 				</div>			
@@ -144,290 +144,36 @@ $def with (user, counselor, this_week_schedule)
 						<li><a href="#">2D</a></li>
 
 				</div>				
-				<div id="sched">
-				  Note: Will be removed once I've made
-				an algorithm that will align the
-				schedule entries :|
-				<br/>
-				<br/>
-
-				  $for entry in this_week_schedule:
-				    $ id=entry.student.id
-				    $ date=entry.period.date.isoformat()
-				    $ num=entry.period.num
-				    $ name = ' '.join([entry.student.first_name, entry.student.middle_name, entry.student.last_name])
-				    <a href="/create_routine?id=$id&amp;date=$date&amp;num=$num">$name</a><br/>
-				    $entry.type.name
-
-				  <br/>
-				  <br/>
-					<table>
-						<tr id="headname">
-							<td>Time</td>
-							<td>Monday</td>
-							<td>Tuesday</td>
-							<td>Wednesday</td>
-							<td>Thursday</td>
-							<td>Friday</td>
-						</tr>
-						<tr>
-							<td>
-								7:45-8:00am<br/>
-								MIP, Flag Ceremony,<br/>
-								Reflection Period
-							</td>
-							<td>
-								<a href="#">Aron Fyodor Asor</a><br/>
-								Routine Interview
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-						</tr>
-						
-						
-						<tr>
-							<td>
-								8:05-8:55<br/>
-								1st Period<br/>
-								
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								9:00-9:50<br/>
-								2nd Period<br/>
-								
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								9:50-10:20<br/>
-								recess<br/>
-								
-							</td>
-							<td>
-								<a href="#">Aron Fyodor Asor</a><br/>
-								Routine Interview
-							</td>
-							<td>
-								<a href="#">Aron Fyodor Asor</a><br/>
-								Routine Interview
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								10:20-11:10<br/>
-								3rd Period<br/>
-								
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								11:15-12:05<br/>
-								4th Period<br/>
-								
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								12:10-1:00<br/>
-								5th Period(1st)<br/>
-								
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								1:05-1:55<br/>
-								5th Period(2nd)<br/>
-								
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								2:00-2:50<br/>
-								6th Period<br/>
-								
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								2:55-3:45<br/>
-								7th Period<br/>
-								
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								3:50 onwards<br/>
-								Dismissal<br/>
-								
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-							<td>
-								No Schedule
-							</td>
-						</tr>
-						
-					</table>
+				  <div id='sched'>
+				  <table>
+					<tr id="headname">
+					  <td>Time</td>
+					  <td>Monday</td>
+					  <td>Tuesday</td>
+					  <td>Wednesday</td>
+					  <td>Thursday</td>
+					  <td>Friday</td>
+					</tr>
+					  $for i, numlist in enumerate(periods_partitioned):
+					    <tr>
+					      <td>$period_labels[i]</td>
+					    $for period in numlist:
+						  $if period.entries:
+						    $ entry = period.entries[0]
+						    $ type_id = entry.type.id
+						    $ student = entry.student
+						    $ full_name = ' '.join([student.first_name, student.last_name])
+					            <td>
+						    <a href="studentprofile?id=$student.id">$full_name</a>
+						    <br/>
+						    <input type='button' value='Conduct Interview'
+							   onclick="location.href='createnotation?date=$period.date.isoformat()&amp;num=$period.num&amp;type=$type_id&amp;student=$student.id'"/>
+						    </td>
+						  $else:
+						    <td>
+						    </td>
+					    </tr>
+				  </table>
 				</div>
 				
 				<div id="summary">

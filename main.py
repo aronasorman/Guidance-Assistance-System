@@ -269,10 +269,23 @@ class accountcreation:
 
         return "success!"
 
-class create_routine:
+class createnotation:
+    '''
+    Generalized handler that handles the creation of both a routine interview
+    and a followup interview
+    '''
+    routine_textbox_names = ['General Mental Ability', 'Academic History'
+                             , 'Personal/Emotional', 'Peer Relationship'
+                             , 'Goals/Motivation', 'Recommendation']
+    routine_form = form.Form(*[form.Textarea(name=name) for name in routine_textbox_names])
+
+    followup_textbox_names = ['Comments', 'Planned Intervention']
+    followup_form = form.Form(*[form.Textarea(name=name) for name in followup_textbox_names])
+
+    hidden_forms = lambda period, student: form.Form([form.Hidden(name='period_id', value=period.id), form.Hidden(name='student_id', value=student.id)])
 
     def GET(self):
-        return render.create_routine()
+        return render.create_notation()
 
     def POST(self):
         data = web.input()
@@ -318,10 +331,15 @@ class conductcounseling:
             web.seeother('/')
         else:
             db_session = DBSession()
-            counselor = db_session.query(Counselor).filter_by(id=session.user.id).first()
-            this_week = dates_of_current_week()
-            recent_entries = [entry for entry in counselor.schedule_entries if entry.period.date in this_week]
-            return render.conductcounseling(session.user, counselor, recent_entries)
+            dates_this_week = dates_of_current_week()
+            periods_of_counselor = db_session.query(Period).outerjoin(Period.entries).\
+                                   filter(Period.date.in_(dates_this_week)).\
+                                   filter(or_(Period.entries.any(counselor_id = session.user.id), Period.entries == None)).\
+                                   order_by(Period.num, Period.date)
+            periods_partitioned = partition(periods_of_counselor, lambda p: p.num)
+
+            counselor = db_session.query(Counselor).filter_by(id=session.user.id).one()
+            return render.conductcounseling(counselor, periods_partitioned, period_labels)
         
 if __name__ == '__main__':
     app.run()
