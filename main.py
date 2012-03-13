@@ -13,6 +13,7 @@ from generate_period import dates_of_current_week
 from model import *
 from sqlalchemy import or_
 from sqlalchemy.orm import subqueryload
+from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from utils import to_date, iso_to_date, partition
 
 urls = (
@@ -21,7 +22,7 @@ urls = (
     , '/main', 'mainpage'
     , '/logout', 'logout'
     , '/conductcounseling', 'conductcounseling'
-    , '/create_routine', 'create_routine'
+    , '/createnotation', 'createnotation'
     , '/assigncounselor', 'assigncounselor'
     , '/viewstudent', 'viewstudent'
     , '/studentprofile', 'studentprofile'
@@ -275,23 +276,104 @@ class createnotation:
     and a followup interview
     '''
     routine_textbox_names = ['General Mental Ability', 'Academic History'
+                             , 'Family Relationship'
                              , 'Personal/Emotional', 'Peer Relationship'
                              , 'Goals/Motivation', 'Recommendation']
-    routine_form = form.Form(*[form.Textarea(name=name) for name in routine_textbox_names])
+    routine_form = form.Form(*[form.Textarea(name=name, rows=15,cols=75) for name in routine_textbox_names])
 
     followup_textbox_names = ['Comments', 'Planned Intervention']
-    followup_form = form.Form(*[form.Textarea(name=name) for name in followup_textbox_names])
+    followup_form = lambda self, nature_of_problems: form.Form(form.Dropdown('Nature of problem', args=[(nature.id, nature.name) for nature in nature_of_problems],value=1)
+                                                               ,*[form.Textarea(name=name, rows=15, cols=75) for name in self.followup_textbox_names])
 
-    hidden_forms = lambda period, student: form.Form([form.Hidden(name='period_id', value=period.id), form.Hidden(name='student_id', value=student.id)])
+    hidden_forms = lambda self, period, student, type: form.Form(*[form.Hidden(name='period_id', value=period.id)
+                                                                   , form.Hidden(name='student_id', value=student.id)
+                                                                   , form.Hidden(name='interview_type', value=type.id)])
+
+    button_names = ['save as draft', 'submit']
+    button_form = form.Form(*[form.Button(button_name) for button_name in button_names])
 
     def GET(self):
-        return render.create_notation()
+        if session.user is None:
+            web.seeother('/')
+        else:
+            data = web.input()
+            try:
+                num = int(data['num'])
+                date = iso_to_date(data['date'])
+                student_id = int(data['student'])
+                type = int(data['type'])
+            except ValueError:
+                return 'Invalid GET Parameters!'
+                
+            db_session = DBSession()
+            counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
+            try:
+                period = db_session.query(Period).filter_by(num = num, date = date).one()
+                student = db_session.query(Student).filter_by(id = student_id).one()
+                interview_type = db_session.query(InterviewType).filter_by(id = type).one()
+            except NoResultsFound:
+                return 'No such period, interview type, or student!'
+
+            if interview_type.name == 'Followup Interview': # A followup interview
+                natures_of_problem = db_session.query(NatureOfProblemType)
+                main_form = self.followup_form(natures_of_problem)
+            elif interview_type.name == 'Routine Interview': # routine interview
+                main_form = self.routine_form
+            else: # other interview, which we have no form for yet...
+                main_form = None
+        return render.create_notation(main_form, self.hidden_forms(period, student, interview_type), self.button_form)
 
     def POST(self):
         data = web.input()
         db_session = DBSession()
+
+        period_id = int(data['period_id'])
+        student_id = int(data['student_id'])
+        interview_type_id = int(data['interview_type'])
+
+        main_form = None
+        interview_type = db_session.query(InterviewType).filter_by(id = interview_type_id).one()
+
+        interview = Interview()
+        interview.type = interview_type
+        interview.counselor_id = session.user.id
+        interview.period_id = period_id
+        interview.student_id = student_id
+        latest_interview_id = db_session.query(Interview.id).order_by(Interview.id).all()
+        interview.id = 1 + latest_interview_id[-1] if latest_interview_id else 0
         
-        id = int(data['id'])
+        if interview_type.name == 'Routine Interview':
+            rform = self.routine_form
+            routine = RoutineInterview()
+            routine.general_mental_ability = data['General Mental Ability']
+            routine.academic_history = data['Academic History']
+            routine.family_relationship = data['Family Relationship']
+            routine.personal_emotional = data['Personal/Emotional']
+            routine.peer_relationship = data['Peer Relationship']
+            routine.goals = data['Goals/Motivation']
+            routine.recommendation = data['Recommendation']
+
+            routine.id = interview.id
+            db_session.add(routine)
+
+        elif interview_type.name == 'Followup Interview':
+            import pdb; pdb.set_trace()
+            natures_of_problem = db_session.query(NatureOfProblemType)
+            fform = self.followup_form(natures_of_problem)
+            followup = FollowupInterview()
+            followup.nature_of_problem_id = int(data['Nature of problem'])
+            followup.comments = data['Comments']
+            followup.planned_intervention = data['Planned Intervention']
+
+            followup.id = interview.id
+            db_session.add(followup)
+
+        db_session.add(interview)
+        db_session.commit()
+
+            
+        
+'''        id = int(data['id'])
         date = iso_to_date(data['date'])
         num = int(data['num'])
         student = db_session.query(Student).filter_by(id=id).first()
@@ -320,6 +402,7 @@ class createnotation:
         routine.id = interview.id
         db_session.commit()
         return 'Success!'
+'''
         
     
 class conductcounseling:

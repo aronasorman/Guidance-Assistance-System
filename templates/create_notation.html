@@ -1,3 +1,4 @@
+$def with (main_form, hidden_form, buttons)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -38,12 +39,12 @@
 	
 		<div id= "sidebar">
 			<ul>
-				<li><a href="changepass.html" title="password must be atleast 7 characters long">Change password</a></li>
-				<li><a href="viewcounselor.html" title="">View counselor accounts</a></li>
-				<li><a href="viewstudent.html" title="">View student profiles</a></li>
-				<li><a href="assigncounselor.html" title="assign counselors to respective students/sections">Assign counselor</a></li>
-				<li><a href="editweekly.html" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
-				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</</			</ul>	
+				<li><a href="changepass" title="password must be atleast 7 characters long">Change password</a></li>
+				<li><a href="viewcounselor" title="">View counselor accounts</a></li>
+				<li><a href="viewstudent" title="">View student profiles</a></li>
+				<li><a href="assigncounselor" title="assign counselors to respective students/sections">Assign counselor</a></li>
+				<li><a href="editweekly" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
+				<li><a href="conductcounseling" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</</			</ul>	
 			
 		<br style="clear:both" /> 
 		</div>
@@ -65,7 +66,7 @@
 		<!--edit title of page here-->	
 		
 			<div id="title">
-				<a href="conductcounseling.html">Conduct Counseling </a>
+				<a href="conductcounseling">Conduct Counseling </a>
 				<span id="arrow"> > </span>
 				<a href="create_routine.html"> Create Routine Interview</a>
 				<br/>
@@ -89,43 +90,9 @@
 					
 					<div id="notations">
 					<form action="POST">
-						
-						<h1><span id="categories">General Mental Ability</span></h1>
-						<textarea rows="15" cols="100" name="gen_ability"></textarea>
-						<br>
-						
-						<h1><span id="categories">Academic History</span></h1>
-						<textarea rows="15" cols="100" name="academic_history"></textarea>
-						<br>
-
-					        <h1><span id="categories">Family Relationship</span></h1>
-						<textarea rows="15" cols="100" name="family"></textarea>
-						<br>
-						
-						<h1><span id="categories">Personal/Emotional</span></h1>
-						<textarea rows="15" cols="100" name="personal"></textarea>
-						<br>
-						
-						<h1><span id="categories">Peer Relationship</span></h1>
-						<textarea rows="15" cols="100" name="peer"></textarea>
-						<br>
-						
-						<h1><span id="categories">Goals/Motivation</span></h1>
-						<textarea rows="15" cols="100" name="goals"></textarea>
-						<br>
-						
-						<h1><span id="categories">Recommendation</span></h1>
-						<textarea rows="15" cols="100" name="recommendation"></textarea>
-						<br>
-						
-						
-						
-						<input type="button" value="cancel" name="cancel" onclick="location.href='counselor_notations.html'">
-						<input type="button" value="save draft" name="save" onclick="location.href='counselor_notations.html'">
-						<input type="submit" value="submit" name="submit">
-						<br>
-						<br>
-					
+					  $:main_form.render()
+					  $:hidden_form.render()
+					  $:buttons.render()
 					
 					
 					</form>
