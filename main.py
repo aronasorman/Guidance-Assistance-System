@@ -223,7 +223,7 @@ class login:
         else:
             password_hash = sha256(str(name) + data['password']).hexdigest()
             db_session = DBSession()
-            user = db_session.query(User).filter(User.id==name).filter(User.password==password_hash).first()
+            user = db_session.query(User).options(joinedload(User.position)).filter(User.id==name).filter(User.password==password_hash).first()
             if user:
                 session.user = user
                 raise web.seeother('/main')
