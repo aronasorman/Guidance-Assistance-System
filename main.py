@@ -210,7 +210,10 @@ class login:
     '''
     
     def GET(self):
-        return render.login(None)
+        if session.user:
+            web.seeother('/main')
+        else:
+            return render.login(None)
     def POST(self):
         data = web.input()
         try:
