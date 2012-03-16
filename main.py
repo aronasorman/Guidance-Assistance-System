@@ -189,6 +189,7 @@ class viewstudent:
                 students = students.filter(Section.year == int(data['year']))
             elif 'section' in data:
                 students = students.filter(Section.year == int(data['section'][0]), Section.name == data['section'][1])
+            students = students.order_by(Section.id)
             return render.viewstudent(students.all(), str)
 
 class studentprofile:
