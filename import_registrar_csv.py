@@ -2,6 +2,7 @@
 
 from csv import DictReader
 from datetime import date
+from sqlalchemy.orm.exc import NoResultFound
 import sys
 
 from model import *
@@ -30,8 +31,11 @@ def import_csv(fname):
             db_session.add(gs)
             db_session.commit()
             grade_school = db_session.query(GradeSchool).filter_by(name = fields['GS NAME']).first()
-        parent_status = db_session.query(ParentStatus).filter_by(status = fields['PARENTS ARE']).one()
-        living_with_id = db_session.query(LivingWith).filter_by(status = fields['STUD_LIVI_WITH']).one().id
+        try:
+            parent_status = db_session.query(ParentStatus).filter_by(status = fields['PARENTS ARE']).one()
+            living_with_id = db_session.query(LivingWith).filter_by(status = fields['STUD_LIVI_WITH']).one().id
+        except NoResultFound:
+            'K'
         
         s = Student()
         s.id = int(fields['STUDNO'].replace('-',''))
