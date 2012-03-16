@@ -67,8 +67,6 @@ $def with (user,student, interview_types)
 			<div id="title">
 				<a href="viewstudent.html">View Student Accounts </a>
 				<span id="arrow"> > </span>
-				Student Profile
-				<br/>
 				$ student_name = ' '.join([student.first_name, student.middle_name, student.last_name])
 				<span id="student">$student_name</span>
 			</div>
@@ -80,7 +78,7 @@ $def with (user,student, interview_types)
 				
 				<div id="counselornav">
 					<ul>
-						<li><a href="counseloraccount.html">Personal Information</a></li>
+						<li><a href="studentprofile?id=$student.id">Personal Information</a></li>
 						<li><a href="weeklyplan.html">Information About Family</a></li>
 						<li><a href="performancesummary.html">Academic History</a></li>
 						$for interview_type in interview_types:
