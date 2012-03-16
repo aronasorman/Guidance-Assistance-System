@@ -18,6 +18,16 @@ def init_sections():
     session.add_all(sections)
     session.commit()
 
+def init_position():
+    session = Session()
+    session.add_all([
+        Position(title='Counselor')
+        , Position(title='Head Counselor')
+        , Position(title='Secretary')
+        , Position(title='Administrator')
+        ])
+    session.commit()
+
 def init_nature_of_problem_types():
     session = Session()
     session.add_all([NatureOfProblemType(name='Family')
@@ -102,6 +112,7 @@ def init_subjects():
 def db_init():
     Base.metadata.create_all(engine)
     init_sections()
+    init_position()
     init_interview_types()
     init_nature_of_problem_types()
     init_parent_status()

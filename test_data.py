@@ -11,7 +11,7 @@ def test_counselor():
     user.id = 90275
     user.name = 'Aron Fyodor M. Asor'
     user.password = sha256(str(user.id) + 'asakapa').hexdigest()
-    user.is_counselor = True
+    user.position = session.query(Position).filter_by(title = 'Counselor').one()
     session.add(user)
 
     counselor = Counselor()
@@ -21,7 +21,6 @@ def test_counselor():
     counselor.telno = '091xnice'
     counselor.celno = '046bogus'
     counselor.email = 'aronasorman@gmail.com'
-    counselor.is_head_counselor = False
     session.add(counselor)
     session.commit()
 
