@@ -58,7 +58,7 @@ class assigncounselor:
             db_session = DBSession()
             counselors = db_session.query(Counselor).order_by(Counselor.id).all()
             sections = db_session.query(Section).filter_by(counselor_id=None).order_by(Section.id).all()
-            return render.assigncounselor(counselors, sections, str)
+            return render.assigncounselor(session.user, counselors, sections, str)
 
     def POST(self):
         data = web.input(selected_drop=[]) # we put a default value so that web.py puts the multivalued select fields into a list, and not simply give the last item
@@ -83,7 +83,7 @@ class editweekly:
                                    filter(or_(Period.entries.any(counselor_id = session.user.id), Period.entries == None)).\
                                    order_by(Period.num, Period.date)
             periods_partitioned = partition(periods_of_counselor, lambda p: p.num)
-            return render.editweekly(periods_partitioned, period_labels)
+            return render.editweekly(session.user, periods_partitioned, period_labels)
 
 class deletefromweekly:
     def GET(self):
@@ -171,7 +171,7 @@ class choosing:
             elif 'section' in data:
                 students = students.filter(Section.year == int(data['section'][0]), Section.name == data['section'][1])
 
-            return render.choosing(students, date.isoformat(), num, interview_types, str)
+            return render.choosing(session.user, students, date.isoformat(), num, interview_types, str)
 
 class viewstudent:
     def GET(self):
@@ -190,7 +190,7 @@ class viewstudent:
             elif 'section' in data:
                 students = students.filter(Section.year == int(data['section'][0]), Section.name == data['section'][1])
             students = students.order_by(Section.id)
-            return render.viewstudent(students.all(), str)
+            return render.viewstudent(session.user,students.all(), str)
 
 class studentprofile:
     def GET(self):
@@ -202,7 +202,7 @@ class studentprofile:
             db_session = DBSession()
             student = db_session.query(Student).filter_by(id = id).one()
             interview_types = db_session.query(InterviewType)
-            return render.studentprofile(student, interview_types)
+            return render.studentprofile(session.user, student, interview_types)
 
 class login:
     '''
@@ -242,7 +242,7 @@ class mainpage:
             user = session.user
             db_session = DBSession()
             counselor = db_session.query(Counselor).filter(Counselor.id==user.id).first()
-            return render.mainpage(user, counselor)
+            return render.mainpage(user,counselor)
             
 class accountcreation:
     '''
@@ -399,7 +399,7 @@ class viewnotations:
             counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
             interviews = db_session.query(Interview).\
                          filter(Interview.student_id == student.id, Interview.type_id == interview_type.id)
-            return render.counselor_notations(counselor,student,interviews)
+            return render.counselor_notations(session.user, counselor,student,interviews)
     
 class conductcounseling:
     '''
@@ -418,7 +418,7 @@ class conductcounseling:
             periods_partitioned = partition(periods_of_counselor, lambda p: p.num)
 
             counselor = db_session.query(Counselor).filter_by(id=session.user.id).one()
-            return render.conductcounseling(counselor, periods_partitioned, period_labels)
+            return render.conductcounseling(session.user, counselor, periods_partitioned, period_labels)
 
 class viewnotation:
     def GET(self):
@@ -447,7 +447,7 @@ class viewnotation:
                                          join(RoutineInterview, Interview.id == RoutineInterview.id).\
                                          filter(Interview.id == interview_id).\
                                          one()
-                return render.viewnotation(interview,auxiliary,str)
+                return render.viewnotation(session.user, interview,auxiliary,str)
             else:
                 return 'No permission to see student!'
                     
