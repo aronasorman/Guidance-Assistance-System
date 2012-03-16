@@ -12,9 +12,9 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(40), nullable=False)
     password = Column(String(64), nullable=False)
-    is_counselor = Column(Boolean, default=False)
-    is_secretary = Column(Boolean, default=False)
-    is_admin = Column(Boolean, default=False)
+    position_id = Column(Integer, ForeignKey('positions.id'), nullable=False)
+
+    position = relationship('Position')
 
 class Counselor(Base):
     __tablename__ = "counselors"
@@ -26,14 +26,13 @@ class Counselor(Base):
     telno = Column(String(20))
     celno = Column(String(20))
     email = Column(String(40))
-    is_head_counselor = Column(Boolean, nullable=False)
     user = relationship('User')
     
 class Position(Base):
-    __tablename__ = 'position'
+    __tablename__ = 'positions'
 
     id = Column(Integer, primary_key=True)
-    position_name = Column(String(15), nullable=False)
+    title = Column(String(15), nullable=False)
 
 class Section(Base):
     __tablename__ = 'sections'
