@@ -12,7 +12,7 @@ from config import *
 from generate_period import dates_of_current_week
 from model import *
 from sqlalchemy import or_
-from sqlalchemy.orm import subqueryload
+from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from utils import to_date, iso_to_date, partition
 
@@ -30,6 +30,7 @@ urls = (
     , '/deletefromweekly', 'deletefromweekly'
     , '/choosing', 'choosing'
     , '/assignstudent', 'assignstudent'
+    , '/viewnotations', 'viewnotations'
     )
 
 app =  web.application(urls, globals())
@@ -196,8 +197,10 @@ class studentprofile:
         else:
             data = web.input()
             id = int(data['id'])
-            student = DBSession().query(Student).filter_by(id = id).one()
-            return render.studentprofile(student)
+            db_session = DBSession()
+            student = db_session.query(Student).filter_by(id = id).one()
+            interview_types = db_session.query(InterviewType)
+            return render.studentprofile(student, interview_types)
 
 class login:
     '''
@@ -370,6 +373,28 @@ class createnotation:
 
         db_session.add(interview)
         db_session.commit()
+
+class viewnotations:
+    def GET(self):
+        if session.user is None:
+            web.seeother('/')
+        else:
+            db_session = DBSession()
+            data = web.input()
+            try:
+                student_id = int(data['student'])
+                type_id = int(data['type'])
+                student = db_session.query(Student).filter(Student.id == student_id).one()
+                interview_type = db_session.query(InterviewType).filter_by(id = type_id).one()
+            except ValueError:
+                return 'Invalid GET parameters!'
+            except MultipleResultsFound:
+                return 'No such student or interview type!'
+
+            counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
+            interviews = db_session.query(Interview).\
+                         filter(Interview.student_id == student.id, Interview.type_id == interview_type.id)
+            return render.counselor_notations(counselor,student,interviews)
     
 class conductcounseling:
     '''

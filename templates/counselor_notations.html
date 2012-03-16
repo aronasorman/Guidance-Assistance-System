@@ -1,4 +1,4 @@
-$def with (student, interview_types)
+$def with (counselor, student, interviews)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -6,6 +6,7 @@ $def with (student, interview_types)
 		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
 		<link rel="stylesheet" type= "text/css" href="static/mainstyle.css"/>
 		<link rel="stylesheet" type= "text/css" href="static/typography.css"/>
+		<link rel="stylesheet" type= "text/css" href="static/routine_int.css"/>
 		<title>Ateneo High School Guidance Office</title>
 		<script type="text/javascript" src="static/before.js"></script>
 </head>
@@ -22,10 +23,10 @@ $def with (student, interview_types)
 	
 	<div id= "nav">
 		<ul>
-			<li><a href="/">home</a></li>
+			<li><a href="mainpage">home</a></li>
 			<li><a href="#">faqs</a></li>
 			<li><a href="#">about us</a></li>
-			<li><a href="/logout">log-out</a></li>
+			<li><a href="log-in.html">log-out</a></li>
 			<li><a href="#">
 				<input type="text" size="20" name="text1" value="type here">
 				<input type="button" name="search" value="search">
@@ -65,12 +66,11 @@ $def with (student, interview_types)
 		<!--edit title of page here-->	
 		
 			<div id="title">
-				<a href="viewstudent.html">View Student Accounts </a>
+				<a href="viewstudent">View Student Accounts </a>
 				<span id="arrow"> > </span>
-				Student Profile
+				<a href="counselor_notations.html"> Counselor Notations</a>
 				<br/>
-				$ student_name = ' '.join([student.first_name, student.middle_name, student.last_name])
-				<span id="student">$student_name</span>
+				<span id="student">Aron Fyodor Asor</span>
 			</div>
 			
 			
@@ -80,88 +80,40 @@ $def with (student, interview_types)
 				
 				<div id="counselornav">
 					<ul>
-						<li><a href="counseloraccount.html">Personal Information</a></li>
-						<li><a href="weeklyplan.html">Information About Family</a></li>
-						<li><a href="performancesummary.html">Academic History</a></li>
-						$for interview_type in interview_types:
-  						  <li><a href="viewnotations?student=$student.id&amp;type=$interview_type.id">$interview_type.name</a></li>
+						<li><a href="studentprofile">Personal Information</a></li>
+						<li><a href="#">Information About Family</a></li>
+						<li><a href="#">Academic History</a></li>
+						<li><a href="routine_int.html">Routine Interviews</a></li>
+						<li><a href="counselor_notations.html">Counselor Notations</a></li>
 					</ul>
 				</div>
 				
 				<!--EDIT FROM HERE ONLY FOR COUNSELOR ACCOUNT-->
 				
-				<div id="profile">
-					<div id="graypart">
-					<table>
-						<tr>
-							<td id="profhead" colspan="2">Profile:</td>
-						</tr>
-						<tr>
-							<td class="label1">Name:</td>
-							<td>$student.last_name, $student.first_name $student.middle_name
-							</td>
-						</tr>
-						<tr>
-							<td class="label1">Nickname:</td>
-							<td>$student.nickname</td>
-						</tr>
-						<tr>
-							<td class="label1">City Address:</td>
-							<td>$student.address</td>
-						</tr>
-						<tr>
-							<td class="label1">Telephone No.:</td>
-							<td>$student.telno</td>
-						</tr>
-						<tr>
-							<td class="label1">Cellphone No.:</td>
-							<td>$student.celno</td>
-						</tr>
-						<tr>
-							<td class="label1">E-mail Address:</td>
-							<td>$student.email.</td>
-						</tr>
-						<tr>
-							<td class="label1">Date of Birth:</td>
-							<td>$student.birthdate.strftime('%d %B, %Y')</td>
-						</tr>
-						<tr>
-							<td class="label1">Place of Birth:</td>
-							<td>$student.birthplace</td>
-						</tr>
-						<tr>
-							<td class="label1">Religion:</td>
-							<td>Catholic</td>
-						</tr>
-						<tr>
-							<td class="label1">Nationality:</td>
-							<td>Filipino</td>
-						</tr>						
-						<tr>
-							<td class="label1">Citizenship:</td>
-							<td>Filipino</td>
-						</tr>
-						<tr>
-							<td class="label1">General Health:</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="label1">Eyesight:</td>
-							<td>$student.eyesight</td>
-						</tr>
-						<tr>
-							<td class="label1">Hearing:</td>
-							<td>$student.hearing</td>
-						</tr>
-						<tr>
-							<td class="label1">Lungs:</td>
-							<td>$student.lungs</td>
-						</tr>
-						<tr>
-							<td class="label1">Handicaps:</td>
-							<td>$student.handicaps</td>
-						</tr>
-					</table>
+				<div id="routine">
+				
+					Year & Section: <a href="#">2A</a>
+					<br>
+					Guidance Counselor: Juan Dela Cruz
+					
+					<div id="notations">
+						<form action="">
+							<table>
+							  $for interview in interviews:
+								<tr>
+								  $ period = interview.period
+									<td>Interview date:</td><td>
+									<a href="viewnotation?id=$interview.id&amp;type=$interview.type_id">
+									  $period.date.strftime("%d %B %Y")
+								      </a></td>
+								</tr>
+								
+							</table>
+						
+						</form>
+
+
+
 					</div>
 				</div>				
 				<!--EDIT FROM HERE ONLY FOR COUNSELOR ACCOUNT-->
