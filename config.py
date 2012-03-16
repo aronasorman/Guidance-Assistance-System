@@ -1,10 +1,14 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import logging
 
 DBNAME = 'counselor.db'
 
 engine = create_engine('sqlite:///' + DBNAME, echo=True)
 Session = sessionmaker(bind=engine)
+
+logging.basicConfig(filename='sql_queries.log')
+logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
 NUM_OF_PERIODS=9
 
