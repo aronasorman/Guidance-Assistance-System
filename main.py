@@ -31,6 +31,7 @@ urls = (
     , '/choosing', 'choosing'
     , '/assignstudent', 'assignstudent'
     , '/viewnotations', 'viewnotations'
+    , '/viewnotation', 'viewnotation'
     )
 
 app =  web.application(urls, globals())
@@ -414,6 +415,38 @@ class conductcounseling:
 
             counselor = db_session.query(Counselor).filter_by(id=session.user.id).one()
             return render.conductcounseling(counselor, periods_partitioned, period_labels)
-        
+
+class viewnotation:
+    def GET(self):
+        if session.user is None:
+            web.seeother('/')
+        else:
+            data = web.input()
+            db_session = DBSession()
+            try:
+                interview_id = int(data['id'])
+            except ValueError:
+                return 'Invalid GET parameter!'
+                
+            interview = db_session.query(Interview).filter(Interview.id == interview_id).one()
+            interview_type = interview.type
+            student = interview.student
+            if student.section.counselor_id == session.user.id:
+                if interview_type.name == 'Followup Interview':
+                    interview, auxiliary = db_session.query(Interview, FollowupInterview).\
+                                          join(FollowupInterview, Interview.id == FollowupInterview.id).\
+                                          join(NatureOfProblemType, FollowupInterview.nature_of_problem_id == NatureOfProblemType.id).\
+                                          filter(Interview.id == interview_id).\
+                                          one()
+                elif interview_type.name =='Routine Interview':
+                    interview, auxiliary = db_session.query(Interview, RoutineInterview).\
+                                         join(RoutineInterview, Interview.id == RoutineInterview.id).\
+                                         filter(Interview.id == interview_id).\
+                                         one()
+                return render.viewnotation(interview,auxiliary,str)
+            else:
+                return 'No permission to see student!'
+                    
+       
 if __name__ == '__main__':
     app.run()
