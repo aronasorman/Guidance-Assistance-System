@@ -163,11 +163,16 @@ $def with (counselor, periods_partitioned, period_labels)
 						    $ type_id = entry.type.id
 						    $ student = entry.student
 						    $ full_name = ' '.join([student.first_name, student.last_name])
+						    $ interviews = period.interviews
+						    $ is_interview_conducted = [i for i in interviews if i.counselor_id == counselor.id if i.student_id == student.id]
 					            <td>
 						    <a href="studentprofile?id=$student.id">$full_name</a>
 						    <br/>
-						    <input type='button' value='Conduct Interview'
-							   onclick="location.href='createnotation?date=$period.date.isoformat()&amp;num=$period.num&amp;type=$type_id&amp;student=$student.id'"/>
+						    $if is_interview_conducted:
+						      Interview done!
+						    $else:
+						      <input type='button' value='Conduct Interview'
+						  	   onclick="location.href='createnotation?date=$period.date.isoformat()&amp;num=$period.num&amp;type=$type_id&amp;student=$student.id'"/>
 						    </td>
 						  $else:
 						    <td>
