@@ -12,7 +12,7 @@ def unicode_dict_reader(unicode_csv_data, **kwargs):
     csv_reader = DictReader(unicode_csv_data, **kwargs)
     for row in csv_reader:
         # decode UTF-8 back to Unicode, cell by cell:
-        yield {row_name : unicode(cell, 'utf-8') for row_name, cell in row.iteritems()}
+        yield {row_name : unicode(cell, 'utf-8', 'ignore') for row_name, cell in row.iteritems()}
 
 def parse_date(datestr):
     date_split = datestr.split('/') 
@@ -21,7 +21,7 @@ def parse_date(datestr):
     return date(year, month, day)
 
 def import_csv(fname):
-    reader = unicode_dict_reader(open(fname, 'r'))
+    reader = unicode_dict_reader(open(fname, 'rU'))
     db_session = Session()
     for fields in reader:
         grade_school = db_session.query(GradeSchool).filter_by(name = fields['GS NAME']).first()
