@@ -1,0 +1,183 @@
+$def with (user,interview,interview_attrs,str)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+		<link rel="stylesheet" type= "text/css" href="static/mainstyle.css"/>
+		<link rel="stylesheet" type= "text/css" href="static/typography.css"/>
+		<link rel="stylesheet" type= "text/css" href="static/routine_int.css"/>
+		<title>Ateneo High School Guidance Office</title>
+		<script type="text/javascript" src="static/before.js"></script>
+</head>
+
+<body>
+
+<form action="" method="post">
+
+<div id="container">
+	
+	<div id="header">
+	</div>
+
+	
+	<div id= "nav">
+		<ul>
+			<li><a href="mainpage.html">home</a></li>
+			<li><a href="#">faqs</a></li>
+			<li><a href="#">about us</a></li>
+			<li><a href="log-in.html">log-out</a></li>
+			<li><a href="#">
+				<input type="text" size="20" name="text1" value="type here">
+				<input type="button" name="search" value="search">
+			</a></li>
+			
+		</ul>
+	</div>
+	
+	<div id="center">
+	
+		<div id= "sidebar">
+			<ul>
+				<li><a href="changepass.html" title="password must be atleast 7 characters long">Change password</a></li>
+				<li><a href="viewcounselor.html" title="">View counselor accounts</a></li>
+				<li><a href="viewstudent.html" title="">View student profiles</a></li>
+				<li><a href="assigncounselor.html" title="assign counselors to respective students/sections">Assign counselor</a></li>
+				<li><a href="editweekly.html" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
+				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</</			</ul>	
+			
+		<br style="clear:both" /> 
+		</div>
+		
+		<div id="content">
+			<div id="stamps">
+		
+				<div id="date">
+				</div>
+			
+				<div id="identifiers">
+				User Identified As: $user.name
+				<br/>
+				Position: $user.position.title
+				</div>
+				
+			</div>
+			
+		<!--edit title of page here-->	
+		
+			<div id="title">
+				<a href="viewstudent.html">Routine Interviews </a>
+				<span id="arrow"> > </span>
+				<a href="edit_routine.html"> View Routine Interview</a>
+				<br/>
+				$ student = interview.student
+				$ name = ' '.join([student.first_name, student.last_name])
+				<span id="student">$name</span>
+			</div>
+			
+			
+		<!-- the only area you can edit-->
+		
+			<div id="counseloraccount">
+				
+				<div id="counselornav">
+					<ul>
+						<li><a href="counseloraccount.html">Personal Information</a></li>
+						<li><a href="#">Information About Family</a></li>
+						<li><a href="#">Academic History</a></li>
+						<li><a href="routine_int.html">Routine Interviews</a></li>
+						<li><a href="couselor_notations.html">Counselor Notations</a></li>
+					</ul>
+				</div>
+				
+				<!--EDIT FROM HERE ONLY FOR COUNSELOR ACCOUNT-->
+				
+			<div id="routine">
+			  $ section = str(student.section.year) + str(student.section.name)
+			  
+					Year & Section: $section
+					<br>
+					Guidance Counselor: $student.section.counselor.user.name
+					<br>
+					$ date = interview.period.date
+					Interview Date: $date.strftime("%d %B %Y")
+					
+					<div id="notations">
+					<form action="">
+						
+					  $if interview.type.name == 'Followup Interview':
+					        Nature of problem: $interview.name
+						<h1><span id="categories">Comments</span></h1>
+						
+							<p> $interview.comments</p>
+						
+						<h1><span id="categories">Planned Intervention</span></h1>
+						
+							<p> $interview.planned_intervention</p>
+
+					  $elif interview.type.name == 'Routine Interview':
+					    <h1><span id="categories">General Mental Ability</span></h1>
+						
+					    <p>$interview_attrs.general_mental_ability</p>
+
+					    <h1><span id="categories">Academic History</span></h1>
+						
+					    <p>$interview_attrs.academic_history</p>
+						
+					    <h1><span id="categories">Family Relationship</span></h1>
+						
+					    <p>$interview_attrs.family_relationship</p>
+						
+					    <h1><span id="categories">Personal/Emotional</span></h1>
+						
+					    <p>$interview_attrs.personal_emotional</p>
+						
+					    <h1><span id="categories">Peer Relationship</span></h1>
+						
+					    <p>$interview_attrs.personal_emotional</p>
+						
+					    <h1><span id="categories">Goals/Motivation</span></h1>
+						
+					    <p>$interview_attrs.goals</p>
+						
+					    <h1><span id="categories">Recommendation</span></h1>
+						
+					    <p>$interview_attrs.recommendation</p>
+					
+					    <br>
+					      <br>
+						
+						
+					</form>
+
+					</div>
+				</div>			
+				<!--EDIT FROM HERE ONLY FOR COUNSELOR ACCOUNT-->
+				
+			</div>
+			
+					
+		<!-- the only area you can edit-->
+				
+		<br style="clear:both" /> 
+			
+		</div> 
+		
+
+	</div>
+
+	<div id="footer">
+		<p>
+		Ateneo High School Guidance Office Automated System <br/>
+		Designed and developed by A-Team <br/>
+		Copyright 2011 <br/>
+		</p>
+		
+	</div>
+	
+</div>	
+
+</form>
+</body>
+	<!--placed this script here so it can reference the elements in the html without calling a function-->
+	<script type="text/javascript" src="static/after.js"></script>
+</html>
