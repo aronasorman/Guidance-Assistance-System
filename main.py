@@ -70,7 +70,7 @@ class assigncounselor:
         counselor.sections = chosen_sections
         db_session.add(counselor)
         db_session.commit()
-        return 'success!'
+        return render.message(session.user, 'Section assignments updated!')
 
 class editweekly:
     def GET(self):
@@ -95,7 +95,7 @@ class deletefromweekly:
                 date = iso_to_date(data['date'])
                 num = int(data['num'])
             except ValueError:
-                return 'Naughty. Try entering a legal number, please.'
+                return render.message(session.user, 'Naughty. Try entering a legal number, please.')
 
             db_session = DBSession()
             entry = db_session.query(ScheduleEntry).join(Period).\
@@ -106,7 +106,7 @@ class deletefromweekly:
                 db_session.commit()
                 web.seeother('/editweekly')
             else:
-                return 'No permission to delete student, or no such date/period.'
+                return render.message(session.user, 'No permission to delete student, or no such date/period.')
 
 class assignstudent:
     def GET(self):
@@ -120,7 +120,7 @@ class assignstudent:
                 num = int(data['num'])
                 interview_type_id = int(data['interview_type'])
             except ValueError:
-                return "Don't mess with my GET parameters!"
+                return render.message(session.user, 'Don\'t mess with my GET parameters!')
 
             db_session = DBSession()
             period = db_session.query(Period).filter_by(date = date, num = num).one()
@@ -157,7 +157,7 @@ class choosing:
                 date = iso_to_date(data['date'])
                 num = int(data['num'])
             except ValueError:
-                return 'stop tampering with my GET parameters!'
+                return render.message(session.user, 'stop tampering with my GET parameters!')
 
             period = db_session.query(Period).filter_by(date = date, num = num).one()
             counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
@@ -260,7 +260,7 @@ class accountcreation:
         name = ' '.join([data['firstname'], data['middleinitial'], data['lastname']])
         user.name = name
         user.password = sha256(str(user.id) + data['Password']).hexdigest()
-        user.is_counselor = True
+        user.position = db_session.query(Position).filter_by(title='Head Counselor').one()
         db_session.add(user)
         db_session.commit()
 
@@ -272,11 +272,10 @@ class accountcreation:
         counselor.telno = data['telephone']
         counselor.celno = data['cellphone']
         counselor.email = data['email']
-        counselor.is_head_counselor = False
         db_session.add(counselor)
         db_session.commit()
 
-        return "success!"
+        return render.message(session.user, ' '.join(['user', name, 'created!']))
 
 class createnotation:
     '''
@@ -311,7 +310,7 @@ class createnotation:
                 student_id = int(data['student'])
                 type = int(data['type'])
             except ValueError:
-                return 'Invalid GET Parameters!'
+                return render.message(session.user, 'Invalid GET Parameters!')
                 
             db_session = DBSession()
             counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
@@ -320,7 +319,7 @@ class createnotation:
                 student = db_session.query(Student).filter_by(id = student_id).one()
                 interview_type = db_session.query(InterviewType).filter_by(id = type).one()
             except NoResultsFound:
-                return 'No such period, interview type, or student!'
+                return render.message(session.user, 'No such period, interview type, or student!')
 
             if interview_type.name == 'Followup Interview': # A followup interview
                 natures_of_problem = db_session.query(NatureOfProblemType)
@@ -392,9 +391,9 @@ class viewnotations:
                 student = db_session.query(Student).filter(Student.id == student_id).one()
                 interview_type = db_session.query(InterviewType).filter_by(id = type_id).one()
             except ValueError:
-                return 'Invalid GET parameters!'
+                return render.message(session.user, 'Invalid GET parameters!')
             except MultipleResultsFound:
-                return 'No such student or interview type!'
+                return render.message(session.user, 'No such student or interview type!')
 
             counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
             interviews = db_session.query(Interview).\
@@ -430,7 +429,7 @@ class viewnotation:
             try:
                 interview_id = int(data['id'])
             except ValueError:
-                return 'Invalid GET parameter!'
+                return render.message(session.user, 'Invalid GET parameter!')
                 
             interview = db_session.query(Interview).filter(Interview.id == interview_id).one()
             interview_type = interview.type
@@ -449,7 +448,7 @@ class viewnotation:
                                          one()
                 return render.viewnotation(session.user, interview,auxiliary,str)
             else:
-                return 'No permission to see student!'
+                return render.message(session.user, 'No permission to see student!')
                     
        
 if __name__ == '__main__':
