@@ -22,10 +22,10 @@ $def with (user,interview,interview_attrs,str)
 	
 	<div id= "nav">
 		<ul>
-			<li><a href="mainpage">home</a></li>
+			<li><a href="main">home</a></li>
 			<li><a href="#">faqs</a></li>
 			<li><a href="#">about us</a></li>
-			<li><a href="log-in">log-out</a></li>
+			<li><a href="/logout">log-out</a></li>
 			<li><a href="#">
 				<input type="text" size="20" name="text1" value="type here">
 				<input type="button" name="search" value="search">
@@ -65,9 +65,9 @@ $def with (user,interview,interview_attrs,str)
 		<!--edit title of page here-->	
 		
 			<div id="title">
-				<a href="viewstudent">Routine Interviews </a>
+				<a href="viewstudent">$interview.type.name </a>
 				<span id="arrow"> > </span>
-				<a href="edit_routine"> View Routine Interview</a>
+				<a href="edit_routine"> View $interview.type.name</a>
 				<br/>
 				$ student = interview.student
 				$ name = ' '.join([student.first_name, student.last_name])
@@ -135,6 +135,10 @@ $def with (user,interview,interview_attrs,str)
 					
 					    <br>
 					      <br>
+
+					  $elif interview.type.name == 'Other':
+					  <h1><span id="categories">Content</span></h1>
+					  <p>$interview_attrs.content</span></h1>
 						
 						
 					</form>

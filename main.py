@@ -292,6 +292,9 @@ class createnotation:
     followup_form = lambda self, nature_of_problems: form.Form(form.Dropdown('Nature of problem', args=[(nature.id, nature.name) for nature in nature_of_problems],value=1)
                                                                ,*[form.Textarea(name=name, rows=15, cols=75) for name in self.followup_textbox_names])
 
+    other_textbox_names = ['Content']
+    other_form = form.Form(*[form.Textarea(name=name, rows=15,cols=75) for name in other_textbox_names])
+
     hidden_forms = lambda self, period, student, type: form.Form(*[form.Hidden(name='period_id', value=period.id)
                                                                    , form.Hidden(name='student_id', value=student.id)
                                                                    , form.Hidden(name='interview_type', value=type.id)])
@@ -327,7 +330,7 @@ class createnotation:
             elif interview_type.name == 'Routine Interview': # routine interview
                 main_form = self.routine_form
             else: # other interview, which we have no form for yet...
-                main_form = None
+                main_form = self.other_form
         return render.create_notation(main_form, self.hidden_forms(period, student, interview_type), self.button_form)
 
     def POST(self):
@@ -346,8 +349,8 @@ class createnotation:
         interview.counselor_id = session.user.id
         interview.period_id = period_id
         interview.student_id = student_id
-        latest_interview_id = db_session.query(Interview.id).order_by(Interview.id).all()
-        interview.id = 1 + latest_interview_id[-1] if latest_interview_id else 0
+        latest_interview_id = db_session.query(Interview).order_by(Interview.id).all()
+        interview.id = 1 + latest_interview_id[-1].id if latest_interview_id else 0
         
         if interview_type.name == 'Routine Interview':
             rform = self.routine_form
@@ -373,6 +376,12 @@ class createnotation:
 
             followup.id = interview.id
             db_session.add(followup)
+        elif interview_type.name == 'Other':
+            other = OtherInterview()
+            other.content = data['Content']
+
+            other.id = interview.id
+            db_session.add(other)
 
         db_session.add(interview)
         db_session.commit()
@@ -445,6 +454,11 @@ class viewnotation:
                 elif interview_type.name =='Routine Interview':
                     interview, auxiliary = db_session.query(Interview, RoutineInterview).\
                                          join(RoutineInterview, Interview.id == RoutineInterview.id).\
+                                         filter(Interview.id == interview_id).\
+                                         one()
+                elif interview_type.name == 'Other':
+                    interview, auxiliary = db_session.query(Interview, OtherInterview).\
+                                         join(OtherInterview, Interview.id == OtherInterview.id).\
                                          filter(Interview.id == interview_id).\
                                          one()
                 return render.viewnotation(session.user, interview,auxiliary,str)

@@ -95,6 +95,12 @@ class FollowupInterview(Base):
     interview = relationship('Interview')
     nature_of_problem = relationship('NatureOfProblemType')
 
+class OtherInterview(Base):
+    __tablename__ = 'other_interviews'
+
+    id = Column(Integer, ForeignKey('interviews.id'), primary_key=True)
+    content = Column(Text)
+
 class NatureOfProblemType(Base):
     __tablename__ = 'nature_of_problem_types'
 
