@@ -24,6 +24,11 @@ def test_counselor():
     session.add(counselor)
     session.commit()
 
+def secretary():
+    session = Session()
+    user = User()
+    user.id = 1
+
 def scheduled_student():
     # note: we input the attribute values in the class constructor due to a bug in
     # sqlalchemy missing the attribute values

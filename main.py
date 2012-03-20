@@ -33,6 +33,7 @@ urls = (
     , '/assignstudent', 'assignstudent'
     , '/viewnotations', 'viewnotations'
     , '/viewnotation', 'viewnotation'
+    , '/upload' , 'upload'
     )
 
 app =  web.application(urls, globals())
@@ -55,7 +56,7 @@ class assigncounselor:
     def GET(self):
         if session.user is None:
             web.seeother('/')
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             db_session = DBSession()
             counselors = db_session.query(Counselor).order_by(Counselor.id).all()
             sections = db_session.query(Section).filter_by(counselor_id=None).order_by(Section.id).all()
@@ -77,7 +78,7 @@ class editweekly:
     def GET(self):
         if session.user is None:
             web.seeother('/')
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             dates_this_week = dates_of_current_week()
             periods_of_counselor = DBSession().query(Period).outerjoin(Period.entries).\
                                    filter(Period.date.in_(dates_this_week)).\
@@ -90,7 +91,7 @@ class deletefromweekly:
     def GET(self):
         if session.user is None:
             web.seeother('/')
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             data = web.input()
             try:
                 date = iso_to_date(data['date'])
@@ -113,7 +114,7 @@ class assignstudent:
     def GET(self):
         if session.user is None:
             web.seeother('/')
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             data = web.input()
             try:
                 student_id = int(data['id'])
@@ -151,7 +152,7 @@ class choosing:
     def GET(self):
         if session.user is None:
             web.seeother('/')
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             data = web.input()
             db_session = DBSession()
             try:
@@ -178,7 +179,7 @@ class viewstudent:
     def GET(self):
         if session.user is None:
             web.seeother('/')
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             db_session = DBSession()
             data = web.input()
             counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
@@ -197,7 +198,7 @@ class studentprofile:
     def GET(self):
         if session.user is None:
             web.seeother('/')
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             data = web.input()
             id = int(data['id'])
             db_session = DBSession()
@@ -239,18 +240,39 @@ class mainpage:
     def GET(self):
         if session.user is None:
             web.seeother('/') # they haven't logged in yet
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             user = session.user
             db_session = DBSession()
             counselor = db_session.query(Counselor).filter(Counselor.id==user.id).first()
             return render.mainpage(user,counselor)
-            
+        elif session.user.position.title in ['Secretary']:
+            raise web.seeother('/upload')
+
+class upload:
+    def GET(self):
+        if session.user is None:
+            web.seeother('/') # they haven't logged in yet
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
+            raise web.seeother('/')
+        elif session.user.position.title in ['Secretary']:
+            return render.upload_file()
+
+    def POST(self):
+        data = web.input()
+        try:
+            file = data['file']
+        except KeyError:
+            return render.message(session.user,'Something is missing!')
+        return render.message(session.user,'File uploaded!')
+
 class accountcreation:
     '''
     Handler for account creation
     '''
     def GET(self):
-        return render.createaccount()
+        db_session = DBSession()
+        positions = db_session.query(Position)
+        return render.createaccount(positions)
 
     def POST(self):
         
@@ -259,24 +281,26 @@ class accountcreation:
         user = User()
         user.id = int(data['ID Number'])
         name = ' '.join([data['firstname'], data['middleinitial'], data['lastname']])
+        position_id = int(data['position'])
         user.name = name
         user.password = sha256(str(user.id) + data['Password']).hexdigest()
-        user.position = db_session.query(Position).filter_by(title='Head Counselor').one()
+        user.position = db_session.query(Position).filter_by(id = position_id).one()
         db_session.add(user)
         db_session.commit()
 
-        db_session = DBSession()
-        counselor = Counselor()
-        counselor.id = user.id
-        counselor.nickname = data['Nickname']
-        counselor.address = data['City Address']
-        counselor.telno = data['telephone']
-        counselor.celno = data['cellphone']
-        counselor.email = data['email']
-        db_session.add(counselor)
-        db_session.commit()
+        if user.position in ['Counselor', 'Head Counselor']:
+            db_session = DBSession()
+            counselor = Counselor()
+            counselor.id = user.id
+            counselor.nickname = data['Nickname']
+            counselor.address = data['City Address']
+            counselor.telno = data['telephone']
+            counselor.celno = data['cellphone']
+            counselor.email = data['email']
+            db_session.add(counselor)
+            db_session.commit()
 
-        return render.message(session.user, ' '.join(['user', name, 'created!']))
+        return render.message(user, ' '.join(['user', name, 'created!']))
 
 class createnotation:
     '''
@@ -287,11 +311,11 @@ class createnotation:
                              , 'Family Relationship'
                              , 'Personal/Emotional', 'Peer Relationship'
                              , 'Goals/Motivation', 'Recommendation']
-    routine_form = form.Form(*[form.Textarea(name=name, rows=15,cols=75) for name in routine_textbox_names])
+    routine_form = form.Form(*[form.Textarea(name,form.notnull, rows=15,cols=75) for name in routine_textbox_names])
 
     followup_textbox_names = ['Comments', 'Planned Intervention']
     followup_form = lambda self, nature_of_problems: form.Form(form.Dropdown('Nature of problem', args=[(nature.id, nature.name) for nature in nature_of_problems],value=1)
-                                                               ,*[form.Textarea(name=name, rows=15, cols=75) for name in self.followup_textbox_names])
+                                                               ,*[form.Textarea(name,form.notnull, rows=15, cols=75) for name in self.followup_textbox_names])
 
     other_textbox_names = ['Content']
     other_form = form.Form(*[form.Textarea(name=name, rows=15,cols=75) for name in other_textbox_names])
@@ -301,12 +325,12 @@ class createnotation:
                                                                    , form.Hidden(name='interview_type', value=type.id)])
 
     button_names = ['save as draft', 'submit']
-    button_form = form.Form(*[form.Button(button_name) for button_name in button_names])
+    button_form = form.Form(*[form.Button(button_name,form.notnull) for button_name in button_names])
 
     def GET(self):
         if session.user is None:
             web.seeother('/')
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             data = web.input()
             try:
                 num = int(data['num'])
@@ -352,9 +376,17 @@ class createnotation:
         interview.student_id = student_id
         latest_interview_id = db_session.query(Interview).order_by(Interview.id).all()
         interview.id = 1 + latest_interview_id[-1].id if latest_interview_id else 0
+
+        date = iso_to_date(data['date'])
+        student_id = int(data['student'])
+        student = db_session.query(Student).filter_by(id = student_id).one()
         
         if interview_type.name == 'Routine Interview':
             rform = self.routine_form
+            num = int(data['num'])
+            period = db_session.query(Period).filter(Period.num == num, Period.date == date).one()
+            if not rform.validates():
+                return render.create_notation(rform,self.hidden_forms(period, student, interview_type), self.button_form)
             routine = RoutineInterview()
             routine.general_mental_ability = data['General Mental Ability']
             routine.academic_history = data['Academic History']
@@ -370,6 +402,10 @@ class createnotation:
         elif interview_type.name == 'Followup Interview':
             natures_of_problem = db_session.query(NatureOfProblemType)
             fform = self.followup_form(natures_of_problem)
+            num = int(data['num'])
+            period = db_session.query(Period).filter_by(num = num, date = date).one()
+            if not fform.validates():
+                return render.create_notation(fform,self.hidden_forms(period, student, interview_type), self.button_form)
             followup = FollowupInterview()
             followup.nature_of_problem_id = int(data['Nature of problem'])
             followup.comments = data['Comments']
@@ -380,6 +416,8 @@ class createnotation:
         elif interview_type.name == 'Other':
             other = OtherInterview()
             other.content = data['Content']
+            period = db_session.query(Period).filter_by(num = num, date = date).one()
+            num = int(data['num'])
 
             other.id = interview.id
             db_session.add(other)
@@ -393,7 +431,7 @@ class viewnotations:
     def GET(self):
         if session.user is None:
             web.seeother('/')
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             db_session = DBSession()
             data = web.input()
             try:
@@ -418,7 +456,7 @@ class conductcounseling:
     def GET(self):
         if session.user is None:
             web.seeother('/')
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             db_session = DBSession()
             dates_this_week = dates_of_current_week()
             periods_of_counselor = db_session.query(Period).outerjoin(Period.entries).\
@@ -434,7 +472,7 @@ class viewnotation:
     def GET(self):
         if session.user is None:
             web.seeother('/')
-        else:
+        elif session.user.position.title in ['Counselor', 'Head Counselor']:
             data = web.input()
             db_session = DBSession()
             try:

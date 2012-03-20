@@ -1,3 +1,4 @@
+$def with (position_types)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -160,6 +161,14 @@
 							<td><input
 							type="text"
 							size="20" name="email"></td>
+						</tr>
+						<tr>
+						  <td class="label1">Position type</td>
+						  <td><select name="position">
+						    $for position in position_types:
+						      <option value="$position.id">$position.title</option>
+						    </select>
+						    </td>
 						</tr>
 					      </table>
 					</div>

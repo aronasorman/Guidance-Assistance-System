@@ -34,6 +34,7 @@ $def with (main_form, hidden_form, buttons)
 			
 		</ul>
 	</div>
+	</form>
 	
 	<div id="center">
 	
@@ -56,7 +57,7 @@ $def with (main_form, hidden_form, buttons)
 				</div>
 			
 				<div id="identifiers">
-				User Identified As: <span id="name">name</span>
+				User Identified As: 
 				<br/>
 				Position: <span id="position">position</span>
 				</div>
@@ -89,7 +90,7 @@ $def with (main_form, hidden_form, buttons)
 					Interview Date: September 18, 2011
 					
 					<div id="notations">
-					<form action="POST">
+					<form method="POST">
 					  $:main_form.render()
 					  $:hidden_form.render()
 					  $:buttons.render()
@@ -124,7 +125,6 @@ $def with (main_form, hidden_form, buttons)
 	
 </div>	
 
-</form>
 </body>
 	<!--placed this script here so it can reference the elements in the html without calling a function-->
 	<script type="text/javascript" src="static/after.js"></script>
