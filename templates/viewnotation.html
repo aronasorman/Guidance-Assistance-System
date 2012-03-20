@@ -22,10 +22,10 @@ $def with (user,interview,interview_attrs,str)
 	
 	<div id= "nav">
 		<ul>
-			<li><a href="mainpage.html">home</a></li>
+			<li><a href="mainpage">home</a></li>
 			<li><a href="#">faqs</a></li>
 			<li><a href="#">about us</a></li>
-			<li><a href="log-in.html">log-out</a></li>
+			<li><a href="log-in">log-out</a></li>
 			<li><a href="#">
 				<input type="text" size="20" name="text1" value="type here">
 				<input type="button" name="search" value="search">
@@ -38,12 +38,12 @@ $def with (user,interview,interview_attrs,str)
 	
 		<div id= "sidebar">
 			<ul>
-				<li><a href="changepass.html" title="password must be atleast 7 characters long">Change password</a></li>
-				<li><a href="viewcounselor.html" title="">View counselor accounts</a></li>
-				<li><a href="viewstudent.html" title="">View student profiles</a></li>
-				<li><a href="assigncounselor.html" title="assign counselors to respective students/sections">Assign counselor</a></li>
-				<li><a href="editweekly.html" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
-				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</</			</ul>	
+				<li><a href="changepass" title="password must be atleast 7 characters long">Change password</a></li>
+				<li><a href="viewcounselor" title="">View counselor accounts</a></li>
+				<li><a href="viewstudent" title="">View student profiles</a></li>
+				<li><a href="assigncounselor" title="assign counselors to respective students/sections">Assign counselor</a></li>
+				<li><a href="editweekly" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
+				<li><a href="conductcounseling" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</</			</ul>	
 			
 		<br style="clear:both" /> 
 		</div>
@@ -65,9 +65,9 @@ $def with (user,interview,interview_attrs,str)
 		<!--edit title of page here-->	
 		
 			<div id="title">
-				<a href="viewstudent.html">Routine Interviews </a>
+				<a href="viewstudent">Routine Interviews </a>
 				<span id="arrow"> > </span>
-				<a href="edit_routine.html"> View Routine Interview</a>
+				<a href="edit_routine"> View Routine Interview</a>
 				<br/>
 				$ student = interview.student
 				$ name = ' '.join([student.first_name, student.last_name])
@@ -78,16 +78,6 @@ $def with (user,interview,interview_attrs,str)
 		<!-- the only area you can edit-->
 		
 			<div id="counseloraccount">
-				
-				<div id="counselornav">
-					<ul>
-						<li><a href="counseloraccount.html">Personal Information</a></li>
-						<li><a href="#">Information About Family</a></li>
-						<li><a href="#">Academic History</a></li>
-						<li><a href="routine_int.html">Routine Interviews</a></li>
-						<li><a href="couselor_notations.html">Counselor Notations</a></li>
-					</ul>
-				</div>
 				
 				<!--EDIT FROM HERE ONLY FOR COUNSELOR ACCOUNT-->
 				
