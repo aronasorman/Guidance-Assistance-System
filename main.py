@@ -364,7 +364,6 @@ class createnotation:
             db_session.add(routine)
 
         elif interview_type.name == 'Followup Interview':
-            import pdb; pdb.set_trace()
             natures_of_problem = db_session.query(NatureOfProblemType)
             fform = self.followup_form(natures_of_problem)
             followup = FollowupInterview()
@@ -377,6 +376,8 @@ class createnotation:
 
         db_session.add(interview)
         db_session.commit()
+
+        return render.message(session.user, 'Interview conducted!')
 
 class viewnotations:
     def GET(self):
@@ -398,7 +399,7 @@ class viewnotations:
             counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
             interviews = db_session.query(Interview).\
                          filter(Interview.student_id == student.id, Interview.type_id == interview_type.id)
-            return render.counselor_notations(session.user, counselor,student,interviews)
+            return render.counselor_notations(session.user, counselor,student,interviews,interview_type)
     
 class conductcounseling:
     '''

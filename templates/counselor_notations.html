@@ -1,4 +1,4 @@
-$def with (counselor, student, interviews)
+$def with (user,counselor, student, interviews,interviewtype)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -56,9 +56,9 @@ $def with (counselor, student, interviews)
 				</div>
 			
 				<div id="identifiers">
-				User Identified As: <span id="name">name</span>
+				User Identified As: $user.name
 				<br/>
-				Position: <span id="position">position</span>
+				Position: $user.position.title
 				</div>
 				
 			</div>
@@ -68,33 +68,21 @@ $def with (counselor, student, interviews)
 			<div id="title">
 				<a href="viewstudent">View Student Accounts </a>
 				<span id="arrow"> > </span>
-				<a href="counselor_notations.html"> Counselor Notations</a>
+				<span id="student">$interviewtype.name</span>
 				<br/>
-				<span id="student">Aron Fyodor Asor</span>
+			        $ name = ' '.join([student.first_name, student.last_name])
+				<span id="student">$name</span>
 			</div>
 			
 			
 		<!-- the only area you can edit-->
 		
 			<div id="counseloraccount">
-				
-				<div id="counselornav">
-					<ul>
-						<li><a href="studentprofile">Personal Information</a></li>
-						<li><a href="#">Information About Family</a></li>
-						<li><a href="#">Academic History</a></li>
-						<li><a href="routine_int.html">Routine Interviews</a></li>
-						<li><a href="counselor_notations.html">Counselor Notations</a></li>
-					</ul>
-				</div>
-				
 				<!--EDIT FROM HERE ONLY FOR COUNSELOR ACCOUNT-->
 				
 				<div id="routine">
 				
-					Year & Section: <a href="#">2A</a>
-					<br>
-					Guidance Counselor: Juan Dela Cruz
+					Guidance Counselor: $user.name
 					
 					<div id="notations">
 						<form action="">

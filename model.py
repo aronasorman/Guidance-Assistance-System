@@ -93,6 +93,7 @@ class FollowupInterview(Base):
     planned_intervention = Column(Text)
 
     interview = relationship('Interview')
+    nature_of_problem = relationship('NatureOfProblemType')
 
 class NatureOfProblemType(Base):
     __tablename__ = 'nature_of_problem_types'

@@ -105,14 +105,14 @@ $def with (user,interview,interview_attrs,str)
 					<form action="">
 						
 					  $if interview.type.name == 'Followup Interview':
-					        Nature of problem: $interview.name
+					        Nature of problem: $interview_attrs.nature_of_problem.name
 						<h1><span id="categories">Comments</span></h1>
 						
-							<p> $interview.comments</p>
+							<p> $interview_attrs.comments</p>
 						
 						<h1><span id="categories">Planned Intervention</span></h1>
 						
-							<p> $interview.planned_intervention</p>
+							<p> $interview_attrs.planned_intervention</p>
 
 					  $elif interview.type.name == 'Routine Interview':
 					    <h1><span id="categories">General Mental Ability</span></h1>
