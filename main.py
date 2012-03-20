@@ -21,6 +21,7 @@ urls = (
     , '/create-account', 'accountcreation'
     , '/main', 'mainpage'
     , '/logout', 'logout'
+    , '/search', 'search'
     , '/conductcounseling', 'conductcounseling'
     , '/createnotation', 'createnotation'
     , '/assigncounselor', 'assigncounselor'
@@ -464,7 +465,21 @@ class viewnotation:
                 return render.viewnotation(session.user, interview,auxiliary,str)
             else:
                 return render.message(session.user, 'No permission to see student!')
-                    
+
+class search:
+    '''
+    Search for a student
+    '''
+    def GET(self):
+        data = web.input()
+        query = data['query']
+        db_session = DBSession()
+        complete_query = '%' + query + '%'
+        counselor = db_session.query(Counselor).filter_by(id = session.user.id).one()
+        handled_section_ids = db_session.query(Section.id).filter_by(counselor_id = counselor.id)
+        students = db_session.query(Student).filter(Student.section_id.in_(handled_section_ids)).join(Student.section)
+        students = students.filter(Student.last_name.like(complete_query))
+        return render.viewstudent(session.user, students, str)
        
 if __name__ == '__main__':
     app.run()
