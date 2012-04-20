@@ -10,12 +10,19 @@ Session = sessionmaker(bind=engine)
 logging.basicConfig(filename='sql_queries.log')
 logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
-NUM_OF_PERIODS=9
+NUM_OF_PERIODS=18
 
 COUNSELOR_NUM_WORK_DAYS=5
 
-period_labels = ['1st period', '2nd period', '3rd period', '4th period',
-                 '5th period (1)', '5th period (2)', '6th period', '7th period', '8th period']
+period_labels = ['1st period - Student 1', '1st period - Student 2',
+                 '2nd period - Student 1', '2nd period - Student 2',
+                 '3rd period - Student 1', '3rd period - Student 2',
+                 '4th period - Student 1', '4th period - Student 2',
+                 '5th period (1) - Student 1', '5th period (1) - Student 2',
+                 '5th period (2) - Student 1', '5th period (2) - Student 2',
+                 '6th period - Student 1', '6th period - Student 2',
+                 '7th period - Student 1', '7th period - Student 2',
+                 '8th period - Student 1', '8th period - Student 2']
 
-period_span = 3000 # days
+period_span = 1000 # days
 
