@@ -244,7 +244,13 @@ class mainpage:
             user = session.user
             db_session = DBSession()
             counselor = db_session.query(Counselor).filter(Counselor.id==user.id).first()
-            return render.mainpage(user,counselor)
+            dates_this_week = dates_of_current_week()
+            periods_of_counselor = DBSession().query(Period).outerjoin(Period.entries).\
+                                   filter(Period.date.in_(dates_this_week)).\
+                                   filter(or_(Period.entries.any(counselor_id = session.user.id), Period.entries == None)).\
+                                   order_by(Period.num, Period.date)
+            periods_partitioned = partition(periods_of_counselor, lambda p: p.num)
+            return render.mainpage(user, periods_partitioned, period_labels)
         elif session.user.position.title in ['Secretary']:
             raise web.seeother('/upload')
 
