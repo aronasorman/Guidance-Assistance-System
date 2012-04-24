@@ -1,0 +1,8 @@
+#tabs li a{
+text-decoration: none;
+color:#0260a8;
+}
+
+#tabs li a:hover{
+color: black;
+}

@@ -1,0 +1,194 @@
+$def with (user,student, interview_types)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+		<link rel="stylesheet" type= "text/css" href="static/mainstyle.css"/>
+		<link rel="stylesheet" type= "text/css" href="static/typography.css"/>
+		<title>Ateneo High School Guidance Office</title>
+		<script type="text/javascript" src="static/before.js"></script>
+</head>
+
+<body>
+
+<form action="/search" method="GET">
+
+<div id="container">
+	
+	<div id="header">
+	</div>
+
+	
+	<div id= "nav">
+		<ul>
+			<li><a href="/">home</a></li>
+			<li><a href="#">faqs</a></li>
+			<li><a href="#">about us</a></li>
+			<li><a href="/logout">log-out</a></li>
+			<li><a href="#">
+				<input type="text" size="20" name="query" value="type here">
+				<input type="button" name="search" value="search">
+			</a></li>
+			
+		</ul>
+	</div>
+	
+	<div id="center">
+	
+		<div id= "sidebar">
+			<ul>
+				<li><a href="changepass" title="password must be atleast 7 characters long">Change password</a></li>
+				<li><a href="viewcounselor" title="">View counselor accounts</a></li>
+				<li><a href="viewstudent" title="">View student profiles</a></li>
+				<li><a href="assigncounselor" title="assign counselors to respective students/sections">Assign counselor</a></li>
+				<li><a href="editweekly" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
+				<li><a href="conductcounseling" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</</			</ul>	
+			
+		<br style="clear:both" /> 
+		</div>
+		
+		<div id="content">
+			<div id="stamps">
+		
+				<div id="date">
+				</div>
+			
+				<div id="identifiers">
+				User Identified As: $user.name
+				<br/>
+				Position: $user.position.title
+				</div>
+				
+			</div>
+			
+		<!--edit title of page here-->	
+		
+			<div id="title">
+				<a href="viewstudent.html">View Student Accounts </a>
+				<span id="arrow"> > </span>
+				$ student_name = ' '.join([student.first_name, student.middle_name, student.last_name])
+				<span id="student">$student_name</span>
+			</div>
+			
+			
+		<!-- the only area you can edit-->
+		
+			<div id="counseloraccount">
+				
+				<div id="counselornav">
+					<ul>
+						<li><a href="studentprofile?id=$student.id">Personal Information</a></li>
+						<li><a href="weeklyplan.html">Information About Family</a></li>
+						<li><a href="performancesummary.html">Academic History</a></li>
+						$for interview_type in interview_types:
+  						  <li><a href="viewnotations?student=$student.id&amp;type=$interview_type.id">$interview_type.name</a></li>
+					</ul>
+				</div>
+				
+				<!--EDIT FROM HERE ONLY FOR COUNSELOR ACCOUNT-->
+				
+				<div id="profile">
+					<div id="graypart">
+					<table>
+						<tr>
+							<td id="profhead" colspan="2">Profile:</td>
+						</tr>
+						<tr>
+							<td class="label1">Name:</td>
+							<td>$student.last_name, $student.first_name $student.middle_name
+							</td>
+						</tr>
+						<tr>
+							<td class="label1">Nickname:</td>
+							<td>$student.nickname</td>
+						</tr>
+						<tr>
+							<td class="label1">City Address:</td>
+							<td>$student.address</td>
+						</tr>
+						<tr>
+							<td class="label1">Telephone No.:</td>
+							<td>$student.telno</td>
+						</tr>
+						<tr>
+							<td class="label1">Cellphone No.:</td>
+							<td>$student.celno</td>
+						</tr>
+						<tr>
+							<td class="label1">E-mail Address:</td>
+							<td>$student.email.</td>
+						</tr>
+						<tr>
+							<td class="label1">Date of Birth:</td>
+							<td>$student.birthdate.strftime('%d %B, %Y')</td>
+						</tr>
+						<tr>
+							<td class="label1">Place of Birth:</td>
+							<td>$student.birthplace</td>
+						</tr>
+						<tr>
+							<td class="label1">Religion:</td>
+							<td>Catholic</td>
+						</tr>
+						<tr>
+							<td class="label1">Nationality:</td>
+							<td>Filipino</td>
+						</tr>						
+						<tr>
+							<td class="label1">Citizenship:</td>
+							<td>Filipino</td>
+						</tr>
+						<tr>
+							<td class="label1">General Health:</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="label1">Eyesight:</td>
+							<td>$student.eyesight</td>
+						</tr>
+						<tr>
+							<td class="label1">Hearing:</td>
+							<td>$student.hearing</td>
+						</tr>
+						<tr>
+							<td class="label1">Lungs:</td>
+							<td>$student.lungs</td>
+						</tr>
+						<tr>
+							<td class="label1">Handicaps:</td>
+							<td>$student.handicaps</td>
+						</tr>
+					</table>
+					</div>
+				</div>				
+				<!--EDIT FROM HERE ONLY FOR COUNSELOR ACCOUNT-->
+				
+			</div>
+			
+					
+		<!-- the only area you can edit-->
+				
+		<br style="clear:both" /> 
+			
+		</div> 
+		
+
+	</div>
+
+	<div id="footer">
+		<p>
+		Ateneo High School Guidance Office Automated System <br/>
+		Designed and developed by A-Team <br/>
+		Copyright 2011 <br/>
+		</p>
+		
+	</div>
+	
+</div>	
+
+</form>
+</body>
+	<!--placed this script here so it can reference the elements in the html without calling a function-->
+	<script type="text/javascript" src="static/after.js"></script>
+</html>
