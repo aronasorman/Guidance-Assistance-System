@@ -2,8 +2,6 @@ from sqlalchemy import Column, Integer, String, Text, Date, LargeBinary, create_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship, backref
 
-from misc_models import User
-
 Base = declarative_base()
 
 class User(Base):

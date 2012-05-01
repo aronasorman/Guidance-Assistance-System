@@ -1,4 +1,4 @@
-$def with (user,student, interview_types)
+$def with (user)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -67,8 +67,6 @@ $def with (user,student, interview_types)
 			<div id="title">
 				<a href="viewstudent.html">View Student Accounts </a>
 				<span id="arrow"> > </span>
-				$ student_name = ' '.join([student.first_name, student.middle_name, student.last_name])
-				<span id="student">$student_name</span>
 			</div>
 			
 			
@@ -78,11 +76,8 @@ $def with (user,student, interview_types)
 				
 				<div id="counselornav">
 					<ul>
-						<li><a href="studentprofile?id=$student.id">Personal Information</a></li>
 						<li><a href="weeklyplan.html">Information About Family</a></li>
 						<li><a href="performancesummary.html">Academic History</a></li>
-						$for interview_type in interview_types:
-  						  <li><a href="viewnotations?student=$student.id&amp;type=$interview_type.id">$interview_type.name</a></li>
 					</ul>
 				</div>
 				
@@ -90,76 +85,6 @@ $def with (user,student, interview_types)
 				
 				<div id="profile">
 					<div id="graypart">
-					<table>
-						<tr>
-							<td id="profhead" colspan="2">Profile:</td>
-						</tr>
-						<tr>
-							<td class="label1">Name:</td>
-							<td>$student.last_name, $student.first_name $student.middle_name
-							</td>
-						</tr>
-						<tr>
-							<td class="label1">Nickname:</td>
-							<td>$student.nickname</td>
-						</tr>
-						<tr>
-							<td class="label1">City Address:</td>
-							<td>$student.address</td>
-						</tr>
-						<tr>
-							<td class="label1">Telephone No.:</td>
-							<td>$student.telno</td>
-						</tr>
-						<tr>
-							<td class="label1">Cellphone No.:</td>
-							<td>$student.celno</td>
-						</tr>
-						<tr>
-							<td class="label1">E-mail Address:</td>
-							<td>$student.email.</td>
-						</tr>
-						<tr>
-							<td class="label1">Date of Birth:</td>
-							<td>$student.birthdate.strftime('%d %B, %Y')</td>
-						</tr>
-						<tr>
-							<td class="label1">Place of Birth:</td>
-							<td>$student.birthplace</td>
-						</tr>
-						<tr>
-							<td class="label1">Religion:</td>
-							<td>Catholic</td>
-						</tr>
-						<tr>
-							<td class="label1">Nationality:</td>
-							<td>Filipino</td>
-						</tr>						
-						<tr>
-							<td class="label1">Citizenship:</td>
-							<td>Filipino</td>
-						</tr>
-						<tr>
-							<td class="label1">General Health:</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="label1">Eyesight:</td>
-							<td>$student.eyesight</td>
-						</tr>
-						<tr>
-							<td class="label1">Hearing:</td>
-							<td>$student.hearing</td>
-						</tr>
-						<tr>
-							<td class="label1">Lungs:</td>
-							<td>$student.lungs</td>
-						</tr>
-						<tr>
-							<td class="label1">Handicaps:</td>
-							<td>$student.handicaps</td>
-						</tr>
-					</table>
 					</div>
 				</div>				
 				<!--EDIT FROM HERE ONLY FOR COUNSELOR ACCOUNT-->
