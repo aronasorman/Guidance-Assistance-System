@@ -1,13 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+$def with (user, student)
+<!DOCTYPE html PUBLIC "-//W3C//DTD  1.0 Transitional//EN" "http://www.w3.org/TR/1/DTD/1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/">
 
 <head>
-		<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
-		<link rel="stylesheet" type= "text/css" href="script/mainstyle.css"/>
-		<link rel="stylesheet" type= "text/css" href="script/typography.css"/>
-		<link rel="stylesheet" type= "text/css" href="script/infoaboutfam.css"/>
+		<!--<meta http-equiv="Content-Type" content="text; charset=UTF-8" />-->
+		<link rel="stylesheet" type= "text/css" href="/static/mainstyle.css"/>
+		<link rel="stylesheet" type= "text/css" href="/static/typography.css"/>
+		<link rel="stylesheet" type= "text/css" href="/static/infoaboutfam.css"/>
 		<title>Ateneo High School Guidance Office</title>
-		<script type="text/javascript" src="script/before.js"></script>
+		<script type="text/javascript" src="/static/before.js"></script>
 </head>
 
 <body>
@@ -22,10 +23,10 @@
 	
 	<div id= "nav">
 		<ul>
-			<li><a href="mainpage.html">home</a></li>
+			<li><a href="mainpage">home</a></li>
 			<li><a href="#">faqs</a></li>
 			<li><a href="#">about us</a></li>
-			<li><a href="log-in.html">log-out</a></li>
+			<li><a href="log-in">log-out</a></li>
 			<li><a href="#">
 				<input type="text" size="20" name="text1" value="type here">
 				<input type="button" name="search" value="search">
@@ -33,17 +34,18 @@
 			
 		</ul>
 	</div>
-	
+</form>	
 	<div id="center">
 	
 		<div id= "sidebar">
 			<ul>
-				<li><a href="changepass.html" title="password must be atleast 7 characters long">Change password</a></li>
-				<li><a href="viewcounselor.html" title="">View counselor accounts</a></li>
-				<li><a href="viewstudent.html" title="">View student profiles</a></li>
-				<li><a href="assigncounselor.html" title="assign counselors to respective students/sections">Assign counselor</a></li>
-				<li><a href="editweekly.html" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
-				<li><a href="conductcounseling.html" title="assign counselors to respective students/sections">Conduct counseling</a></li>			</</			</ul>	
+				<li><a href="changepass" title="password must be atleast 7 characters long">Change password</a></li>
+				<li><a href="viewcounselor" title="">View counselor accounts</a></li>
+				<li><a href="viewstudent" title="">View student profiles</a></li>
+				<li><a href="assigncounselor" title="assign counselors to respective students/sections">Assign counselor</a></li>
+				<li><a href="editweekly" title="assign counselors to respective students/sections">Edit weekly plan</a></li>
+				<li><a href="conductcounseling" title="assign counselors to respective students/sections">Conduct counseling</a></li>
+			</ul>	
 			
 		<br style="clear:both" /> 
 		</div>
@@ -55,9 +57,9 @@
 				</div>
 			
 				<div id="identifiers">
-				User Identified As: <span id="name">name</span>
+				User Identified As: $user.name
 				<br/>
-				Position: <span id="position">position</span>
+				Position: $user.position.title
 				</div>
 				
 			</div>
@@ -65,11 +67,12 @@
 		<!--edit title of page here-->	
 		
 			<div id="title">
-				<a href="viewstudent.html">Student Profile </a>
+				<a href="viewstudent">Student Profile </a>
 				<span id="arrow"> > </span>
-				<a href="studentprofile.html"> Information About Family</a>
+				<a href="studentprofile"> Information About Family</a>
 				<br/>
-				<span id="student">Aron Fyodor Asor</span>
+				$ full_name = ' '.join([student.first_name, student.last_name])
+				<span id="student">$full_name</span>
 			</div>
 			
 			
@@ -79,167 +82,51 @@
 				
 				<div id="counselornav">
 					<ul>
-						<li><a href="studentprofile.html">Personal Information</a></li>
-						<li><a href="infomationaboutfamily.html">Information About Family</a></li>
-						<li><a href="acad.html">Academic History</a></li>
-						<li><a href="routine_int.html">Routine Interviews</a></li>
-						<li><a href="counselor_notations.html">Counselor Notations</a></li>
+						<li><a href="studentprofile">Personal Information</a></li>
+						<li><a href="infomationaboutfamily">Information About Family</a></li>
+						<li><a href="acad">Academic History</a></li>
+						<li><a href="routine_int">Routine Interviews</a></li>
+						<li><a href="counselor_notations">Counselor Notations</a></li>
 					</ul>
 				</div>
 				
 				<!--EDIT FROM HERE ONLY FOR COUNSELOR ACCOUNT-->
 				
 					<div id="profile">
-					<ul id="tabs">
-						<li><a href="informationaboutfamily.html">Parents</a></li>
-						<li><a href="siblings.html">Siblings</a></li>
-						<li><a href="Remarks.html">Remarks</a></li>
-					</ul>
 					<div id="graypart">
 					<table>
+					  $for guardian in student.guardians:
 						<tr>
-							<td id="profhead" colspan="2">Parents:</td>
-						</tr>
-						<tr>
-							<td colspan="2"><b>Father</b></td>
+							<td id="profhead" colspan="2"><b>Parents:</b></td>
 						</tr>
 						<tr>
 							<td class="label1">Name:</td>
-							<td>Fidel M. Asor</td>
+							<td>$guardian.name</td>
 						</tr>
 						<tr>
 							<td class="label1">Occupation:</td>
-							<td>Country Manager</td>
+							<td>$guardian.occupation</td>
 							
 						</tr>
 						<tr>
 							<td class="label1">Work Address:</td>
-							<td>41-C Apple St.,Brgy. Orange, Q.C.</td>
+							<td>$guardian.work_address</td>
 						</tr>
 						<tr>
 							<td class="label1">Telephone No.:</td>
-							<td>000-0000</td>
+							<td>$guardian.telno</td>
 						</tr>
 						<tr>
 							<td class="label1">Cellphone No.:</td>
-							<td>0000-000-0000</td>
+							<td>$guardian.celno</td>
 						</tr>
 						<tr>
 							<td class="label1">E-mail Address:</td>
-							<td>jdcruz@ateneo.edu</td>
+							<td>$guardian.email</td>
 						</tr>
 						<tr>
 							<td class="label1">Religion:</td>
-							<td>Catholic</td>
-						</tr>
-						<tr>
-							<td class="label1">Alumnus/a of:</td>
-							<td>ADMU</td>
-						</tr>						
-						<tr>
-							<td class="label1">Working Abroad:</td>
-							<td>Yes</td>
-						</tr>
-						<tr>
-							<td colspan="2"><b>Mother</b></td>
-						</tr>
-						<tr>
-							<td class="label1">Name:</td>
-							<td>Fidela M. Asor</td>
-						</tr>
-						<tr>
-							<td class="label1">Occupation:</td>
-							<td>Country Manager</td>
-							
-						</tr>
-						<tr>
-							<td class="label1">Work Address:</td>
-							<td>41-C Apple St.,Brgy. Orange, Q.C.</td>
-						</tr>
-						<tr>
-							<td class="label1">Telephone No.:</td>
-							<td>000-0000</td>
-						</tr>
-						<tr>
-							<td class="label1">Cellphone No.:</td>
-							<td>0000-000-0000</td>
-						</tr>
-						<tr>
-							<td class="label1">E-mail Address:</td>
-							<td>jdcruz@ateneo.edu</td>
-						</tr>
-						<tr>
-							<td class="label1">Religion:</td>
-							<td>Catholic</td>
-						</tr>
-						<tr>
-							<td class="label1">Alumnus/a of:</td>
-							<td>ADMU</td>
-						</tr>						
-						<tr>
-							<td class="label1">Working Abroad:</td>
-							<td>Yes</td>
-						</tr>
-						
-						<tr>
-							<td colspan="2"><b>Guardian</b></td>
-						</tr>
-						<tr>
-							<td class="label1">Name:</td>
-							<td>Fidel M. Asor</td>
-						</tr>
-						<tr>
-							<td class="label1">Occupation:</td>
-							<td>Country Manager</td>
-							
-						</tr>
-						<tr>
-							<td class="label1">Work Address:</td>
-							<td>41-C Apple St.,Brgy. Orange, Q.C.</td>
-						</tr>
-						<tr>
-							<td class="label1">Telephone No.:</td>
-							<td>000-0000</td>
-						</tr>
-						<tr>
-							<td class="label1">Cellphone No.:</td>
-							<td>0000-000-0000</td>
-						</tr>
-						<tr>
-							<td class="label1">E-mail Address:</td>
-							<td>jdcruz@ateneo.edu</td>
-						</tr>
-						<tr>
-							<td class="label1">Religion:</td>
-							<td>Catholic</td>
-						</tr>
-						<tr>
-							<td class="label1">Alumnus/a of:</td>
-							<td>ADMU</td>
-						</tr>						
-						<tr>
-							<td class="label1">Working Abroad:</td>
-							<td>Yes</td>
-						</tr>
-						
-						
-						<tr>
-							<td class="label1">Parents are:</td>
-							<td>Separated</td>
-						</tr>
-						<tr>
-							<td class="label1">Deceased:</td>
-							<td>
-								<form>Father</form>
-							</td>
-						</tr>
-						<tr>
-							<td class="label1">Single Parent:</td>
-							<td>Mother</td>
-						</tr>
-						<tr>
-							<td class="label1">I am living with:</td>
-							<td>my mother</td>
+							<td>$guardian.religion</td>
 						</tr>
 
 					</table>
@@ -274,8 +161,7 @@
 	
 </div>	
 
-</form>
 </body>
-	<!--placed this script here so it can reference the elements in the html without calling a function-->
-	<script type="text/javascript" src="script/after.js"></script>
+	<!--placed this script here so it can reference the elements in the without calling a function-->
+	<script type="text/javascript" src="/static/after.js"></script>
 </html>

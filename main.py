@@ -43,6 +43,7 @@ urls = (
     , '/viewnotations', 'viewnotations'
     , '/viewnotation', 'viewnotation'
     , '/upload' , 'upload'
+    , '/informationaboutfamily/([0-9]+)', 'informationaboutfamily'
     )
 
 app =  web.application(urls, globals())
@@ -252,6 +253,16 @@ class studentprofile:
             student = db_session.query(Student).filter_by(id = id).one()
             interview_types = db_session.query(InterviewType)
             return render.studentprofile(session.user, student, interview_types)
+
+class informationaboutfamily:
+    def GET(self, student_id):
+        if session.user == None:
+            web.seeother('/')
+        else:
+            student_id = int(student_id)
+            db_session = DBSession()
+            student = db_session.query(Student).filter(Student.id == student_id).one()
+            return render.informationaboutfamily(session.user, student)
 
 class login:
     '''

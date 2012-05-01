@@ -177,6 +177,7 @@ class Student(Base):
     interests = Column(Text)
     grade_schools = relationship('GradeSchool', secondary=grade_school_alumni,backref='students')
     siblings = relationship('Sibling', backref='student')
+    guardians = relationship('Guardian', backref='student')
 
 class Sibling(Base):
     __tablename__ = 'siblings'
