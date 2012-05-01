@@ -79,7 +79,7 @@ $def with (user,student, interview_types)
 				<div id="counselornav">
 					<ul>
 						<li><a href="studentprofile?id=$student.id">Personal Information</a></li>
-						<li><a href="weeklyplan.html">Information About Family</a></li>
+						<li><a href="informationaboutfamily/$student.id">Information About Family</a></li>
 						<li><a href="performancesummary.html">Academic History</a></li>
 						$for interview_type in interview_types:
   						  <li><a href="viewnotations?student=$student.id&amp;type=$interview_type.id">$interview_type.name</a></li>
