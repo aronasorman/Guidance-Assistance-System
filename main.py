@@ -19,6 +19,15 @@ from utils import to_date, iso_to_date, partition
 urls = (
     '/', 'login'
     , '/create-account', 'accountcreation'
+    , '/family', 'family'
+    , '/informationaboutfamily','informationaboutfamily'
+    , '/informationaboutfamily-edit','informationaboutfamily-edit'
+    , '/siblings','siblings'
+    , '/siblings-edit','siblings-edit'
+    , '/Remarks-edit','Remarks-edit'
+    , '/Remarks','Remarks'
+    , '/acad','acad'
+    , '/acad-edit','acad-edit'
     , '/main', 'mainpage'
     , '/logout', 'logout'
     , '/search', 'search'
@@ -46,6 +55,43 @@ if web.config.get('_session') is None:
     web.config._session = session
 else:
     session = web.config._session
+
+class family:
+    def GET(self):
+	return render.family()
+
+class informationaboutfamily:
+   def GET(self):
+	return render.informationaboutfamily()
+
+class informationaboutfamily-edit:
+   def GET(self):
+        return render.informationaboutfamily-edit()
+
+class siblings:
+   def GET(self):
+        return render.siblings()
+
+class siblings-edit:
+   def GET(self):
+        return render.siblings-edit()
+
+class Remarks:
+   def GET(self):
+        return render.Remarks()
+
+class Remarks-edit:
+   def GET(self):
+        return render.Remarks-edit()
+
+
+class acad:
+   def GET(self):
+        return render.acad()
+
+class acad-edit:
+   def GET(self):
+        return render.acad-edit()
 
 class logout:
     def GET(self):
