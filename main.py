@@ -44,6 +44,7 @@ urls = (
     , '/viewnotation', 'viewnotation'
     , '/upload' , 'upload'
     , '/informationaboutfamily/([0-9]+)', 'informationaboutfamily'
+    , '/informationaboutfamily_edit', 'informationaboutfamily_edit'
     )
 
 app =  web.application(urls, globals())
@@ -65,34 +66,34 @@ class informationaboutfamily:
    def GET(self):
 	return render.informationaboutfamily()
 
-class informationaboutfamily-edit:
+class informationaboutfamily_edit:
    def GET(self):
-        return render.informationaboutfamily-edit()
+        return render.informationaboutfamily_edit()
 
 class siblings:
    def GET(self):
         return render.siblings()
 
-class siblings-edit:
+class siblings_edit:
    def GET(self):
-        return render.siblings-edit()
+        return render.siblings_edit()
 
 class Remarks:
    def GET(self):
         return render.Remarks()
 
-class Remarks-edit:
+class Remarks_edit:
    def GET(self):
-        return render.Remarks-edit()
+        return render.Remarks_edit()
 
 
 class acad:
    def GET(self):
         return render.acad()
 
-class acad-edit:
+class acad_edit:
    def GET(self):
-        return render.acad-edit()
+        return render.acad_edit()
 
 class logout:
     def GET(self):
