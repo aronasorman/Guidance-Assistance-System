@@ -201,6 +201,15 @@ class Guardian(Base):
     email = Column(String(40))
     religion = Column(String(50))
     student_id = Column(Integer, ForeignKey('students.id'))
+    guardian_type_id = Column(Integer, ForeignKey('guardian_type.id'))
+
+    guardian_type = relationship('GuardianType')
+
+class GuardianType(Base):
+    __tablename__ = 'guardian_type'
+
+    id = Column(Integer, primary_key=True)
+    type = Column(String(30), nullable=False)
 
 class GradeSchool(Base):
     __tablename__ = 'grade_schools'

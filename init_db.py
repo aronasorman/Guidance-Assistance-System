@@ -12,6 +12,14 @@ def init_dummy_user():
     session.add(User(password='iamdummy'))
     session.commit()
 
+def init_guardian_types():
+    session = Session()
+    session.add_all([
+        GuardianType(type='Mother')
+        , GuardianType(type='Father')
+        , GuardianType(type='Guardian')
+        ])
+
 def init_sections():
     session = Session()
     sections = [ Section(year=year,name=name) for year in range(1,5) for name in "abcdefghijklmno".upper()]
@@ -113,6 +121,7 @@ def db_init():
     Base.metadata.create_all(engine)
     init_sections()
     init_position()
+    init_guardian_types()
     init_interview_types()
     init_nature_of_problem_types()
     init_parent_status()
