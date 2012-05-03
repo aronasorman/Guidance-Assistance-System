@@ -97,7 +97,7 @@ $def with (user, student)
 					<table>
 					  $for guardian in student.guardians:
 						<tr>
-							<td id="profhead" colspan="2"><b>Parents:</b></td>
+							<td id="profhead" colspan="2"><b>$guardian.guardian_type.type</b></td>
 						</tr>
 						<tr>
 							<td class="label1">Name:</td>

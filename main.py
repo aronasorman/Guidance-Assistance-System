@@ -43,7 +43,7 @@ urls = (
     , '/viewnotations', 'viewnotations'
     , '/viewnotation', 'viewnotation'
     , '/upload' , 'upload'
-    , '/informationaboutfamily/([0-9]+)', 'informationaboutfamily'
+    , '/informationaboutfamily/([0-9]*)', 'informationaboutfamily'
     , '/informationaboutfamily_edit', 'informationaboutfamily_edit'
     )
 
@@ -62,13 +62,14 @@ class family:
     def GET(self):
 	return render.family()
 
-class informationaboutfamily:
-   def GET(self):
-	return render.informationaboutfamily()
-
 class informationaboutfamily_edit:
-   def GET(self):
-        return render.informationaboutfamily_edit()
+    def GET(self):
+        if session.user is None:
+            web.seeother('/')
+        elif session.user.position.title == 'Secretary':
+            return render.message(session.user, "Not a counselor!")
+        else:
+            return render.informationaboutfamily_edit()
 
 class siblings:
    def GET(self):
@@ -256,14 +257,16 @@ class studentprofile:
             return render.studentprofile(session.user, student, interview_types)
 
 class informationaboutfamily:
-    def GET(self, student_id):
-        if session.user == None:
+    def GET(self, student_id=None):
+        if session.user == None or session.user.position.title == 'Secretary':
             web.seeother('/')
-        else:
+        elif student_id:
             student_id = int(student_id)
             db_session = DBSession()
             student = db_session.query(Student).filter(Student.id == student_id).one()
             return render.informationaboutfamily(session.user, student)
+        else:
+            return render.message(session.user, "No student to be viewed.")
 
 class login:
     '''
