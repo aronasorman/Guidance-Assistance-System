@@ -36,6 +36,33 @@ def init_position():
         ])
     session.commit()
 
+def init_allowed_pages():
+    session = Session()
+    counselor = session.query(Position).filter_by(title='Counselor').one()
+    head_counselor = session.query(Position).filter_by(title='Head Counselor').one()
+    secretary = session.query(Position).filter_by(title='Secretary').one()
+    session.add_all([
+        AllowedPages(position=counselor, allowed_url='/changepass', url_title='Change Password')
+        , AllowedPages(position=counselor, allowed_url='/viewaccount', url_title='View own account')
+        , AllowedPages(position=counselor, allowed_url='/editweekly', url_title='Edit Weekly Plan')
+        , AllowedPages(position=counselor, allowed_url='/viewstudent', url_title='View Student Profile')
+        , AllowedPages(position=counselor, allowed_url='/conductcounseling', url_title='Conduct Counseling')
+        ])
+    session.add_all([
+        AllowedPages(position=head_counselor, allowed_url='/changepass', url_title='Change Password')
+        , AllowedPages(position=head_counselor, allowed_url='/viewcounselor', url_title='View Counselor Accounts')
+        , AllowedPages(position=head_counselor, allowed_url='/editweekly', url_title='Edit Weekly Plan')
+        , AllowedPages(position=head_counselor, allowed_url='/conductcounseling', url_title='Conduct Counseling')
+        , AllowedPages(position=head_counselor, allowed_url='/viewstudent', url_title='View Student Profile')
+        , AllowedPages(position=head_counselor, allowed_url='/assigncounselor', url_title='Assign counselors')
+        ])
+    session.add_all([
+        AllowedPages(position=secretary, allowed_url='/changepass', url_title='Change Password')
+        , AllowedPages(position=secretary, allowed_url='/uploadtesting', url_title='Upload Testing data')
+        , AllowedPages(position=secretary, allowed_url='/uploadregistrar', url_title='Upload Registrar data')
+        ])
+    session.commit()
+
 def init_nature_of_problem_types():
     session = Session()
     session.add_all([NatureOfProblemType(name='Family')
@@ -121,6 +148,7 @@ def db_init():
     Base.metadata.create_all(engine)
     init_sections()
     init_position()
+    init_allowed_pages()
     init_guardian_types()
     init_interview_types()
     init_nature_of_problem_types()
