@@ -1,18 +1,20 @@
-from sqlalchemy import Column, Integer, String, Text, Date, LargeBinary, create_engine, Float, Boolean, Table, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, Text, Date, LargeBinary, Boolean, Table, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship, backref
+from sqlalchemy.orm import relationship, backref
 
 Base = declarative_base()
 
+
 class User(Base):
     __tablename__ = 'users'
-    
+
     id = Column(Integer, primary_key=True)
     name = Column(String(40), nullable=False)
     password = Column(String(64), nullable=False)
     position_id = Column(Integer, ForeignKey('positions.id'), nullable=False)
 
     position = relationship('Position')
+
 
 class Counselor(Base):
     __tablename__ = "counselors"
@@ -26,11 +28,24 @@ class Counselor(Base):
     email = Column(String(40))
     user = relationship('User')
     
+
 class Position(Base):
     __tablename__ = 'positions'
 
     id = Column(Integer, primary_key=True)
     title = Column(String(15), nullable=False)
+
+    allowed_pages = relationship('AllowedPages', backref='position')
+
+
+class AllowedPages(Base):
+    __tablename__ = 'allowed_pages_per_position'
+
+    id = Column(Integer, primary_key=True)
+    allowed_url = Column(String(50), nullable=False)
+    url_title = Column(String(90), nullable=False)
+    position_id = Column(Integer, ForeignKey('positions.id'))
+
 
 class Section(Base):
     __tablename__ = 'sections'
@@ -42,6 +57,7 @@ class Section(Base):
 
     counselor = relationship('Counselor', backref=backref('sections'))
 
+
 class Period(Base):
     __tablename__ = 'periods'
 
@@ -49,10 +65,11 @@ class Period(Base):
     num = Column(Integer, nullable=False)
     date = Column(Date, nullable=False)
 
+
 class ScheduleEntry(Base):
     __tablename__ = 'schedule_entries'
 
-    period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True) # So we're supposed to generate new periods every week...
+    period_id = Column(Integer, ForeignKey('periods.id'), primary_key=True)  # So we're supposed to generate new periods every week...
     student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)
     counselor_id = Column(Integer, ForeignKey('counselors.id'))
     type_id = Column(Integer, ForeignKey('interview_types.id'))
@@ -62,11 +79,13 @@ class ScheduleEntry(Base):
     counselor = relationship('Counselor', backref=backref('schedule_entries'))
     student = relationship('Student', backref=backref('schedule_entries'))
 
+
 class InterviewType(Base):
     __tablename__ = 'interview_types'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(10), nullable=False)
+
 
 class Interview(Base):
     __tablename__ = 'interviews'
@@ -82,6 +101,7 @@ class Interview(Base):
     counselor = relationship('Counselor', backref=backref('interviews'))
     student = relationship('Student', backref=backref('interviews'))
 
+
 class FollowupInterview(Base):
     __tablename__ = 'followup_interviews'
 
@@ -93,17 +113,20 @@ class FollowupInterview(Base):
     interview = relationship('Interview')
     nature_of_problem = relationship('NatureOfProblemType')
 
+
 class OtherInterview(Base):
     __tablename__ = 'other_interviews'
 
     id = Column(Integer, ForeignKey('interviews.id'), primary_key=True)
     content = Column(Text)
 
+
 class NatureOfProblemType(Base):
     __tablename__ = 'nature_of_problem_types'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(30), nullable=False)
+
 
 class RoutineInterview(Base):
     __tablename__ = 'routine_interviews'
@@ -120,9 +143,9 @@ class RoutineInterview(Base):
     interview = relationship('Interview')
 
 # association for student class to favorite subjects
-student_favorite_subjects = Table('favorite_subjects', Base.metadata
+student_favorite_subjects = Table('favorite_subjects' , Base.metadata
                                   , Column('student_id', Integer, ForeignKey('students.id'))
-                                  , Column('subject_id', Integer, ForeignKey('subjects.id'))                                  )
+                                  , Column('subject_id', Integer, ForeignKey('subjects.id')))
 
 student_dire_subjects = Table('dire_subjects', Base.metadata
                               , Column('student_id', Integer, ForeignKey('students.id'))
@@ -175,9 +198,10 @@ class Student(Base):
     # ask if clubs or organizations is fixed
     work_experience = Column(Text)
     interests = Column(Text)
-    grade_schools = relationship('GradeSchool', secondary=grade_school_alumni,backref='students')
+    grade_schools = relationship('GradeSchool', secondary=grade_school_alumni, backref='students')
     siblings = relationship('Sibling', backref='student')
     guardians = relationship('Guardian', backref='student')
+
 
 class Sibling(Base):
     __tablename__ = 'siblings'
@@ -187,6 +211,7 @@ class Sibling(Base):
     age = Column(Integer)
     school_or_work = Column(String(50))
     student_id = Column(Integer, ForeignKey('students.id'))
+
 
 class Guardian(Base):
     __tablename__ = 'guardians'
@@ -205,11 +230,13 @@ class Guardian(Base):
 
     guardian_type = relationship('GuardianType')
 
+
 class GuardianType(Base):
     __tablename__ = 'guardian_type'
 
     id = Column(Integer, primary_key=True)
     type = Column(String(30), nullable=False)
+
 
 class GradeSchool(Base):
     __tablename__ = 'grade_schools'
@@ -217,6 +244,7 @@ class GradeSchool(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(60))
     
+
 class StudyPartner(Base):
     __tablename__ = 'student_study_partners'
 
@@ -225,6 +253,7 @@ class StudyPartner(Base):
     student_id = Column(Integer, ForeignKey('students.id'))
     student = relationship('Student', backref=backref('study_partners', order_by=id))
     
+
 class ParentStatus(Base):
     __tablename__ = 'parent_status_lookup'
 
@@ -233,6 +262,7 @@ class ParentStatus(Base):
 
     def __init__(self, status):
         self.status = status
+
 
 class SingleParent(Base):
     __tablename__ = 'single_parent_lookup'
@@ -243,6 +273,7 @@ class SingleParent(Base):
     def __init__(self, status):
         self.status = status
         
+
 class LivingWith(Base):
     __tablename__ = 'living_with_lookup'
 
