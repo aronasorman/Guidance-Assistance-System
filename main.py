@@ -13,21 +13,21 @@ from generate_period import dates_of_current_week
 from model import *
 from sqlalchemy import or_
 from sqlalchemy.orm import joinedload
-from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
-from utils import to_date, iso_to_date, partition
+from sqlalchemy.orm.exc import MultipleResultsFound
+from utils import iso_to_date, partition, password_to_hash
 
 urls = (
     '/', 'login'
     , '/create-account', 'accountcreation'
     , '/family', 'family'
-    , '/informationaboutfamily','informationaboutfamily'
-    , '/informationaboutfamily-edit','informationaboutfamily-edit'
-    , '/siblings','siblings'
-    , '/siblings-edit','siblings-edit'
-    , '/Remarks-edit','Remarks-edit'
-    , '/Remarks','Remarks'
-    , '/acad','acad'
-    , '/acad-edit','acad-edit'
+    , '/informationaboutfamily', 'informationaboutfamily'
+    , '/informationaboutfamily-edit', 'informationaboutfamily-edit'
+    , '/siblings', 'siblings'
+    , '/siblings-edit', 'siblings-edit'
+    , '/Remarks-edit', 'Remarks-edit'
+    , '/Remarks', 'Remarks'
+    , '/acad', 'acad'
+    , '/acad-edit', 'acad-edit'
     , '/main', 'mainpage'
     , '/logout', 'logout'
     , '/search', 'search'
@@ -47,7 +47,7 @@ urls = (
     , '/informationaboutfamily_edit', 'informationaboutfamily_edit'
     )
 
-app =  web.application(urls, globals())
+app = web.application(urls, globals())
 render = web.template.render('templates/')
 
 DBSession = Session
@@ -58,10 +58,12 @@ if web.config.get('_session') is None:
 else:
     session = web.config._session
 
+    
 class family:
     def GET(self):
-	return render.family()
+        return render.family()
 
+    
 class informationaboutfamily_edit:
     def GET(self):
         if session.user is None:
@@ -71,36 +73,44 @@ class informationaboutfamily_edit:
         else:
             return render.informationaboutfamily_edit()
 
+            
 class siblings:
    def GET(self):
         return render.siblings()
 
+        
 class siblings_edit:
    def GET(self):
         return render.siblings_edit()
 
+        
 class Remarks:
    def GET(self):
         return render.Remarks()
 
+        
 class Remarks_edit:
    def GET(self):
         return render.Remarks_edit()
 
 
+        
 class acad:
    def GET(self):
         return render.acad()
 
+        
 class acad_edit:
    def GET(self):
         return render.acad_edit()
 
+        
 class logout:
     def GET(self):
         session.kill()
         web.seeother('/')
 
+        
 class assigncounselor:
     def GET(self):
         if session.user is None:
@@ -123,6 +133,7 @@ class assigncounselor:
         db_session.commit()
         return render.message(session.user, 'Section assignments updated!')
 
+        
 class editweekly:
     def GET(self):
         if session.user is None:
@@ -136,6 +147,7 @@ class editweekly:
             periods_partitioned = partition(periods_of_counselor, lambda p: p.num)
             return render.editweekly(session.user, periods_partitioned, period_labels)
 
+            
 class deletefromweekly:
     def GET(self):
         if session.user is None:
@@ -159,6 +171,7 @@ class deletefromweekly:
             else:
                 return render.message(session.user, 'No permission to delete student, or no such date/period.')
 
+                
 class assignstudent:
     def GET(self):
         if session.user is None:
@@ -197,6 +210,7 @@ class assignstudent:
                 web.seeother('/editweekly')
             
 
+                
 class choosing:
     def GET(self):
         if session.user is None:
@@ -225,6 +239,7 @@ class choosing:
             students = students.order_by(Student.section_id, Student.last_name)
             return render.choosing(session.user, students, date.isoformat(), num, interview_types, str)
 
+            
 class viewstudent:
     def GET(self):
         if session.user is None:
@@ -244,6 +259,7 @@ class viewstudent:
             students = students.order_by(Student.section_id, Student.last_name)
             return render.viewstudent(session.user,students.all(), str)
 
+            
 class studentprofile:
     def GET(self):
         if session.user is None:
@@ -256,6 +272,7 @@ class studentprofile:
             interview_types = db_session.query(InterviewType)
             return render.studentprofile(session.user, student, interview_types)
 
+            
 class informationaboutfamily:
     def GET(self, student_id=None):
         if session.user == None or session.user.position.title == 'Secretary':
@@ -268,8 +285,10 @@ class informationaboutfamily:
         else:
             return render.message(session.user, "No student to be viewed.")
 
+            
 class login:
     '''
+    
     Class that handles logging in.
     '''
     
@@ -285,17 +304,22 @@ class login:
         except ValueError:
             return render.login("Please enter a number as the username.")
         else:
-            password_hash = sha256(str(name) + data['password']).hexdigest()
+            password_hash = password_to_hash(name, data['password'])
             db_session = DBSession()
-            user = db_session.query(User).options(joinedload(User.position)).filter(User.id==name).filter(User.password==password_hash).first()
+            db_session.expire_on_commit = False
+            user = db_session.query(User).join(User.position).options(joinedload(User.position)).\
+            options(joinedload('position.allowed_pages')).\
+            filter(User.id==name).filter(User.password==password_hash).first()
             if user:
                 session.user = user
                 raise web.seeother('/main')
             else:
                 return render.login('Username or password is incorrect.')
 
+                
 class mainpage:
     '''
+    
     Class that handles the main menu,
     after the user has logged in successfully.
     '''
@@ -316,6 +340,7 @@ class mainpage:
         elif session.user.position.title in ['Secretary']:
             raise web.seeother('/upload')
 
+            
 class upload:
     def GET(self):
         if session.user is None:
@@ -333,6 +358,7 @@ class upload:
             return render.message(session.user,'Something is missing!')
         return render.message(session.user,'File uploaded!')
 
+        
 class accountcreation:
     '''
     Handler for account creation
@@ -351,7 +377,7 @@ class accountcreation:
         name = ' '.join([data['firstname'], data['middleinitial'], data['lastname']])
         position_id = int(data['position'])
         user.name = name
-        user.password = sha256(str(user.id) + data['Password']).hexdigest()
+        user.password = password_to_hash(user.id, data['Password']))
         user.position = db_session.query(Position).filter_by(id = position_id).one()
         db_session.add(user)
         db_session.commit()
@@ -370,6 +396,7 @@ class accountcreation:
 
         return render.message(user, ' '.join(['user', name, 'created!']))
 
+        
 class createnotation:
     '''
     Generalized handler that handles the creation of both a routine interview
@@ -495,6 +522,7 @@ class createnotation:
 
         return render.message(session.user, 'Interview conducted!')
 
+        
 class viewnotations:
     def GET(self):
         if session.user is None:
@@ -517,6 +545,7 @@ class viewnotations:
                          filter(Interview.student_id == student.id, Interview.type_id == interview_type.id)
             return render.counselor_notations(session.user, counselor,student,interviews,interview_type)
     
+            
 class conductcounseling:
     '''
     Handler for the conduct counseling page
@@ -536,6 +565,7 @@ class conductcounseling:
             counselor = db_session.query(Counselor).filter_by(id=session.user.id).one()
             return render.conductcounseling(session.user, counselor, periods_partitioned, period_labels)
 
+            
 class viewnotation:
     def GET(self):
         if session.user is None:
@@ -572,6 +602,7 @@ class viewnotation:
             else:
                 return render.message(session.user, 'No permission to see student!')
 
+                
 class search:
     '''
     Search for a student
